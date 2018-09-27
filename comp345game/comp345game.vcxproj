@@ -117,7 +117,7 @@
   <ItemGroup>
     <ClCompile Include="card.cpp" />
     <ClCompile Include="deckCard.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="cardtest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="card.h" />
