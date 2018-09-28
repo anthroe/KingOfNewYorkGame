@@ -11,6 +11,12 @@ private:
 public:
 	Map();
 	Map(vector<Region>);
+	~Map();
+
+	vector<Region> getRegions() { return regions; };
+
+	void addRegion(Region);
 
 	bool checkConnection();
+
 };

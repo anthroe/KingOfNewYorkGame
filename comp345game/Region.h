@@ -18,6 +18,7 @@ public:
 	string getName() { return name; }
 	//Player getOwner { return owner }
 	vector<Region> getNearbyRegions() { return nearbyRegions; }
+	//vector<Player> getNearbyEnemies() { return nearbyEnemies; }
 
 	//void setOwner(Player);
 	void addNearbyRegion(Region);

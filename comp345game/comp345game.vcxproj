@@ -118,10 +118,15 @@
     <ClCompile Include="card.cpp" />
     <ClCompile Include="deckCard.cpp" />
     <ClCompile Include="cardtest.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="mapLoader.cpp" />
+    <ClCompile Include="Region.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="card.h" />
     <ClInclude Include="deckCard.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Region.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

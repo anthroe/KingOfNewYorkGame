@@ -5,6 +5,7 @@ using namespace std;
 
 Region::Region() {
 	name = "no_name";
+	//owner = null;
 }
 
 Region::Region(string name) {
@@ -23,6 +24,12 @@ Region::Region(string name, vector<Region> nearbyRegions) {
 
 //void::Region(Player owner) {
 //	this->owner = owner;
+//}
+
+//Region::Region(string name, Player owner, vector<Region> nearbyRegions) {
+//	this->name = name;
+//	this->owner = owner;
+//	this->nearbyRegions = nearbyRegions;
 //}
 
 void Region::addNearbyRegion(Region region) {
