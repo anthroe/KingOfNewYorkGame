@@ -121,6 +121,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="mapLoader.cpp" />
     <ClCompile Include="Region.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="card.h" />
