@@ -1,0 +1,386 @@
+{
+	"Air Force One": {
+		"name": "Air Force One",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Antimatter Pellets": {
+		"name": "Antimatter Pellets",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Artificial Heart": {
+		"name": "Artificial Heart",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Broadway Star": {
+		"name": "Broadway Star",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Brooklyn Bridge": {
+		"name": "Brooklyn Bridge",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Bullet Proof": {
+		"name": "Bullet Proof",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Can Opener": {
+		"name": "Can Opener",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Carapace": {
+		"name": "Carapace",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Central Park": {
+		"name": "",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Chameleon": {
+		"name": "Chameleon",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Chinatown Regular": {
+		"name": "Chinatown Regular",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Climb the Empire State Building": {
+		"name": "Climb the Empire State Building",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Columbia University": {
+		"name": "Columbia University",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Coney Island": {
+		"name": "Coney Island",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Curse": {
+		"name": "Curse",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Diva": {
+		"name": "Diva",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Drain": {
+		"name": "Drain",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Drink the Hudson": {
+		"name": "Drink the Hudson",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Ego Trip": {
+		"name": "Ego Trip",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Extra Head": {
+		"name": "Extra Head",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Fireball": {
+		"name": "Fireball",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Flatiron Building": {
+		"name": "Flatiron Building",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Fury": {
+		"name": "Fury",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"General Ellis": {
+		"name": "General Ellis",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Hailing Cabs": {
+		"name": "Hailing Cabs",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Holland Tunnel": {
+		"name": "Holland Tunnel",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Hunter": {
+		"name": "Hunter",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Jinx Aura": {
+		"name": "Jinx Aura",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"King of Queens": {
+		"name": "King of Queens",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Leveler": {
+		"name": "Leveler",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Long Neck": {
+		"name": "Long Neck",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Natural Selection": {
+		"name": "Natural Selection",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"New York Marathon": {
+		"name": "New York Marathon",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Next Stage": {
+		"name": "Next Stage",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Of Another World": {
+		"name": "Of Another World",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Overload": {
+		"name": "Overload",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Painbow": {
+		"name": "Painbow",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Personal Spotlight": {
+		"name": "Personal Spotlight",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Phoenix Blood": {
+		"name": "Phoenix Blood",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Photo Op": {
+		"name": "Photo Op",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Power Substation": {
+		"name": "Power Substation",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Power Tap": {
+		"name": "Power Tap",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Regeneration": {
+		"name": "Regeneration",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Scavenger": {
+		"name": "Scavenger",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Seismic Ray": {
+		"name": "Seismic Ray",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Shadow Double": {
+		"name": "Shadow Double",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Sharp Shooter": {
+		"name": "Sharp Shooter",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Stink Attack": {
+		"name": "Stink Attack",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Stomp": {
+		"name": "Stomp",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Subterranean Cable": {
+		"name": "Subterranean Cable",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Subway": {
+		"name": "Subway",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Super Speed": {
+		"name": "Super Speed",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Terminal Rage": {
+		"name": "Terminal Rage",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Tesla Antennae": {
+		"name": "Tesla Antennae",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Tesla Cannon": {
+		"name": "Tesla Cannon",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"The Unisphere": {
+		"name": "The Unisphere",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Tourist": {
+		"name": "Tourist",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Towering Titan": {
+		"name": "Towering Titan",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Trash Thrower": {
+		"name": "Trash Thrower",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Trophy Hunter": {
+		"name": "Trophy Hunter",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Universal Soldier": {
+		"name": "Universal Soldier",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Violent Star": {
+		"name": "Violent Star",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Webspinner": {
+		"name": "Webspinner",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Yankee Stadium": {
+		"name": "Yankee Stadium",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	}
+}

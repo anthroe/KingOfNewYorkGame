@@ -1,0 +1,14 @@
+{
+	"Statue of Libery": {
+		"name": "Statue of Libery",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	},
+	"Superstar": {
+		"name": "Superstar",
+		"effect": "",
+		"cost": 1,
+		"type": "Keep"
+	}
+}

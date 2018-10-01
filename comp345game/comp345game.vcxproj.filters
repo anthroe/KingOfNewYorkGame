@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{97c97c0f-fc4b-4dc9-89d1-667bc01654f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{72bb6516-8b77-4ca5-b1e8-01de5f0689f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="card.cpp">
@@ -33,7 +39,10 @@
     <ClCompile Include="mapLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="monsterCard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,5 +59,27 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cardtest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\json.hpp">
+      <Filter>Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="monsterCard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="resources\kony-special-card-list.json">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="resources\kony-card-list.json">
+      <Filter>Resources</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\kony-monster-card-list.json">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
 </Project>

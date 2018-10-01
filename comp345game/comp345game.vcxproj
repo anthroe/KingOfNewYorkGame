@@ -120,14 +120,25 @@
     <ClCompile Include="cardtest.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="mapLoader.cpp" />
+    <ClCompile Include="monsterCard.cpp" />
     <ClCompile Include="Region.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="card.h" />
+    <ClInclude Include="cardtest.h" />
     <ClInclude Include="deckCard.h" />
+    <ClInclude Include="libraries\json.hpp" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="monsterCard.h" />
     <ClInclude Include="Region.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="resources\kony-card-list.json" />
+    <Text Include="resources\kony-special-card-list.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\kony-monster-card-list.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
