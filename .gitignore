@@ -1,4 +1,10 @@
 
-comp345game/\.vs/comp345game/v15/
+\.vs/
 
-\.vs/comp345game/v15/
+comp345game/Debug/
+
+Debug/
+
+comp345game/x64/
+
+x64/
