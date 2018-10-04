@@ -6,13 +6,13 @@
 class Card {
 	private:
 		std::string name;
-		std::string type;
+		int type;
 		// Player ownedBy = NULL;
 
 	public:
-		Card(std::string n, std::string t) : name(n), type(t) {};
+		Card(std::string n, int t) : name(n), type(t) {};
 		std::string getName() { return name; };
-		std::string getType() { return type; };
+		std::string getTypeName();
 };
 
 #endif

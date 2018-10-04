@@ -1,8 +1,20 @@
 {
-	"Monster 1": {
-		"name": "Monster 1"
-	},
-	"Monster 2": {
-		"name": "Monster 2"
-	}
+  "Captain Fish": {
+    "name": "Captain Fish"
+  },
+  "Draconis": {
+    "name": "Draconis"
+  },
+  "Kong": {
+    "name": "Kong"
+  },
+  "Mantis": {
+    "name": "Mantis"
+  },
+  "Rob": {
+    "name": "Rob"
+  },
+  "Sherrif": {
+    "name": "Sherrif"
+  }
 }
