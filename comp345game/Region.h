@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <vector>
 
@@ -22,6 +23,6 @@ public:
 
 	//void setOwner(Player);
 	void addNearbyRegion(Region);
-
+	void addNearbyRegions(vector<Region>);
 
 };

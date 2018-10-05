@@ -35,3 +35,9 @@ Region::Region(string name, vector<Region> nearbyRegions) {
 void Region::addNearbyRegion(Region region) {
 	nearbyRegions.push_back(region);
 }
+
+void Region::addNearbyRegions(vector<Region> regions) {
+	for (int i = 0; i < regions.size(); i++) {
+		nearbyRegions.push_back(regions[i]);
+	}
+}
