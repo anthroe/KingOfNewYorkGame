@@ -63,7 +63,7 @@ int main() {
 
 	canada.addNearbyRegions({&usa, &mexico});
 	usa.addNearbyRegions({&canada, &mexico});
-	mexico.addNearbyRegions({&canada, &usa});
+	mexico.addNearbyRegions({&usa});
 
 	vector<Region*> randomRegions{&canada, &usa, &mexico};
 	Map map1(randomRegions);

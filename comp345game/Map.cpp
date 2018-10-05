@@ -39,12 +39,17 @@ bool Map::checkConnection() {
 			Region* neighbour = neighbours[i];
 			vector<Region*> innerNeighbours = neighbour->getNearbyRegions();
 
-			cout << "neighbour: " + neighbour->getName() << endl;
+			cout << "	neighbour: " + neighbour->getName() << endl;
 
 			for (int i = 0; i < innerNeighbours.size(); i++) {
 				Region* innerNeighbour = innerNeighbours[i];
 
-				cout << "innerNeighbour: " + innerNeighbour->getName() << endl;
+				cout << "		innerNeighbour: " + innerNeighbour->getName() << endl;
+			}
+
+			if (find(innerNeighbours.begin(), innerNeighbours.end(), currentRegion) == innerNeighbours.end()) {
+				cout << "Region: " + currentRegion->getName() + " is not properly connected. Please load a proper map." << endl;
+				return false;
 			}
 			
 		}
