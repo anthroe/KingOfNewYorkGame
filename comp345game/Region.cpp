@@ -12,7 +12,7 @@ Region::Region(string name) {
 	this->name = name;
 }
 
-Region::Region(string name, vector<Region> nearbyRegions) {
+Region::Region(string name, vector<Region*> nearbyRegions) {
 	this->name = name;
 	this->nearbyRegions = nearbyRegions;
 }
@@ -32,11 +32,11 @@ Region::Region(string name, vector<Region> nearbyRegions) {
 //	this->nearbyRegions = nearbyRegions;
 //}
 
-void Region::addNearbyRegion(Region region) {
+void Region::addNearbyRegion(Region* region) {
 	nearbyRegions.push_back(region);
 }
 
-void Region::addNearbyRegions(vector<Region> regions) {
+void Region::addNearbyRegions(vector<Region*> regions) {
 	for (int i = 0; i < regions.size(); i++) {
 		nearbyRegions.push_back(regions[i]);
 	}

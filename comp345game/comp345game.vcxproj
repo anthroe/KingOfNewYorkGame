@@ -123,6 +123,7 @@
     <ClCompile Include="mapLoader.cpp" />
     <ClCompile Include="monsterCard.cpp" />
     <ClCompile Include="Region.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="tokens.cpp" />
   </ItemGroup>

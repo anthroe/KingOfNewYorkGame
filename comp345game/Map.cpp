@@ -2,6 +2,7 @@
 #include <ostream>
 #include <algorithm>
 #include <vector>
+#include <string>
 #include "Map.h"
 
 using namespace std;
@@ -10,11 +11,11 @@ Map::Map() {
 
 }
 
-Map::Map(vector<Region> regions) {
+Map::Map(vector<Region*> regions) {
 	this->regions = regions;
 }
 
-void Map::addRegion(Region region) {
+void Map::addRegion(Region* region) {
 	regions.push_back(region);
 }
 
@@ -26,15 +27,25 @@ Map::~Map() {
 }
 
 bool Map::checkConnection() {
-	vector<Region> regions = this->regions;
+	vector<Region*> regions = this->regions;
 
 	for (int i = 0; i < regions.size(); i++) {
-		Region currentRegion = regions[i];
-		vector<Region> neighbours = currentRegion.getNearbyRegions();
+		Region* currentRegion = regions[i];
+		vector<Region*> neighbours = currentRegion->getNearbyRegions();
+
+		cout << "Region: " + currentRegion->getName() << endl;
 	
 		for (int i = 0; i < neighbours.size(); i++) {
-			Region neighbour = neighbours[i];
-			vector<Region> innerNeighbours = neighbour.getNearbyRegions();
+			Region* neighbour = neighbours[i];
+			vector<Region*> innerNeighbours = neighbour->getNearbyRegions();
+
+			cout << "neighbour: " + neighbour->getName() << endl;
+
+			for (int i = 0; i < innerNeighbours.size(); i++) {
+				Region* innerNeighbour = innerNeighbours[i];
+
+				cout << "innerNeighbour: " + innerNeighbour->getName() << endl;
+			}
 			
 		}
 

@@ -61,11 +61,11 @@ int main() {
 	Region usa("usa");
 	Region mexico("mexico");
 
-	canada.addNearbyRegions({usa, mexico});
-	usa.addNearbyRegions({canada, mexico});
-	mexico.addNearbyRegions({ canada, usa });
+	canada.addNearbyRegions({&usa, &mexico});
+	usa.addNearbyRegions({&canada, &mexico});
+	mexico.addNearbyRegions({&canada, &usa});
 
-	vector<Region> randomRegions{canada, usa, mexico};
+	vector<Region*> randomRegions{&canada, &usa, &mexico};
 	Map map1(randomRegions);
 
 	map1.checkConnection();
