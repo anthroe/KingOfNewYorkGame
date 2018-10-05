@@ -21,7 +21,7 @@ void Map::addRegion(Region* region) {
 
 Map::~Map() {
 	while (regions.size() > 0) {
-		//delete regions.back();		if using pointers
+		delete regions.back();
 		regions.pop_back();
 	}
 }
