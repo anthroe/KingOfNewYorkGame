@@ -5,8 +5,13 @@ using namespace std;
 
 Region::Region() {
 	name = "no_name";
-
+	id = 0;
 	//owner = null;
+}
+
+Region::Region(string name) {
+	this->name = name;
+	id = 0;
 }
 
 Region::Region(string name, int id) {

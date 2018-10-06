@@ -13,6 +13,7 @@ private:
 
 public:
 	Region();
+	Region(string);
 	Region(string, int);
 	//Region(string, int, Player);
 	Region(string, int, vector<Region*>);
