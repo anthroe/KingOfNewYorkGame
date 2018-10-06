@@ -20,6 +20,7 @@ Maploader::Maploader(string textFileName) {
 Maploader::~Maploader() {
 	delete mapInPlay;
 }
+
 /*
 // Helper function for getting whole lines without carriage returns
 string MapLoader::readLine(ifstream &fileReader) {

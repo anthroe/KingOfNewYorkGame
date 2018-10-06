@@ -57,18 +57,26 @@ int main() {
 		cout << e.what() << endl;
 	}*/
 
-	Region canada("canada");
-	Region usa("usa");
-	Region mexico("mexico");
+	Region a("a", 1);
+	Region b("b", 2);
+	Region c("c", 3);
+	Region d("d", 4);
+	Region e("e", 5);
+	Region f("f", 6);
+	Region g("g", 7);
 
-	canada.addNearbyRegions({&usa, &mexico});
-	usa.addNearbyRegions({&canada, &mexico});
-	mexico.addNearbyRegions({&usa});
+	a.addNearbyRegions({ &b, &c, &d, &e});
+	b.addNearbyRegions({ &a, &c, &d, &e });
+	c.addNearbyRegions({ &a, &b, &d, &e });
+	d.addNearbyRegions({ &a, &b, &c, &e });
+	e.addNearbyRegions({ &a, &b, &c, &d, &f });
+	f.addNearbyRegions({ &a, &b, &c, &d, &g });
+	g.addNearbyRegions({ &a, &b, &c, &d });
 
-	vector<Region*> randomRegions{&canada, &usa, &mexico};
+	vector<Region*> randomRegions{&a, &b, &c, &d, &e, &f, &g};
 	Map map1(randomRegions);
 
-	map1.checkConnection();
+	cout << map1.checkConnection() << endl;
 
 	return 0;
 }
