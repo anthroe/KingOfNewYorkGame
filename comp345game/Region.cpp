@@ -9,17 +9,17 @@ Region::Region() {
 	//owner = null;
 }
 
-Region::Region(string name) {
+Region::Region(string* name) {
 	this->name = name;
 	id = 0;
 }
 
-Region::Region(string name, int id) {
+Region::Region(string* name, int id) {
 	this->name = name;
 	this->id = id;
 }
 
-Region::Region(string name, int id, vector<Region*> nearbyRegions) {
+Region::Region(string* name, int id, vector<Region*> nearbyRegions) {
 	this->name = name;
 	this->id = id;
 	this->nearbyRegions = nearbyRegions;
@@ -56,6 +56,10 @@ vector<int> Region::getNearbyRegionIds() {
 	}
 
 	return neighbourIds;
+}
+
+void Region::setId(int id) {
+	this->id = id;
 }
 
 void Region::addNearbyRegion(Region* region) {

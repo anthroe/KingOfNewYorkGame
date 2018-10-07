@@ -90,5 +90,6 @@
     <None Include="resources\kony-monster-card-list.json">
       <Filter>Resources</Filter>
     </None>
+    <None Include="test.map" />
   </ItemGroup>
 </Project>

@@ -21,77 +21,10 @@ void Map::addRegion(Region* region) {
 
 Map::~Map() {
 	while (regions.size() > 0) {
-		delete regions.back();
+		//delete regions.back();		if using pointers
 		regions.pop_back();
 	}
 }
-
-
-
-vector<int> a1 = { 2, 3, 4, 5 };
-vector<int> a2 = { 1, 3, 4, 5 };
-vector<int> a3 = { 1, 2, 4, 5 };
-vector<int> a4 = { 1, 2, 3, 5 };
-vector<int> a5 = { 1, 2, 3, 4, 6 };
-vector<int> a6 = { 1, 2, 3, 4, 7 };
-vector<int> a7 = { 1, 2, 3, 4 };
-
-bool Map::checkConnection() {
-	vector<Region*> regions = this->regions;
-
-	for (int i = 0; i < regions.size(); i++) {
-		Region* currentRegion = regions[i];
-		int id = currentRegion->getId();
-		
-		
-		switch (id) {
-		case 1: 
-			if (currentRegion->getNearbyRegionIds() != a1) 
-				return false;
-			break;
-
-		case 2:
-			if (currentRegion->getNearbyRegionIds() != a2)
-				return false;
-			break;
-
-		case 3:
-			if (currentRegion->getNearbyRegionIds() != a3)
-				return false;
-			break;
-
-		case 4:
-			if (currentRegion->getNearbyRegionIds() != a4)
-				return false;
-			
-			break;
-
-		case 5:
-			if (currentRegion->getNearbyRegionIds() != a5)
-				return false;
-			break;
-
-		case 6:
-			if (currentRegion->getNearbyRegionIds() != a6)
-				return false;
-			break;
-
-		case 7:
-			if (currentRegion->getNearbyRegionIds() != a7)
-				return false;
-			break;
-		}
-		
-	}
-
-	return true;
-}
-
-
-/*
-
-Checks for bidirectionality
-	did not work because this game does not have bidirectionality for all cases. 
 
 bool Map::checkConnection() {
 	vector<Region*> regions = this->regions;
@@ -125,4 +58,67 @@ bool Map::checkConnection() {
 
 	return true;
 };
+
+/*
+vector<int> a1 = { 2, 3, 4, 5 };
+vector<int> a2 = { 1, 3, 4, 5 };
+vector<int> a3 = { 1, 2, 4, 5 };
+vector<int> a4 = { 1, 2, 3, 5 };
+vector<int> a5 = { 1, 2, 3, 4, 6 };
+vector<int> a6 = { 1, 2, 3, 4, 7 };
+vector<int> a7 = { 1, 2, 3, 4 };
+vector<int> a7 = { 1, 2, 3, 4, 5 };
+
+bool Map::checkConnection() {
+	vector<Region> regions = this->regions;
+
+	for (int i = 0; i < regions.size(); i++) {
+		Region currentRegion = regions[i];
+		int id = currentRegion.getId();
+
+
+		switch (id) {
+		case 1:
+			if (currentRegion.getNearbyRegionIds() != a1)
+				return false;
+			break;
+
+		case 2:
+			if (currentRegion.getNearbyRegionIds() != a2)
+				return false;
+			break;
+
+		case 3:
+			if (currentRegion.getNearbyRegionIds() != a3)
+				return false;
+			break;
+
+		case 4:
+			if (currentRegion.getNearbyRegionIds() != a4)
+				return false;
+
+			break;
+
+		case 5:
+			if (currentRegion.getNearbyRegionIds() != a5)
+				return false;
+			break;
+
+		case 6:
+			if (currentRegion.getNearbyRegionIds() != a6)
+				return false;
+			break;
+
+		case 7:
+			if (currentRegion.getNearbyRegionIds() != a7)
+				return false;
+			break;
+		}
+
+	}
+
+	cout << "we made it " << endl;
+
+	return true;
+}
 */

@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\kony-monster-card-list.json" />
+    <None Include="test.map" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

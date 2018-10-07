@@ -2,10 +2,19 @@
 New York
 
 [Regions]
-Manhattan 1
-Manhattan 2
-Manhattan 3
-Staten 4
-Bronx 5
-Queens 6
-Brooklyn 7
+Manhattan1,1
+Manhattan2,2
+Manhattan3,3
+Staten,4
+Bronx,5
+Queens,6
+Brooklyn,7
+
+[Neighbours]
+Manhattan1,Brooklyn,Queens,Staten,Bronx,Manhattan2
+Manhattan2,Brooklyn,Queens,Staten,Bronx,Manhattan3 
+Manhattan3,Brooklyn,Queens,Staten,Bronx 
+Staten,Brooklyn,Queens,Bronx,Manhattan1
+Bronx,Brooklyn,Queens,Staten,Manhattan1 
+Queens,Brooklyn,Bronx,Staten,Manhattan1 
+Brooklyn,Queens,Bronx,Staten,Manhattan1
