@@ -19,7 +19,6 @@ vector<string> removeCommas(string line) {
 	}
 
 	return words;
-
 }
 
 Maploader::Maploader() {
@@ -27,7 +26,7 @@ Maploader::Maploader() {
 }
 
 Maploader::Maploader(string textFileName) {
-	ifstream inFile("test.map");
+	ifstream inFile(textFileName);
 	if (!inFile) {
 		cout << "Unable to open file";
 		exit(1);
@@ -74,6 +73,7 @@ Maploader::Maploader(string textFileName) {
 
 		//remove commas between words
 		vector<string> words = removeCommas(line);
+
 		vector<Region> neighbours;
 		string currentRegion = words[0];
 		int position = NULL;

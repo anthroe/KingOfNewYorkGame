@@ -115,30 +115,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="card.cpp" />
-    <ClCompile Include="cardtest.cpp" />
-    <ClCompile Include="deck.cpp" />
-    <ClCompile Include="gameCard.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="mapLoader.cpp" />
-    <ClCompile Include="monsterCard.cpp" />
-    <ClCompile Include="player.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="tokens.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="card.h" />
-    <ClInclude Include="cardtest.h" />
-    <ClInclude Include="cardTypes.h" />
-    <ClInclude Include="deck.h" />
-    <ClInclude Include="gameCard.h" />
     <ClInclude Include="libraries\json.hpp" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="monsterCard.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Region.h" />
-    <ClInclude Include="tokens.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\kony-card-list.json" />
@@ -146,7 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\kony-monster-card-list.json" />
-    <None Include="test.map" />
+    <None Include="test1GameMap.map" />
+    <None Include="test2Bidirectional.map" />
+    <None Include="test3FullConnect.map" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

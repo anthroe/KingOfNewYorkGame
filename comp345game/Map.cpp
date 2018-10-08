@@ -57,6 +57,8 @@ bool Map::checkConnection() {
 
 	}
 
+	cout << "map is good" << endl;
+
 	return true;
 };
 

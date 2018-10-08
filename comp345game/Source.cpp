@@ -13,7 +13,7 @@ using namespace std;
 int main() {
 	//cards::main();
 
-	Maploader map("test.map");
+	Maploader map("test2Bidirectional.map");
 
 	system("pause");
 	return 0;
