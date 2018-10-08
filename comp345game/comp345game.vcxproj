@@ -122,6 +122,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="mapLoader.cpp" />
     <ClCompile Include="monsterCard.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="tokens.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="libraries\json.hpp" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="monsterCard.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="tokens.h" />
   </ItemGroup>
