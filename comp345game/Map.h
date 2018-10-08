@@ -7,16 +7,17 @@ using namespace std;
 
 class Map {
 private:
-	vector<Region*> regions;
+	string cityName;
+	vector<Region> regions;
 
 public:
 	Map();
-	Map(vector<Region*>);
+	Map(vector<Region>);
 	~Map();
 
-	vector<Region*> getRegions() { return regions; };
+	vector<Region> getRegions() { return regions; };
 
-	void addRegion(Region*);
+	void addRegion(Region);
 
 	bool checkConnection();
 

@@ -11,44 +11,45 @@ Map::Map() {
 
 }
 
-Map::Map(vector<Region*> regions) {
+Map::Map(vector<Region> regions) {
 	this->regions = regions;
 }
 
-void Map::addRegion(Region* region) {
+void Map::addRegion(Region region) {
 	regions.push_back(region);
 }
 
 Map::~Map() {
 	while (regions.size() > 0) {
-		//delete regions.back();		if using pointers
+		//delete regions.back();		if the regions vector is a pointer
 		regions.pop_back();
 	}
 }
 
 bool Map::checkConnection() {
-	vector<Region*> regions = this->regions;
+	vector<Region> regions = this->regions;
 
 	for (int i = 0; i < regions.size(); i++) {
-		Region* currentRegion = regions[i];
-		vector<Region*> neighbours = currentRegion->getNearbyRegions();
+		Region currentRegion = regions[i];
+		vector<Region> neighbours = currentRegion.getNearbyRegions();
 
-		cout << "Region: " + currentRegion->getName() << endl;
+		cout << "Region: " + currentRegion.getName() << endl;
 
 		for (int i = 0; i < neighbours.size(); i++) {
-			Region* neighbour = neighbours[i];
-			vector<Region*> innerNeighbours = neighbour->getNearbyRegions();
+			Region neighbour = neighbours[i];
+			vector<Region> innerNeighbours = neighbour.getNearbyRegions();
 
-			cout << "	neighbour: " + neighbour->getName() << endl;
+			cout << "	neighbour: " + neighbour.getName() << endl;
 
 			for (int i = 0; i < innerNeighbours.size(); i++) {
-				Region* innerNeighbour = innerNeighbours[i];
+				Region innerNeighbour = innerNeighbours[i];
 
-				cout << "		innerNeighbour: " + innerNeighbour->getName() << endl;
+				cout << "		innerNeighbour: " + innerNeighbour.getName() << endl;
+
 			}
-
+			cout << "Entering find statement" << endl;
 			if (find(innerNeighbours.begin(), innerNeighbours.end(), currentRegion) == innerNeighbours.end()) {
-				cout << "Region: " + currentRegion->getName() + " is not properly connected. Please load a proper map." << endl;
+				cout << "Region: " + currentRegion.getName() + " is not properly connected. Please load a proper map." << endl;
 				return false;
 			}
 
@@ -60,6 +61,9 @@ bool Map::checkConnection() {
 };
 
 /*
+Static verification for one directional maps
+	*I'm leaving this here in case it becomes useful
+
 vector<int> a1 = { 2, 3, 4, 5 };
 vector<int> a2 = { 1, 3, 4, 5 };
 vector<int> a3 = { 1, 2, 4, 5 };

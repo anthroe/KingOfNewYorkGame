@@ -11,18 +11,9 @@ class Maploader {
 
 private:
 	Map* mapInPlay;
-	string readLine(ifstream&);
-	string strip(string);
-	vector<string> split(string, char);
-
 
 public:
 	Maploader();
-
 	Maploader(string);
-
 	~Maploader();
-
-	Map* getMap();
-	void parseMap(string);
 };
