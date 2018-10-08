@@ -1,5 +1,6 @@
 #include "cardtest.h"
 #include "deck.h"
+#include "tokens.h"
 #include <iostream>
 #include <fstream>
 #include <list>
@@ -92,6 +93,77 @@ int card::main() {
 	}
 	else
 		std::cout << "Could not delete from Deck." << std::endl;
+
+	// Test Token Functions
+	Tokens tok;
+
+	// Carapace functions
+	if (!tok.setCarapace(-1))
+		std::cout << "Carapace could not decrease" << std::endl;
+	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+	if (!tok.setCarapace(1))
+		std::cout << "Carapace could not increase" << std::endl;
+	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+	if (!tok.setCarapace(1))
+		std::cout << "Carapace is at max" << std::endl;
+	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+	if (!tok.setCarapace(-15))
+		std::cout << "Carapace could not decrease" << std::endl;
+	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+	if (!tok.setCarapace(-1))
+		std::cout << "Carapace is at min" << std::endl;
+	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+
+	// Jinx functions
+	if (!tok.setJinx(-1))
+		std::cout << "Jinx could not decrease" << std::endl;
+	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+	if (!tok.setJinx(1))
+		std::cout << "Jinx could not increase" << std::endl;
+	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+	if (!tok.setJinx(1))
+		std::cout << "Jinx is at max" << std::endl;
+	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+	if (!tok.setJinx(-13))
+		std::cout << "Jinx could not decrease" << std::endl;
+	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+	if (!tok.setJinx(-1))
+		std::cout << "Jinx is at min" << std::endl;
+	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+
+	// Souvenir functions
+	if (!tok.setSouvenir(-1))
+		std::cout << "Souvenir could not decrease" << std::endl;
+	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+	if (!tok.setSouvenir(1))
+		std::cout << "Souvenir could not increase" << std::endl;
+	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+	if (!tok.setSouvenir(1))
+		std::cout << "Souvenir is at max" << std::endl;
+	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+	if (!tok.setSouvenir(-5))
+		std::cout << "Souvenir could not decrease" << std::endl;
+	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+	if (!tok.setSouvenir(-1))
+		std::cout << "Souvenir is at min" << std::endl;
+	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+
+	// Web functions
+	if (!tok.setWeb(-1))
+		std::cout << "Web could not decrease" << std::endl;
+	std::cout << "Web: " << tok.getWeb() << std::endl;
+	if (!tok.setWeb(1))
+		std::cout << "Web could not increase" << std::endl;
+	std::cout << "Web: " << tok.getWeb() << std::endl;
+	if (!tok.setWeb(1))
+		std::cout << "Web is at max" << std::endl;
+	std::cout << "Web: " << tok.getWeb() << std::endl;
+	if (!tok.setWeb(-13))
+		std::cout << "Web could not decrease" << std::endl;
+	std::cout << "Web: " << tok.getWeb() << std::endl;
+	if (!tok.setWeb(-1))
+		std::cout << "Web is at min" << std::endl;
+	std::cout << "Web: " << tok.getWeb() << std::endl;
 
 	std::cin.get();
 
