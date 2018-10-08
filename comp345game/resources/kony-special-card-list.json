@@ -1,14 +1,14 @@
 {
-	"Statue of Libery": {
-		"name": "Statue of Libery",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Superstar": {
-		"name": "Superstar",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	}
+  "Statue of Libery": {
+    "name": "Statue of Libery",
+    "effect": "Take this card when you roll at least 3 OUCH.\nGain 3 Victory Points when you take this card.\nLose 3 Victory Points when you lose this card.",
+    "cost": 0,
+    "type": "Goal"
+  },
+  "Superstar": {
+    "name": "Superstar",
+    "effect": "Take this card when you roll at least 3 VICTORY. Gain 1 Victory Points, +1 Victory Points per additional VICTORY you rolled.\nWhile you have this card, you gain 1 Victory Points for each VICTORY you roll.",
+    "cost": 0,
+    "type": "Goal"
+  }
 }

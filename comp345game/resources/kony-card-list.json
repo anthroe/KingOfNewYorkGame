@@ -1,386 +1,386 @@
 {
-	"Air Force One": {
-		"name": "Air Force One",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Antimatter Pellets": {
-		"name": "Antimatter Pellets",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Artificial Heart": {
-		"name": "Artificial Heart",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Broadway Star": {
-		"name": "Broadway Star",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Brooklyn Bridge": {
-		"name": "Brooklyn Bridge",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Bullet Proof": {
-		"name": "Bullet Proof",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Can Opener": {
-		"name": "Can Opener",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Carapace": {
-		"name": "Carapace",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Central Park": {
-		"name": "",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Chameleon": {
-		"name": "Chameleon",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Chinatown Regular": {
-		"name": "Chinatown Regular",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Climb the Empire State Building": {
-		"name": "Climb the Empire State Building",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Columbia University": {
-		"name": "Columbia University",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Coney Island": {
-		"name": "Coney Island",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Curse": {
-		"name": "Curse",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Diva": {
-		"name": "Diva",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Drain": {
-		"name": "Drain",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Drink the Hudson": {
-		"name": "Drink the Hudson",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Ego Trip": {
-		"name": "Ego Trip",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Extra Head": {
-		"name": "Extra Head",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Fireball": {
-		"name": "Fireball",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Flatiron Building": {
-		"name": "Flatiron Building",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Fury": {
-		"name": "Fury",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"General Ellis": {
-		"name": "General Ellis",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Hailing Cabs": {
-		"name": "Hailing Cabs",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Holland Tunnel": {
-		"name": "Holland Tunnel",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Hunter": {
-		"name": "Hunter",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Jinx Aura": {
-		"name": "Jinx Aura",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"King of Queens": {
-		"name": "King of Queens",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Leveler": {
-		"name": "Leveler",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Long Neck": {
-		"name": "Long Neck",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Natural Selection": {
-		"name": "Natural Selection",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"New York Marathon": {
-		"name": "New York Marathon",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Next Stage": {
-		"name": "Next Stage",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Of Another World": {
-		"name": "Of Another World",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Overload": {
-		"name": "Overload",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Painbow": {
-		"name": "Painbow",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Personal Spotlight": {
-		"name": "Personal Spotlight",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Phoenix Blood": {
-		"name": "Phoenix Blood",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Photo Op": {
-		"name": "Photo Op",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Power Substation": {
-		"name": "Power Substation",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Power Tap": {
-		"name": "Power Tap",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Regeneration": {
-		"name": "Regeneration",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Scavenger": {
-		"name": "Scavenger",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Seismic Ray": {
-		"name": "Seismic Ray",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Shadow Double": {
-		"name": "Shadow Double",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Sharp Shooter": {
-		"name": "Sharp Shooter",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Stink Attack": {
-		"name": "Stink Attack",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Stomp": {
-		"name": "Stomp",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Subterranean Cable": {
-		"name": "Subterranean Cable",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Subway": {
-		"name": "Subway",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Super Speed": {
-		"name": "Super Speed",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Terminal Rage": {
-		"name": "Terminal Rage",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Tesla Antennae": {
-		"name": "Tesla Antennae",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Tesla Cannon": {
-		"name": "Tesla Cannon",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"The Unisphere": {
-		"name": "The Unisphere",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Tourist": {
-		"name": "Tourist",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
+  "Air Force One": {
+    "name": "Air Force One",
+    "effect": "You can only buy this card if you destroyed a Jet this turn.\n+4 Victory Points and all Units attack all Monsters in their boroughs.",
+    "cost": 6,
+    "type": "Discard"
+  },
+  "Antimatter Pellets": {
+    "name": "Antimatter Pellets",
+    "effect": "Monsters you attack must roll a die.\nThose that roll OUCH take double damage.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Artificial Heart": {
+    "name": "Artificial Heart",
+    "effect": "You can change some or all of your HEART to ENERGY.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Broadway Star": {
+    "name": "Broadway Star",
+    "effect": "Gain 1 Victory Point when you take Superstar, and when you start your turn with it.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Brooklyn Bridge": {
+    "name": "Brooklyn Bridge",
+    "effect": "Buy this card for 1 Energy Point less if you are in BROOKLYN.\n+4 Victory Points.",
+    "cost": 6,
+    "type": "Discard"
+  },
+  "Bullet Proof": {
+    "name": "Bullet Proof",
+    "effect": "Whenever you take damage because of rolling OUCH, take 1 less damage.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Can Opener": {
+    "name": "Can Opener",
+    "effect": "You only need 3 DESTRUCTION to destroy a Tank.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Carapace": {
+    "name": "Carapace",
+    "effect": "Your Health Point maximum is increased by 2 as long as you have this card. For each OUCH you roll, place a Carapace token on this card.\nYou can discard this card to heal 1 damage for each Carapace token on it.",
+    "cost": 3,
+    "type": "Keep"
+  },
+  "Central Park": {
+    "name": "Central Park",
+    "effect": "Buy this card for 1 Energy Point less if you are in MANHATTAN.\n+2 Victory Points and heal 2 damage.",
+    "cost": 5,
+    "type": "Discard"
+  },
+  "Chameleon": {
+    "name": "Chameleon",
+    "effect": "You can discard as many VICTORY as you wish.\nFor each VICTORY discarded, you can change the face of one of the dice you haven't resolved.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Chinatown Regular": {
+    "name": "Chinatown Regular",
+    "effect": "Heal 2 damage when you enter MANHATTAN.",
+    "cost": 3,
+    "type": "Keep"
+  },
+  "Climb the Empire State Building": {
+    "name": "Climb the Empire State Building",
+    "effect": "If you roll 1 of each dice type in MANHATTAN, gain 2 Victory Points and take another turn.",
+    "cost": 3,
+    "type": "Keep"
+  },
+  "Columbia University": {
+    "name": "Columbia University",
+    "effect": "Buy this card for 1 Energy Point less if you are in MANHATTAN.\n+2 Victory Points and take the next KEEP card revealed for free.",
+    "cost": 6,
+    "type": "Discard"
+  },
+  "Coney Island": {
+    "name": "Coney Island",
+    "effect": "Buy this card for 1 Energy Point less if you are in BROOKLYN.\n+3 Victory Points.",
+    "cost": 4,
+    "type": "Discard"
+  },
+  "Curse": {
+    "name": "Curse",
+    "effect": "When you deal damage to Monsters, give each a Curse token. Each time a Monster wants to reroll OUCH, he must spend 1 Energy Point for each Curse token he has.\nA Monster may use a HEART to discard a Curse token instead of using it to heal.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Diva": {
+    "name": "Diva",
+    "effect": "The other monsters need 4 VICTORY to take Superstar from you.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Drain": {
+    "name": "Drain",
+    "effect": "Take 2 Energy Points from Monsters that attack you.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Drink the Hudson": {
+    "name": "Drink the Hudson",
+    "effect": "Buy this card for 1 Energy Point less if you are in MANHATTAN, BROOKLYN, or STATEN ISLAND.\n+13 Energy Points, +1 Victory Point, and heal 2 damage.",
+    "cost": 12,
+    "type": "Discard"
+  },
+  "Ego Trip": {
+    "name": "Ego Trip",
+    "effect": "Gain 1 Energy Point when you take Superstar and when you start your turn with it.",
+    "cost": 3,
+    "type": "Keep"
+  },
+  "Extra Head": {
+    "name": "Extra Head",
+    "effect": "You get 1 extra die.",
+    "cost": 7,
+    "type": "Keep"
+  },
+  "Fireball": {
+    "name": "Fireball",
+    "effect": "Your attacks also deal damage to the other Monsters in your borough.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Flatiron Building": {
+    "name": "Flatiron Building",
+    "effect": "Buy this card for 1 Energy Point less if you are in MANHATTAN.\n+2 Victory Points.",
+    "cost": 3,
+    "type": "Discard"
+  },
+  "Fury": {
+    "name": "Fury",
+    "effect": "Add 1 DESTRUCTION and 1 Energy Point to your roll if you are in a borough with at least 3 Units.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "General Ellis": {
+    "name": "General Ellis",
+    "effect": "You can only buy this card if you destroyed a Tank this turn.\n+3 Victory Points and all Monsters take 1 damage.",
+    "cost": 5,
+    "type": "Discard"
+  },
+  "Hailing Cabs": {
+    "name": "Hailing Cabs",
+    "effect": "You may add 2 DESTRUCTION to your result.\nIf you do you can destroy only Units.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Holland Tunnel": {
+    "name": "Holland Tunnel",
+    "effect": "Buy this card for 1 Energy Point less if you are in MANHATTAN.\n+6 Victory Points and all Monsters gain 3 Energy Points.",
+    "cost": 9,
+    "type": "Discard"
+  },
+  "Hunter": {
+    "name": "Hunter",
+    "effect": "Heal 1 damage each time you destroy an Infantry.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Jinx Aura": {
+    "name": "Jinx Aura",
+    "effect": "Other Monsters must always use all their rerolls. (They still get to choose which dice to reroll.)",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "King of Queens": {
+    "name": "King of Queens",
+    "effect": "Gain 1 Energy Point and heal 1 damage when you start your turn in Queens.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Leveler": {
+    "name": "Leveler",
+    "effect": "Gain 1 Victory Point each turn that you destroy at least one Building.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Long Neck": {
+    "name": "Long Neck",
+    "effect": "You only need 2 DESTRUCTION to destroy a Jet.",
+    "cost": 3,
+    "type": "Keep"
+  },
+  "Natural Selection": {
+    "name": "Natural Selection",
+    "effect": "Gain 4 Energy Points and heal 4 damage when you buy this card.\nYou roll an extra die.\nIf you end your turn with at least 1 VICTORY, you lose this card, and all your Health Points.",
+    "cost": 2,
+    "type": "Keep"
+  },
+  "New York Marathon": {
+    "name": "New York Marathon",
+    "effect": "While this card is available for purchase, Monsters must pay 2 Energy Points to move (including fleeing from MANHATTAN), unless the movement is obligatory.\n+2 Victory Points, +2 Energy Points, and heal 2 damage.",
+    "cost": 6,
+    "type": "Discard"
+  },
+  "Next Stage": {
+    "name": "Next Stage",
+    "effect": "Lose all your Victory Points.\nGain 1 Energy Point or heal 1 damage for each Victory Point you lost this way.",
+    "cost": 4,
+    "type": "Discard"
+  },
+  "Of Another World": {
+    "name": "Of Another World",
+    "effect": "You can use Health Points as Energy Points and Energy Point as Health Points.",
+    "cost": 6,
+    "type": "Keep"
+  },
+  "Overload": {
+    "name": "Overload",
+    "effect": "Gain 4 Energy Points when you buy this card.\nGain 1 Energy Point less when you roll any amount of ENERGY.",
+    "cost": 0,
+    "type": "Keep"
+  },
+  "Painbow": {
+    "name": "Painbow",
+    "effect": "If your results are...\n-- 2 DESTRUCTION, you get an extra ATTACK.\n-- 4 DESTRUCTION, you get an extra 2 ATTACK.\n-- 6 DESTRUCTION, you win the game!",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Personal Spotlight": {
+    "name": "Personal Spotlight",
+    "effect": "Gain 1 Victory Point each turn you rolled at least 1 VICTORY.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Phoenix Blood": {
+    "name": "Phoenix Blood",
+    "effect": "Gain 1 Energy Point each time you take damage.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Photo Op": {
+    "name": "Photo Op",
+    "effect": "Choose a Monster. Gain 1 Victory Point for each damage you dealt to that Monster this turn.",
+    "cost": 4,
+    "type": "Discard"
+  },
+  "Power Substation": {
+    "name": "Power Substation",
+    "effect": "+1 Victory Point, +8 Energy Points and take 3 damage.",
+    "cost": 5,
+    "type": "Discard"
+  },
+  "Power Tap": {
+    "name": "Power Tap",
+    "effect": "Each time a Monster gains at least 3 Energy Points in a turn, that monster must pay you 1 Energy Point.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Regeneration": {
+    "name": "Regeneration",
+    "effect": "Heal 1 damage at the start of your turn.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Scavenger": {
+    "name": "Scavenger",
+    "effect": "You can buy KEEP cards from the discard by spending 1 Energy Point less than their cost.",
+    "cost": 3,
+    "type": "Keep"
+  },
+  "Seismic Ray": {
+    "name": "Seismic Ray",
+    "effect": "Spend 1 Energy Point to use your DESTRUCTION in any borough other than where you are.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Shadow Double": {
+    "name": "Shadow Double",
+    "effect": "Whenever you attack you deal double damage.",
+    "cost": 12,
+    "type": "Keep"
+  },
+  "Sharp Shooter": {
+    "name": "Sharp Shooter",
+    "effect": "You can destroy Jets that are not in your borough.\nGain 1 Victory Point each time you destroy a Jet.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Stink Attack": {
+    "name": "Stink Attack",
+    "effect": "Whenever you move, you may disperse up to four Units from your destination borough. Each dispersed Unit must move to a separate borough.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Stomp": {
+    "name": "Stomp",
+    "effect": "Add 1 DESTRUCTION to your result.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Subterranean Cable": {
+    "name": "Subterranean Cable",
+    "effect": "+4 Energy Points and take 4 damage.",
+    "cost": 0,
+    "type": "Discard"
+  },
+  "Subway": {
+    "name": "Subway",
+    "effect": "Heal 2 damage and take another turn.\nDuring this extra turn, you can move as often as you like, whenever you like.",
+    "cost": 10,
+    "type": "Discard"
+  },
+  "Super Speed": {
+    "name": "Super Speed",
+    "effect": "You can have an extra move before rolling your dice.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Terminal Rage": {
+    "name": "Terminal Rage",
+    "effect": "Take another turn when you buy this card.\nFrom now on you can no longer reroll ATTACK.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Tesla Antennae": {
+    "name": "Tesla Antennae",
+    "effect": "Monsters that have more Health Points than you take 1 extra damage whenever you attack them.",
+    "cost": 4,
+    "type": "Keep"
+  },
+  "Tesla Cannon": {
+    "name": "Tesla Cannon",
+    "effect": "+2 Victory Points.\nAll Monsters (including you) must discard one KEEP card.",
+    "cost": 5,
+    "type": "Discard"
+  },
+  "The Unisphere": {
+    "name": "The Unisphere",
+    "effect": "Buy this card for 1 Energy Point less if you are in QUEENS.\n+4 Victory Points.",
+    "cost": 5,
+    "type": "Discard"
+  },
+  "Tourist": {
+    "name": "Tourist",
+    "effect": "Place a Souvenir token in your current borough, and in each borough you enter that does not already have a Souvenir token. Gain 1 Victory Point and 1 Energy Point each time you place a Souvenir token.",
+    "cost": 6,
+    "type": "Keep"
+  },
 	"Towering Titan": {
 		"name": "Towering Titan",
-		"effect": "",
-		"cost": 1,
+		"effect": "Add 2 ATTACK to your result.",
+		"cost": 10,
 		"type": "Keep"
 	},
-	"Trash Thrower": {
-		"name": "Trash Thrower",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Trophy Hunter": {
-		"name": "Trophy Hunter",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Universal Soldier": {
-		"name": "Universal Soldier",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Violent Star": {
-		"name": "Violent Star",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Webspinner": {
-		"name": "Webspinner",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	},
-	"Yankee Stadium": {
-		"name": "Yankee Stadium",
-		"effect": "",
-		"cost": 1,
-		"type": "Keep"
-	}
+  "Trash Thrower": {
+    "name": "Trash Thrower",
+    "effect": "Monsters you attack lose 1 Victory Point.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Trophy Hunter": {
+    "name": "Trophy Hunter",
+    "effect": "Gain 1 Victory Point each time you destroy a Unit.",
+    "cost": 5,
+    "type": "Keep"
+  },
+  "Universal Soldier": {
+    "name": "Universal Soldier",
+    "effect": "You can change some or all of your HEART to ATTACK, and/or your ATTACK to HEART.",
+    "cost": 6,
+    "type": "Keep"
+  },
+  "Violent Star": {
+    "name": "Violent Star",
+    "effect": "Deal 2 damage to the Monster from whom you take Superstar.\nDeal 1 damage to the Monster who takes Superstar from you.",
+    "cost": 3,
+    "type": "Keep"
+  },
+  "Webspinner": {
+    "name": "Webspinner",
+    "effect": "When you deal damage to Monsters, give them a Web token. A Monster has one fewer reroll on his turn for each Web token he has.\nA Monster can choose to use an ATTACK to discard a Web token instead of using it to attack.",
+    "cost": 6,
+    "type": "Keep"
+  },
+  "Yankee Stadium": {
+    "name": "Yankee Stadium",
+    "effect": "Buy this card for 1 ENERGY less if you are in the BRONX.\n+5 Victory Points and heal 5 damage.",
+    "cost": 9,
+    "type": "Discard"
+  }
 }
