@@ -115,6 +115,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="card.cpp" />
+    <ClCompile Include="cardtest.cpp" />
     <ClCompile Include="deck.cpp" />
     <ClCompile Include="gameCard.cpp" />
     <ClCompile Include="Map.cpp" />

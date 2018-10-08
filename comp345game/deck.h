@@ -18,6 +18,7 @@ class Deck {
 		static std::ifstream getCardList(std::string fileName);
 		Deck(std::string deckFile = "resources/kony-card-list.json", std::string specialFile = "resources/kony-special-card-list.json");
 		std::vector<GameCard> getPurchaseableCards() { return purchaseableCards; };
+		std::vector<GameCard> getDeck() { return deck; };
 		void shuffle();
 		bool discardCard(GameCard card);
 };

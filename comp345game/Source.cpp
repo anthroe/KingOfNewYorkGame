@@ -1,4 +1,4 @@
-//#include "cardtest.cpp"
+// #include "cardtest.h"
 
 #include <iostream>
 #include <fstream>
@@ -11,7 +11,7 @@
 using namespace std;
 
 int main() {
-	//cards::main();
+	// card::main();
 
 	ifstream inFile("test.map");
 	if (!inFile) {
@@ -117,11 +117,10 @@ int main() {
 			cout << "	" + neighbours[j].getName() << endl;
 		}
 	}
-	*/
 
 	Map map1(allRegions);
 
 	map1.checkConnection();
 
-	return 0;
+	return 0;*/
 }

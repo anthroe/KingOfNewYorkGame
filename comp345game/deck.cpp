@@ -9,7 +9,7 @@ using json = nlohmann::json;
 std::ifstream Deck::getCardList(std::string fileName) {
 	// Attempt to open the list of cards.
 	std::ifstream cardList(fileName);
-	std::cout << "Opening:\t" << fileName << "\n";
+	std::cout << "Opening:\t" << fileName << std::endl;
 
 	// If the file couldn't be found/opened, exit.
 	if (!cardList) {
@@ -18,7 +18,7 @@ std::ifstream Deck::getCardList(std::string fileName) {
 		exit(0);
 	}
 	else
-		std::cout << "Found:\t" << fileName << "\n";
+		std::cout << "Found:  \t" << fileName << "\n" << std::endl;
 
 	return cardList;
 }
@@ -58,15 +58,16 @@ void Deck::shuffle() {
 	// Ensure randomNums[1] is unique
 	do {
 		randomNums[1] = rand() % deck.size();
-	} while (randomNums[1] != randomNums[0]);
+	} while (randomNums[1] == randomNums[0]);
 
 	// Ensure randomNums[2] is unique
 	do {
 		randomNums[2] = rand() % deck.size();
-	} while (randomNums[2] != randomNums[0] && randomNums[2] != randomNums[1]);
+	} while (randomNums[2] == randomNums[0] && randomNums[2] == randomNums[1]);
 
 	// Only keep 3 cards face-up for purchase
-	for (int i = 0; i < 3-purchaseableCards.size(); i++) {
+	int size = purchaseableCards.size();
+	for (int i = 0; i < 3-size; i++) {
 		purchaseableCards.push_back(deck[randomNums[i]]);
 	}
 }
@@ -79,7 +80,7 @@ bool Deck::discardCard(GameCard card) {
 	for (int i = 0; i < purchaseableCards.size(); i++) {
 		if (purchaseableCards[i].getName() == cardName) {
 			discard.push_back(purchaseableCards[i]);
-			purchaseableCards.erase(deck.begin() + i);
+			purchaseableCards.erase(purchaseableCards.begin() + i);
 			cardDiscarded = true;
 		}
 	}
@@ -95,5 +96,5 @@ bool Deck::discardCard(GameCard card) {
 		}
 	}
 
-	return true;
+	return cardDiscarded;
 }
