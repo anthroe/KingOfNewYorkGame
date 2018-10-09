@@ -31,34 +31,36 @@ bool Map::checkConnection() {
 
 	for (int i = 0; i < regions.size(); i++) {
 		Region currentRegion = regions[i];
-		vector<Region> neighbours = currentRegion.getNearbyRegions();
+		int currentRegionId = currentRegion.getId();
+		vector<int> neighbourIds = currentRegion.getNearbyRegionIds();
 
 		cout << "Region: " + currentRegion.getName() << endl;
 
-		for (int i = 0; i < neighbours.size(); i++) {
-			Region neighbour = neighbours[i];
-			vector<Region> innerNeighbours = neighbour.getNearbyRegions();
+		for (int i = 0; i < neighbourIds.size(); i++) {
 
-			cout << "	neighbour: " + neighbour.getName() << endl;
+			int currentNeighbourId = neighbourIds[i];
+			int currentNeighbourIndex = 0;
 
-			for (int i = 0; i < innerNeighbours.size(); i++) {
-				Region innerNeighbour = innerNeighbours[i];
-
-				cout << "		innerNeighbour: " + innerNeighbour.getName() << endl;
-
+			for (int i = 0; i < regions.size(); i++) {
+				if (regions[i].getId() == currentNeighbourId) {
+					currentNeighbourIndex = i;
+				}
 			}
-			cout << "Entering find statement" << endl;
-			if (find(innerNeighbours.begin(), innerNeighbours.end(), currentRegion) == innerNeighbours.end()) {
+
+			Region currentNeighbour = regions[currentNeighbourIndex];
+			vector<int> innerNeighbours = currentNeighbour.getNearbyRegionIds();
+
+			cout << "	" + currentNeighbour.getName() << endl;
+
+			if (find(innerNeighbours.begin(), innerNeighbours.end(), currentRegionId) == innerNeighbours.end()) {
 				cout << "Region: " + currentRegion.getName() + " is not properly connected. Please load a proper map." << endl;
 				return false;
 			}
 
-			cout << "The map has been connected successfully." << endl;
-
 		}
 
 	}
-
+	cout << "The map has been connected successfully." << endl;
 	return true;
 };
 

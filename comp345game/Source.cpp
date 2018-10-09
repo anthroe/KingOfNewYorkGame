@@ -12,7 +12,7 @@ using namespace std;
 
 int main() {
 	//cards::main();
-	Maploader map("test2Bidirectional.map");
+	Maploader map("test1GameMap.map");
 
 	system("pause");
  	return 0;
