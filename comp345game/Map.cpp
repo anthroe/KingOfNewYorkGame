@@ -53,11 +53,11 @@ bool Map::checkConnection() {
 				return false;
 			}
 
+			cout << "The map has been connected successfully." << endl;
+
 		}
 
 	}
-
-	cout << "map is good" << endl;
 
 	return true;
 };

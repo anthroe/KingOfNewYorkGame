@@ -11,10 +11,10 @@ Queens,6
 Brooklyn,7
 
 [Neighbours]
-Manhattan1, Manhattan2
-Manhattan2, Manhattan1, Manhattan3
-Manhattan3, Manhattan2, Staten
-Staten, Manhattan3, Bronx
-Bronx, Staten, Queens
-Queens, Bronx, Brooklyn
-Brooklyn, Queens
+Manhattan1,Manhattan2
+Manhattan2,Manhattan1,Manhattan3
+Manhattan3,Manhattan2,Staten
+Staten,Manhattan3,Bronx
+Bronx,Staten,Queens
+Queens,Bronx,Brooklyn
+Brooklyn,Queens
