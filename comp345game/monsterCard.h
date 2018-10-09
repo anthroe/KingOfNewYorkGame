@@ -11,6 +11,7 @@ class MonsterCard : public Card {
 		int vp;
 
 	public:
+		MonsterCard();
 		MonsterCard(std::string n, int health = 10, int victory = 0) :
 			Card::Card(n, CardTypes::MONSTER_CARD), hp(health), vp(victory) {};
 		int getHP() { return hp; };

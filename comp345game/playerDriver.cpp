@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int main()
+int playerDriver()
 {
 	player player1;
 	system("pause");

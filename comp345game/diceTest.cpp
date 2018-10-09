@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int main()
+int diceDriver()
 {
 	srand((unsigned)time(0));
 	diceRoller player1;

@@ -1,9 +1,16 @@
 #include "card.h"
 
-std::string Card::getTypeName() {
+using namespace std;
+
+Card::Card() {
+
+}
+
+string Card::getTypeName() {
 	switch (type) {
-		case 0: return "Game";
-		case 1: return "Special";
-		case 2: return "Monster";
+		case 0: return "Game"; break;
+		case 1: return "Special"; break;
+		case 2: return "Monster"; break;
+		default: return "Invalid"; break;
 	}
 }

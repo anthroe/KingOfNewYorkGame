@@ -1,5 +1,10 @@
 #include "monsterCard.h"
 
+
+MonsterCard::MonsterCard() {
+
+}
+
 bool MonsterCard::changeHP(int n) {
 	// Do not let a monstersubceed 0 hp, nor exceed 10 hp
 	if (hp + n >= 0 && hp + n <= 10)

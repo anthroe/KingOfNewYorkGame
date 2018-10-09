@@ -7,7 +7,7 @@
 #include "libraries/json.hpp"
 using json = nlohmann::json;
 
-int card::main() {
+int cardDriver() {
 	json monsterCardListJson;
 	Deck::getCardList("resources/kony-monster-card-list.json") >> monsterCardListJson;
 

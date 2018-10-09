@@ -10,6 +10,7 @@ class Card {
 		// Player ownedBy = NULL;
 
 	public:
+		Card();
 		Card(std::string n, int t) : name(n), type(t) {};
 		std::string getName() { return name; };
 		std::string getTypeName();
