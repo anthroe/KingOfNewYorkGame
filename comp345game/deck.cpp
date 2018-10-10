@@ -98,3 +98,17 @@ bool Deck::discardCard(GameCard card) {
 
 	return cardDiscarded;
 }
+
+
+GameCard Deck::purchaseCard(GameCard card) {
+	std::string cardName = card.getName();
+
+	// Search the face-up cards for the card to be discarded
+	for (int i = 0; i < purchaseableCards.size(); i++) {
+		if (purchaseableCards[i].getName() == cardName) {
+			purchaseableCards.erase(purchaseableCards.begin() + i);
+		}
+	}
+
+	return card;
+}

@@ -21,6 +21,7 @@ class Deck {
 		std::vector<GameCard> getDeck() { return deck; };
 		void shuffle();
 		bool discardCard(GameCard card);
+		GameCard purchaseCard(GameCard card);
 };
 
 #endif
