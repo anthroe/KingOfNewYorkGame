@@ -9,11 +9,6 @@ Region::Region() {
 	//owner = null;
 }
 
-Region::Region(string name) {
-	this->name = name;
-	this->id = 0;
-}
-
 Region::Region(string name, int id) {
 	this->name = name;
 	this->id = id;

@@ -119,6 +119,9 @@
     <ClInclude Include="diceTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mapDriver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\kony-special-card-list.json">

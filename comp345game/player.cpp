@@ -23,7 +23,7 @@ void player::setMonsterCard(MonsterCard monst) {
 MonsterCard player::getMonsterCard() {
 	return monsterCard;
 }
-
+/*
 bool player::addOwnedCard(GameCard card) {
 	std::string cardName = card.getName();
 	bool cardNotOwned = true;
@@ -33,7 +33,6 @@ bool player::addOwnedCard(GameCard card) {
 			cardNotOwned == false;
 		}
 	}
-
 	
 
 	if (cardNotOwned)
@@ -43,6 +42,7 @@ bool player::addOwnedCard(GameCard card) {
 
 	return true;
 }
+*/
 
 std::vector<GameCard> player::getOwnedCards() {
 	return ownedCards;
@@ -64,7 +64,7 @@ void player::resolveDice() {
 void player::move() {
 
 }
-
+/*
 bool player::buyCards(Deck deck) {
 	// Store the response in a character
 	char response;
@@ -110,4 +110,4 @@ bool player::buyCards(Deck deck) {
 
 		} while (cont);
 	}
-}
+}*/

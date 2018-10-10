@@ -8,6 +8,7 @@
 
 using namespace std;
 
+//removes commas from the line to read in the words
 vector<string> removeCommas(string line) {
 	stringstream ss(line);
 	vector<string> words;
@@ -15,19 +16,20 @@ vector<string> removeCommas(string line) {
 	while (ss.good()) {
 		string word;
 		getline(ss, word, ',');
-		words.push_back(word);
+		words.push_back(word); //push words after the comma
 	}
 
 	return words;
 }
 
+//Maploader constructor
 Maploader::Maploader() {
 	mapInPlay = new Map();
 }
-
+//Maploader constructor that takes a file name
 Maploader::Maploader(string textFileName) {
 	ifstream inFile(textFileName);
-	if (!inFile) {
+	if (!inFile) { //exit if can't find file
 		cout << "Unable to open file";
 		exit(1);
 	}
@@ -64,7 +66,7 @@ Maploader::Maploader(string textFileName) {
 		vector<string> words = removeCommas(line);
 
 		string regionName = words[0];
-		int id = stoi(words[1]);
+		int id = stoi(words[1]); //convert string number to int
 		allRegions.push_back(Region(regionName, id));
 	}
 
@@ -77,13 +79,14 @@ Maploader::Maploader(string textFileName) {
 		vector<Region> neighbours;
 		string currentRegion = words[0];
 		int position = NULL;
-
+		
+		//assign position to each region
 		for (int i = 0; i < allRegions.size(); i++) {
 			if (allRegions[i].getName() == currentRegion) {
 				position = i;
 			}
 		}
-
+		//for all region names, add their respective neighbours
 		for (int i = 0; i < allRegions.size(); i++) {
 			for (int j = 1; j < words.size(); j++) {
 				if (allRegions[i].getName() == words[j]) {
@@ -92,7 +95,7 @@ Maploader::Maploader(string textFileName) {
 				}
 			}
 		}
-
+		//set all the neighbours
 		allRegions[position].addNearbyRegions(neighbours);
 
 		if (inFile.eof()) {
