@@ -4,8 +4,34 @@
 #include <ctime>
 #include <string>
 using namespace std;
+
+int player::nextId = 1;
 player::player() {
-	cout << "I have been initialized " << endl;
+	name = "";
+	id = nextId; nextId++;
+	//add deck
+	//add dice
+}
+
+
+player::~player() {
+	//delete deck;
+	//delete dice
+}
+
+player::player(string name) {
+	name = name;
+	id = nextId; nextId++;
+	//add deck
+	//add dice
+}
+
+player::player(string name, vector<Region> regions) {
+	name = name;
+	id = nextId; nextId++;
+	regions = regions;
+	//add deck
+	//add dice
 }
 
 void player::setRegion(string reg) {
@@ -61,8 +87,8 @@ void player::resolveDice() {
 
 }
 
-void player::move() {
-
+void player::move(player* player, Region region) {
+	region.setOwner(player);
 }
 /*
 bool player::buyCards(Deck deck) {

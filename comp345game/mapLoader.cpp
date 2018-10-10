@@ -95,7 +95,7 @@ Maploader::Maploader(string textFileName) {
 				}
 			}
 		}
-		//set all the neighbours
+		//set all the nearby regions
 		allRegions[position].addNearbyRegions(neighbours);
 
 		if (inFile.eof()) {
