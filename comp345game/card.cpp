@@ -3,7 +3,8 @@
 using namespace std;
 
 Card::Card() {
-
+	name = "Unavailable";
+	type = 3;
 }
 
 string Card::getTypeName() {

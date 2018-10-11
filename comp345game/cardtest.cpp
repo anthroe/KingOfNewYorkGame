@@ -1,6 +1,7 @@
 #include "cardtest.h"
 #include "deck.h"
 #include "tokens.h"
+#include "unitTiles.h"
 #include <iostream>
 #include <fstream>
 #include <list>
@@ -12,160 +13,176 @@ int cardDriver() {
 	Deck::getCardList("resources/kony-monster-card-list.json") >> monsterCardListJson;
 
 	// Build a list of MonsterCard objects listing monsters cards
-	std::vector<MonsterCard> ListOfMonsterCards;
+	vector<MonsterCard> ListOfMonsterCards;
 	for (json card : monsterCardListJson) {
-		std::string cname = card["name"];
+		string cname = card["name"];
 		ListOfMonsterCards.push_back(MonsterCard(cname));
 	}
 
 	for (MonsterCard card : ListOfMonsterCards) {
-		std::cout << "Monster card name: " << card.getName() << std::endl;
-		std::cout << "Monster card type: " << card.getTypeName() << std::endl;
-		std::cout << "Monster card HP: " << card.getHP() << std::endl;
-		std::cout << "Monster card effect: " << card.getVP() << "\n" << std::endl;
+		cout << "Monster card name: " << card.getName() << endl;
+		cout << "Monster card type: " << card.getTypeName() << endl;
+		cout << "Monster card HP: " << card.getHP() << endl;
+		cout << "Monster card effect: " << card.getVP() << "\n" << endl;
 	}
 
 	// Testing Monster Card Functions
 	if (!ListOfMonsterCards[0].changeHP(-1))
-		std::cout << "HP could not decrease" << std::endl;
-	std::cout << "HP: " << ListOfMonsterCards[0].getHP() << std::endl;
+		cout << "HP could not decrease" << endl;
+	cout << "HP: " << ListOfMonsterCards[0].getHP() << endl;
 	if (!ListOfMonsterCards[0].changeHP(1))
-		std::cout << "HP could not increase" << std::endl;
-	std::cout << "HP: " << ListOfMonsterCards[0].getHP() << std::endl;
+		cout << "HP could not increase" << endl;
+	cout << "HP: " << ListOfMonsterCards[0].getHP() << endl;
 	if (!ListOfMonsterCards[0].changeHP(1))
-		std::cout << "HP is at max" << std::endl;
-	std::cout << "HP: " << ListOfMonsterCards[0].getHP() << std::endl;
+		cout << "HP is at max" << endl;
+	cout << "HP: " << ListOfMonsterCards[0].getHP() << endl;
 	if (!ListOfMonsterCards[0].changeHP(-10))
-		std::cout << "HP could not decrease" << std::endl;
-	std::cout << "HP: " << ListOfMonsterCards[0].getHP() << std::endl;
+		cout << "HP could not decrease" << endl;
+	cout << "HP: " << ListOfMonsterCards[0].getHP() << endl;
 	if (!ListOfMonsterCards[0].changeHP(-1))
-		std::cout << "HP is at min" << std::endl;
-	std::cout << "HP: " << ListOfMonsterCards[0].getHP() << std::endl;
+		cout << "HP is at min" << endl;
+	cout << "HP: " << ListOfMonsterCards[0].getHP() << endl;
 
 	if (!ListOfMonsterCards[0].changeVP(-1))
-		std::cout << "VP is at minimum" << std::endl;
-	std::cout << "VP: " << ListOfMonsterCards[0].getVP() << std::endl;
+		cout << "VP is at minimum" << endl;
+	cout << "VP: " << ListOfMonsterCards[0].getVP() << endl;
 	if (!ListOfMonsterCards[0].changeVP(1))
-		std::cout << "VP could not increase" << std::endl;
-	std::cout << "VP: " << ListOfMonsterCards[0].getVP() << std::endl;
+		cout << "VP could not increase" << endl;
+	cout << "VP: " << ListOfMonsterCards[0].getVP() << endl;
 	if (!ListOfMonsterCards[0].changeVP(-1))
-		std::cout << "VP could not decrease" << std::endl;
-	std::cout << "VP: " << ListOfMonsterCards[0].getVP() << std::endl;
+		cout << "VP could not decrease" << endl;
+	cout << "VP: " << ListOfMonsterCards[0].getVP() << endl;
 	if (!ListOfMonsterCards[0].changeVP(20))
-		std::cout << "VP could not increase (20)" << std::endl;
-	std::cout << "VP: " << ListOfMonsterCards[0].getVP() << std::endl;
+		cout << "VP could not increase (20)" << endl;
+	cout << "VP: " << ListOfMonsterCards[0].getVP() << endl;
 	if (!ListOfMonsterCards[0].changeVP(1))
-		std::cout << "VP is at max" << std::endl;
-	std::cout << "VP: " << ListOfMonsterCards[0].getVP() << std::endl;
+		cout << "VP is at max" << endl;
+	cout << "VP: " << ListOfMonsterCards[0].getVP() << endl;
 
 	// Testing Deck Fucntions
 	Deck d;
-	std::cout << "Before Delete:" << std::endl;
+	cout << "Before Delete:" << endl;
 	for (GameCard gc : d.getPurchaseableCards()) {
-		std::cout << "Deck card name: " << gc.getName() << std::endl;
-		std::cout << "Deck card type: " << gc.getTypeName() << std::endl;
-		std::cout << "Deck card HP: " << gc.getCost() << std::endl;
-		std::cout << "Deck card effect: " << gc.getEffect() << "\n" << std::endl;
+		cout << "Deck card name: " << gc.getName() << endl;
+		cout << "Deck card type: " << gc.getTypeName() << endl;
+		cout << "Deck card HP: " << gc.getCost() << endl;
+		cout << "Deck card effect: " << gc.getEffect() << "\n" << endl;
 	}
 
-	std::cout << "\n\n\nAfter Delete:" << std::endl;
+	cout << "\n\n\nAfter Delete:" << endl;
 	if (d.discardCard(d.getPurchaseableCards()[1])) {
 		d.shuffle();
 		for (GameCard gc : d.getPurchaseableCards()) {
-			std::cout << "Deck card name: " << gc.getName() << std::endl;
-			std::cout << "Deck card type: " << gc.getTypeName() << std::endl;
-			std::cout << "Deck card HP: " << gc.getCost() << std::endl;
-			std::cout << "Deck card effect: " << gc.getEffect() << "\n" << std::endl;
+			cout << "Deck card name: " << gc.getName() << endl;
+			cout << "Deck card type: " << gc.getTypeName() << endl;
+			cout << "Deck card HP: " << gc.getCost() << endl;
+			cout << "Deck card effect: " << gc.getEffect() << "\n" << endl;
 		}
 	}
 	else
-		std::cout << "Could not delete from Purchaseable Cards." << std::endl;
+		cout << "Could not delete from Purchaseable Cards." << endl;
 
-	std::cout << "\n\n\nDeck Delete:" << std::endl;
+	cout << "\n\n\nDeck Delete:" << endl;
 	if (d.discardCard(d.getDeck()[5])) {
 		d.shuffle();
 		for (GameCard gc : d.getPurchaseableCards()) {
-			std::cout << "Deck card name: " << gc.getName() << std::endl;
-			std::cout << "Deck card type: " << gc.getTypeName() << std::endl;
-			std::cout << "Deck card HP: " << gc.getCost() << std::endl;
-			std::cout << "Deck card effect: " << gc.getEffect() << "\n" << std::endl;
+			cout << "Deck card name: " << gc.getName() << endl;
+			cout << "Deck card type: " << gc.getTypeName() << endl;
+			cout << "Deck card HP: " << gc.getCost() << endl;
+			cout << "Deck card effect: " << gc.getEffect() << "\n" << endl;
 		}
 	}
 	else
-		std::cout << "Could not delete from Deck." << std::endl;
+		cout << "Could not delete from Deck." << endl;
 
 	// Test Token Functions
 	Tokens tok;
 
 	// Carapace functions
 	if (!tok.setCarapace(-1))
-		std::cout << "Carapace could not decrease" << std::endl;
-	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+		cout << "Carapace could not decrease" << endl;
+	cout << "Carapace: " << tok.getCarapace() << endl;
 	if (!tok.setCarapace(1))
-		std::cout << "Carapace could not increase" << std::endl;
-	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+		cout << "Carapace could not increase" << endl;
+	cout << "Carapace: " << tok.getCarapace() << endl;
 	if (!tok.setCarapace(1))
-		std::cout << "Carapace is at max" << std::endl;
-	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+		cout << "Carapace is at max" << endl;
+	cout << "Carapace: " << tok.getCarapace() << endl;
 	if (!tok.setCarapace(-15))
-		std::cout << "Carapace could not decrease" << std::endl;
-	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+		cout << "Carapace could not decrease" << endl;
+	cout << "Carapace: " << tok.getCarapace() << endl;
 	if (!tok.setCarapace(-1))
-		std::cout << "Carapace is at min" << std::endl;
-	std::cout << "Carapace: " << tok.getCarapace() << std::endl;
+		cout << "Carapace is at min" << endl;
+	cout << "Carapace: " << tok.getCarapace() << endl;
 
 	// Jinx functions
 	if (!tok.setJinx(-1))
-		std::cout << "Jinx could not decrease" << std::endl;
-	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+		cout << "Jinx could not decrease" << endl;
+	cout << "Jinx: " << tok.getJinx() << endl;
 	if (!tok.setJinx(1))
-		std::cout << "Jinx could not increase" << std::endl;
-	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+		cout << "Jinx could not increase" << endl;
+	cout << "Jinx: " << tok.getJinx() << endl;
 	if (!tok.setJinx(1))
-		std::cout << "Jinx is at max" << std::endl;
-	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+		cout << "Jinx is at max" << endl;
+	cout << "Jinx: " << tok.getJinx() << endl;
 	if (!tok.setJinx(-13))
-		std::cout << "Jinx could not decrease" << std::endl;
-	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+		cout << "Jinx could not decrease" << endl;
+	cout << "Jinx: " << tok.getJinx() << endl;
 	if (!tok.setJinx(-1))
-		std::cout << "Jinx is at min" << std::endl;
-	std::cout << "Jinx: " << tok.getJinx() << std::endl;
+		cout << "Jinx is at min" << endl;
+	cout << "Jinx: " << tok.getJinx() << endl;
 
 	// Souvenir functions
 	if (!tok.setSouvenir(-1))
-		std::cout << "Souvenir could not decrease" << std::endl;
-	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+		cout << "Souvenir could not decrease" << endl;
+	cout << "Souvenir: " << tok.getSouvenir() << endl;
 	if (!tok.setSouvenir(1))
-		std::cout << "Souvenir could not increase" << std::endl;
-	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+		cout << "Souvenir could not increase" << endl;
+	cout << "Souvenir: " << tok.getSouvenir() << endl;
 	if (!tok.setSouvenir(1))
-		std::cout << "Souvenir is at max" << std::endl;
-	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+		cout << "Souvenir is at max" << endl;
+	cout << "Souvenir: " << tok.getSouvenir() << endl;
 	if (!tok.setSouvenir(-5))
-		std::cout << "Souvenir could not decrease" << std::endl;
-	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+		cout << "Souvenir could not decrease" << endl;
+	cout << "Souvenir: " << tok.getSouvenir() << endl;
 	if (!tok.setSouvenir(-1))
-		std::cout << "Souvenir is at min" << std::endl;
-	std::cout << "Souvenir: " << tok.getSouvenir() << std::endl;
+		cout << "Souvenir is at min" << endl;
+	cout << "Souvenir: " << tok.getSouvenir() << endl;
 
 	// Web functions
 	if (!tok.setWeb(-1))
-		std::cout << "Web could not decrease" << std::endl;
-	std::cout << "Web: " << tok.getWeb() << std::endl;
+		cout << "Web could not decrease" << endl;
+	cout << "Web: " << tok.getWeb() << endl;
 	if (!tok.setWeb(1))
-		std::cout << "Web could not increase" << std::endl;
-	std::cout << "Web: " << tok.getWeb() << std::endl;
+		cout << "Web could not increase" << endl;
+	cout << "Web: " << tok.getWeb() << endl;
 	if (!tok.setWeb(1))
-		std::cout << "Web is at max" << std::endl;
-	std::cout << "Web: " << tok.getWeb() << std::endl;
+		cout << "Web is at max" << endl;
+	cout << "Web: " << tok.getWeb() << endl;
 	if (!tok.setWeb(-13))
-		std::cout << "Web could not decrease" << std::endl;
-	std::cout << "Web: " << tok.getWeb() << std::endl;
+		cout << "Web could not decrease" << endl;
+	cout << "Web: " << tok.getWeb() << endl;
 	if (!tok.setWeb(-1))
-		std::cout << "Web is at min" << std::endl;
-	std::cout << "Web: " << tok.getWeb() << std::endl;
+		cout << "Web is at min" << endl;
+	cout << "Web: " << tok.getWeb() << endl;
 
-	std::cin.get();
+	UnitTiles ut;
+	vector<int> tiles = ut.getTiles();
+
+	cout << "\nBefore shuffle:" << endl;
+	for (int i = 0; i < 45; i++) {
+		cout << tiles[i] << ' ';
+	}
+
+	ut.shuffle();
+	tiles = ut.getTiles();
+
+	cout << endl << "\nAfter shuffle:" << endl;
+	for (int i = 0; i < 45; i++) {
+		cout << tiles[i] << ' ';
+	}
+
+	cin.get();
 
 	return 0;
 }

@@ -65,7 +65,7 @@ void player::move() {
 
 }
 
-bool player::buyCards(Deck deck) {
+void player::buyCards(Deck deck) {
 	// Store the response in a character
 	char response;
 	// Ask the player if they want to buy a card, and repeat until they answer properly
@@ -84,8 +84,9 @@ bool player::buyCards(Deck deck) {
 			do {
 				cout << "Which card would you like to buy? (Enter the row number)" << endl;
 				// Give a list of cards
-				for (int i = 0; i < deck.getPurchaseableCards.size(); i++) {
-					cout << i + 1 << ". " << deck.getPurchaseableCards[i] << endl;
+				for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
+					GameCard card = deck.getPurchaseableCards()[i];
+					cout << i + 1 << ". " << card.getName() << " (Cost: " << card.getCost() << ")" << endl;
 				}
 				cin >> response;
 			} while (response > deck.getPurchaseableCards().size());

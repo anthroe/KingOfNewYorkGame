@@ -36,7 +36,7 @@ public:
 
 	void move();
 
-	bool buyCards(Deck deck);
+	void buyCards(Deck deck);
 };
 
 #endif

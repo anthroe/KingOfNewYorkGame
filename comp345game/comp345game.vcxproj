@@ -131,6 +131,7 @@
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="tokens.cpp" />
+    <ClCompile Include="unitTiles.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="card.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="playerDriver.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="tokens.h" />
+    <ClInclude Include="unitTiles.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\kony-card-list.json" />

@@ -27,6 +27,7 @@ Deck::Deck(std::string deckFile, std::string specialFile){
 	json cardListJson;
 	getCardList(deckFile) >> cardListJson;
 
+	// From the JSON make the game cards based on their attributes
 	for (json card : cardListJson) {
 		deck.push_back(
 			GameCard(card["name"],
@@ -39,6 +40,7 @@ Deck::Deck(std::string deckFile, std::string specialFile){
 	cardListJson = NULL;
 	getCardList(specialFile) >> cardListJson;
 
+	// From the JSON make the special cards based on their attributes
 	for (json card : cardListJson) {
 		specialCards.push_back(
 			GameCard(card["name"],
