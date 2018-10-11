@@ -144,6 +144,7 @@
     <ClInclude Include="gameCard.h" />
     <ClInclude Include="libraries\json.hpp" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="mapDriver.h" />
     <ClInclude Include="Maploader.h" />
     <ClInclude Include="monsterCard.h" />
     <ClInclude Include="player.h" />

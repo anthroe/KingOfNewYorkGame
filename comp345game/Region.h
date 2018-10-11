@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "player.h"
 
 using namespace std;
 
@@ -8,22 +9,26 @@ class Region {
 private:
 	string name;
 	int id;
-	//Player owner;
+	player* owner;
 	vector<Region> nearbyRegions;
 
 public:
 	Region();
-	Region(string);
 	Region(string, int);
-	//Region(string, int, Player);
-	//Region(string, int, vector<Region>);
+	Region(string, int, player*);
+	Region(string name, int id, vector<Region> nearbyRegions);
+	Region(string name, int id, player owner);
+	Region(string, int, player*, vector<Region> regions);
+
+	player* getOwner();
+	void setOwner(player* player, Region region);
 
 	string getName() const { return name; }
 	int getId() const { return id;  }
-	//Player getOwner { return owner }
+	//player::getRegions{ return regions }
 	vector<Region> getNearbyRegions() const { return nearbyRegions; }
 	vector<int> getNearbyRegionIds();
-	//vector<Player> getNearbyEnemies() { return nearbyEnemies; }
+	
 
 	void setId(int);
 

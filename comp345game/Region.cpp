@@ -6,24 +6,28 @@ using namespace std;
 Region::Region() {
 	name = "no name";
 	id = 0;
-	//owner = null;
-}
-
-Region::Region(string name) {
-	this->name = name;
-	this->id = 0;
+	owner = NULL;
 }
 
 Region::Region(string name, int id) {
 	this->name = name;
 	this->id = id;
+	owner = NULL;
 }
 
-//Region::Region(string name, int id, vector<Region> nearbyRegions) {
-//	this->name = name;
-//	this->id = id;
-//	this->nearbyRegions = nearbyRegions;
-//}
+Region::Region(string name, int id, vector<Region> nearbyRegions) {
+	this->name = name;
+	this->id = id;
+	this->nearbyRegions = nearbyRegions;
+	owner = NULL;
+}
+player* Region::getOwner() {
+	return owner;
+}
+void Region::setOwner(player* player, Region region) {
+	owner = player;
+}
+
 
 //Some copy constructor, check if we need this
 //Region::Region(const Region& region)
@@ -32,18 +36,18 @@ Region::Region(string name, int id) {
 //		*this = region;
 //}
 
-//Region::Region(string name, int id, Player owner) {
-//	this->name = name;
-//	this->id = id;
-//	this->owner = owner;
-//}
+Region::Region(string name, int id, player* owner) {
+	this->name = name;
+	this->id = id;
+	this->owner = owner;
+}
 
-//Region::Region(string name, int id, Player owner, vector<Region> nearbyRegions) {
-//	this->name = name;
-//	this->id = id;
-//	this->owner = owner;
-//	this->nearbyRegions = nearbyRegions;
-//}
+Region::Region(string name, int id, player* owner, vector<Region> nearbyRegions) {
+	this->name = name;
+	this->id = id;
+	this->owner = owner;
+	this->nearbyRegions = nearbyRegions;
+}
 
 vector<int> Region::getNearbyRegionIds() {
 	vector<Region> neighbours = this->getNearbyRegions();

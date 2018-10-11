@@ -4,8 +4,34 @@
 #include <ctime>
 #include <string>
 using namespace std;
+
+int player::nextId = 1;
 player::player() {
-	cout << "I have been initialized " << endl;
+	name = "";
+	id = nextId; nextId++;
+	//add deck
+	//add dice
+}
+
+
+player::~player() {
+	//delete deck;
+	//delete dice
+}
+
+player::player(string name) {
+	name = name;
+	id = nextId; nextId++;
+	//add deck
+	//add dice
+}
+
+player::player(string name, vector<Region> regions) {
+	name = name;
+	id = nextId; nextId++;
+	regions = regions;
+	//add deck
+	//add dice
 }
 
 void player::setRegion(string reg) {
@@ -23,7 +49,7 @@ void player::setMonsterCard(MonsterCard monst) {
 MonsterCard player::getMonsterCard() {
 	return monsterCard;
 }
-
+/*
 bool player::addOwnedCard(GameCard card) {
 	std::string cardName = card.getName();
 	bool cardNotOwned = true;
@@ -33,7 +59,6 @@ bool player::addOwnedCard(GameCard card) {
 			cardNotOwned == false;
 		}
 	}
-
 	
 
 	if (cardNotOwned)
@@ -43,6 +68,7 @@ bool player::addOwnedCard(GameCard card) {
 
 	return true;
 }
+*/
 
 std::vector<GameCard> player::getOwnedCards() {
 	return ownedCards;
@@ -61,8 +87,8 @@ void player::resolveDice() {
 
 }
 
-void player::move() {
-
+void player::move(player* player, Region region) {
+	region.setOwner(player);
 }
 
 void player::buyCards(Deck deck) {
@@ -111,4 +137,4 @@ void player::buyCards(Deck deck) {
 
 		} while (cont);
 	}
-}
+}*/
