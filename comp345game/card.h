@@ -7,7 +7,6 @@ class Card {
 	private:
 		std::string name;
 		int type;
-		// Player ownedBy = NULL;
 
 	public:
 		Card();
