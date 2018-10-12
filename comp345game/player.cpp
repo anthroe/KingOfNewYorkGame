@@ -11,14 +11,12 @@ int player::playerId = 1;
 player::player() {
 	name = "";
 	id = playerId; playerId++;
-	//add deck
 	//add dice
 }
 
 player::player(string name) {
 	this->name = name;
 	id = playerId; playerId++;
-	//add deck
 	//add dice
 }
 
@@ -26,7 +24,6 @@ player::player(string name, Region region) {
 	this->name = name;
 	id = playerId; playerId++;
 	this->region = region;
-	//add deck
 	//add dice
 }
 
@@ -98,13 +95,21 @@ void player::buyCards(Deck deck) {
 
 			// Ensure that they have enough money
 			if (energy >= deck.getPurchaseableCards()[response].getCost()) {
-				addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[response]));
-				energy -= deck.getPurchaseableCards()[response].getCost();
+				// If the card type is Discard, discard the card (in the future, it should also use the effect)
+				if (deck.purchaseCard(deck.getPurchaseableCards()[response]).getPlayType() == "Discard") {
+					deck.discardCard(deck.getPurchaseableCards()[response]);
+				}
+				// Otherwise, the card be purchased is Keep type and should be added to the player's hand
+				else {
+					addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[response]));
+					energy -= deck.getPurchaseableCards()[response].getCost();
+					deck.shuffle();
+				}
 			}
 
 			// Ask the player if they want to buy another card, and repeat until they answer properly
 			do {
-				cout << "Would you like to buy another card? (Y/N)" << endl;;
+				cout << "Would you like to buy another card? (Y/N)" << endl;
 				cin >> response;
 				if (response != 'Y' || response != 'y' || response != 'N' || response != 'n')
 					cout << "Invalid response. Try again." << endl;
