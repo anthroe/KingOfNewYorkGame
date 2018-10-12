@@ -30,6 +30,10 @@ player::player(string name, Region region) {
 	//add dice
 }
 
+void player::setMonsterCard(MonsterCard monst) {
+	monsterCard = monst;
+}
+
 bool player::addOwnedCard(GameCard card) {
 	std::string cardName = card.getName();
 	bool cardNotOwned = true;
