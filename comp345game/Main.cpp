@@ -9,7 +9,7 @@
 #include "Maploader.h"
 #include "playerDriver.h"
 #include "mapDriver.h"
-//#include "diceDriver.h"
+#include "diceTest.h"
 #include "cardtest.h"
 #include "player.h"
 

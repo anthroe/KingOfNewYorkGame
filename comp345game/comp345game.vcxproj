@@ -120,6 +120,7 @@
     <ClCompile Include="deck.cpp" />
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="diceRoller.cpp" />
+    <ClCompile Include="E:\Desktop\New folder\diceTest.cpp" />
     <ClCompile Include="gameCard.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="mapDriver.cpp" />
@@ -139,7 +140,7 @@
     <ClInclude Include="deck.h" />
     <ClInclude Include="dice.h" />
     <ClInclude Include="diceRoller.h" />
-    <ClInclude Include="diceDriver.h" />
+    <ClInclude Include="diceTest.h" />
     <ClInclude Include="gameCard.h" />
     <ClInclude Include="libraries\json.hpp" />
     <ClInclude Include="Map.h" />
@@ -147,7 +148,7 @@
     <ClInclude Include="Maploader.h" />
     <ClInclude Include="monsterCard.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="PlayerDriver.h" />
+    <ClInclude Include="playerDriver.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="tokens.h" />
     <ClInclude Include="unitTiles.h" />
