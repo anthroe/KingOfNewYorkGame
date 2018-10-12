@@ -69,7 +69,7 @@
     <ClCompile Include="playerDriver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\Desktop\New folder\diceTest.cpp">
+    <ClCompile Include="diceTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -120,7 +120,7 @@
     <ClCompile Include="deck.cpp" />
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="diceRoller.cpp" />
-    <ClCompile Include="E:\Desktop\New folder\diceTest.cpp" />
+    <ClCompile Include="diceTest.cpp" />
     <ClCompile Include="gameCard.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="mapDriver.cpp" />
