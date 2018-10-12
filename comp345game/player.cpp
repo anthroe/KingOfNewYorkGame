@@ -1,62 +1,42 @@
-#include "player.h"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <string>
+#include "player.h"
+
 using namespace std;
 
-int player::nextId = 1;
+int player::playerId = 1;
+
 player::player() {
 	name = "";
-	id = nextId; nextId++;
+	id = playerId; playerId++;
 	//add deck
 	//add dice
-}
-
-
-player::~player() {
-	//delete deck;
-	//delete dice
 }
 
 player::player(string name) {
-	name = name;
-	id = nextId; nextId++;
+	this->name = name;
+	id = playerId; playerId++;
 	//add deck
 	//add dice
 }
 
-player::player(string name, vector<Region> regions) {
-	name = name;
-	id = nextId; nextId++;
-	regions = regions;
+player::player(string name, Region region) {
+	this->name = name;
+	id = playerId; playerId++;
+	this->region = region;
 	//add deck
 	//add dice
 }
 
-void player::setRegion(string reg) {
-	region = reg;
-}
-
-string player::getRegion() {
-	return region;
-}
-
-void player::setMonsterCard(MonsterCard monst) {
-	monsterCard = monst;
-}
-
-MonsterCard player::getMonsterCard() {
-	return monsterCard;
-}
-/*
 bool player::addOwnedCard(GameCard card) {
 	std::string cardName = card.getName();
 	bool cardNotOwned = true;
 	// Ensure that the player doesn't already own the card trying to be added
 	for (GameCard c : ownedCards) {
 		if (c.getName() == cardName) {
-			cardNotOwned == false;
+			cardNotOwned = false;
 		}
 	}
 	
@@ -67,11 +47,6 @@ bool player::addOwnedCard(GameCard card) {
 		return false;
 
 	return true;
-}
-*/
-
-std::vector<GameCard> player::getOwnedCards() {
-	return ownedCards;
 }
 
 void player::addEnergy(int n) {
@@ -87,8 +62,8 @@ void player::resolveDice() {
 
 }
 
-void player::move(player* player, Region region) {
-	region.setOwner(player);
+void player::move(Region region) {
+	this->region = region;
 }
 
 void player::buyCards(Deck deck) {
@@ -137,4 +112,4 @@ void player::buyCards(Deck deck) {
 
 		} while (cont);
 	}
-}*/
+}

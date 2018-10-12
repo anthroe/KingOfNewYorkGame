@@ -24,8 +24,8 @@ vector<string> removeCommas(string line) {
 
 //Maploader constructor
 Maploader::Maploader() {
-	mapInPlay = new Map();
 }
+
 //Maploader constructor that takes a file name
 Maploader::Maploader(string textFileName) {
 	ifstream inFile(textFileName);
@@ -113,10 +113,7 @@ Maploader::Maploader(string textFileName) {
 		}
 	}*/
 
-	Map mapInPlay(allRegions);
-	mapInPlay.checkConnection();
-}
-
-Maploader::~Maploader() {
-	delete mapInPlay;
+	Map map("New York", allRegions);
+	map.checkConnection();
+	mapInPlay = map;
 }

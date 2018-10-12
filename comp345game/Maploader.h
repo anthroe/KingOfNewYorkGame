@@ -1,17 +1,19 @@
 #pragma once
-#include "Map.h"
+
 #include <string>
 #include <fstream>
+#include "Map.h"
 
 
 
 class Maploader {
 
 private:
-	Map* mapInPlay;
+	Map mapInPlay;
 
 public:
 	Maploader();
 	Maploader(string);
-	~Maploader();
+
+	Map getMap() { return mapInPlay; }
 };

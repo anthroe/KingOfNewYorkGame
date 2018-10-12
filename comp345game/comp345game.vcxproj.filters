@@ -45,9 +45,6 @@
     <ClCompile Include="diceRoller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="diceTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gameCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,12 +54,6 @@
     <ClCompile Include="monsterCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="playerDriver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="tokens.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -70,6 +61,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="unitTiles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playerDriver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,9 +79,6 @@
     </ClInclude>
     <ClInclude Include="libraries\json.hpp">
       <Filter>Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="card.h">
       <Filter>Header Files</Filter>
@@ -116,16 +110,19 @@
     <ClInclude Include="tokens.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="playerDriver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="diceTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="unitTiles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mapDriver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diceDriver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDriver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

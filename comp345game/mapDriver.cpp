@@ -19,7 +19,7 @@ usa.addNearbyRegions({ canada, mexico });
 mexico.addNearbyRegions({ usa, canada });
 
 vector<Region> randomRegions{canada, usa, mexico };
-Map map1(randomRegions);
+Map map1("New York", randomRegions);
 
 if (map1.checkConnection()) {
 	cout << "Map is Connected properly." << endl;
@@ -41,7 +41,7 @@ edmonton.addNearbyRegions({ newyork, edmonton });
 newyork.addNearbyRegions({ newyork, edmonton });
 
 vector<Region> cityRegions{ montreal, toronto, edmonton, newyork };
-Map map2(cityRegions);
+Map map2("New York", cityRegions);
 
 if (map2.checkConnection()) {
 	cout << "Map is Connected properly." << endl;

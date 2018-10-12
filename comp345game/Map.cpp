@@ -8,10 +8,16 @@
 using namespace std;
 
 Map::Map() {
-
+	name = "none";
+	regions = {};
 }
 
-Map::Map(vector<Region> regions) {
+Map::Map(string name) {
+	this->name = name;
+}
+
+Map::Map(string name, vector<Region> regions) {
+	this->name = name;
 	this->regions = regions;
 }
 
@@ -21,7 +27,6 @@ void Map::addRegion(Region region) {
 
 Map::~Map() {
 	while (regions.size() > 0) {
-		//delete regions.back();		if the regions vector is a pointer
 		regions.pop_back();
 	}
 }
@@ -50,7 +55,7 @@ bool Map::checkConnection() {
 			Region currentNeighbour = regions[currentNeighbourIndex];
 			vector<int> innerNeighbours = currentNeighbour.getNearbyRegionIds();
 
-			cout << "	" + currentNeighbour.getName() << endl;
+			cout << currentNeighbour.getName() << endl;
 
 			if (find(innerNeighbours.begin(), innerNeighbours.end(), currentRegionId) == innerNeighbours.end()) {
 				cout << "Region: " + currentRegion.getName() + " is not properly connected. Please load a proper map." << endl;
