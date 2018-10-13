@@ -19,6 +19,7 @@ int cardDriver() {
 		ListOfMonsterCards.push_back(MonsterCard(cname));
 	}
 
+	// Testing Monster Card Functions
 	for (MonsterCard card : ListOfMonsterCards) {
 		cout << "Monster card name: " << card.getName() << endl;
 		cout << "Monster card type: " << card.getTypeName() << endl;

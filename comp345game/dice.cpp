@@ -35,14 +35,7 @@ void dice::rollDice()
 
 	
 }
-//cout <<"We have landed on the number " << num << " it's symbol is " << topOfDice << endl;
 
 
-	//testing rollDice() functionality
-	/*srand((unsigned)time(0));
-	int random_integer;
-	for (int index = 0; index < 20; index++) {
-		random_integer = (rand() % 6);
-		topOfDice = dice::diceSymbols[random_integer];
-		cout << "We have landed on the number " << random_integer << " it's symbol is " << topOfDice << endl;
-	}*/
+
+	

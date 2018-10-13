@@ -38,6 +38,7 @@ void diceRoller::playerRoll()
 		string token;
 		bool enableArray[size] = { false, false, false, false, false, false };
 		int num = 0, count = 0;
+
 		//making substrings and parsing the input string to know which dices to reroll, from string to int
 		while (getline(ss, token, ','))
 		{
