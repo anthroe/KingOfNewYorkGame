@@ -18,7 +18,7 @@ using namespace std;
 int main() {
 	
 
-	cout << "Loading player:" << endl;
+	/*cout << "Loading player:" << endl;
 	playerDriver();
 	system("pause"); system("CLS");
 
@@ -28,13 +28,13 @@ int main() {
 
 	cout << "Rolling dice:" << endl;
 	diceDriver();
-	system("pause"); system("CLS");
+	system("pause"); system("CLS");*/
 
 	cout << "Loading cards:" << endl;
 	cardDriver();
 	system("pause"); system("CLS");
 	
-	cout << "Loading Map loader:" << endl;
+	/*cout << "Loading Map loader:" << endl;
 	Maploader mapLoaded("test2Bidirectional.map");
 	Map map(mapLoaded.getMap());	
 
@@ -64,7 +64,7 @@ int main() {
 
 	p1.move(mapRegions[position]);
 
-	cout << p1.getName() + " is now in " + p1.getRegion().getName() << endl;
+	cout << p1.getName() + " is now in " + p1.getRegion().getName() << endl;*/
 	
 	system("pause");
 	cout << "End of test." << endl;

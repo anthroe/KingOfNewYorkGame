@@ -1,5 +1,6 @@
 #include "unitTiles.h"
 #include <algorithm>
+#include <ctime>
 #include <random>
 
 using namespace std;
@@ -13,6 +14,6 @@ UnitTiles::UnitTiles() {
 }
 
 void UnitTiles::shuffle() {
-	auto rng = default_random_engine{};
+	auto rng = default_random_engine{(unsigned)time(0)};
 	std::shuffle(unitTiles.begin(), unitTiles.end(), rng);
 }

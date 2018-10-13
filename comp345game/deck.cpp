@@ -1,4 +1,5 @@
 #include "deck.h"
+#include <ctime>
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -6,19 +7,22 @@
 using json = nlohmann::json;
 
 // Opens a file and returns the ifstream object of the file
-std::ifstream Deck::getCardList(std::string fileName) {
+std::ifstream Deck::getCardList(std::string fileName, bool verbose) {
 	// Attempt to open the list of cards.
 	std::ifstream cardList(fileName);
-	std::cout << "Opening:\t" << fileName << std::endl;
 
-	// If the file couldn't be found/opened, exit.
-	if (!cardList) {
-		std::cout << "Could not find:\t" << fileName;
-		std::cin.get();
-		exit(0);
+	if (verbose) {
+		std::cout << "Opening:\t" << fileName << std::endl;
+
+		// If the file couldn't be found/opened, exit.
+		if (!cardList) {
+			std::cout << "Could not find:\t" << fileName;
+			std::cin.get();
+			exit(0);
+		}
+		else
+			std::cout << "Found:  \t" << fileName << "\n" << std::endl;
 	}
-	else
-		std::cout << "Found:  \t" << fileName << "\n" << std::endl;
 
 	return cardList;
 }
@@ -54,6 +58,8 @@ Deck::Deck(std::string deckFile, std::string specialFile){
 }
 
 void Deck::shuffle() {
+	srand((unsigned)time(0));
+
 	int randomNums[3];
 	randomNums[0] = rand() % deck.size();
 
@@ -71,6 +77,7 @@ void Deck::shuffle() {
 	int size = purchaseableCards.size();
 	for (int i = 0; i < 3-size; i++) {
 		purchaseableCards.push_back(deck[randomNums[i]]);
+		deck.erase(deck.begin() + randomNums[i]);
 	}
 }
 
