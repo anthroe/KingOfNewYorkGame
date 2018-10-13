@@ -6,8 +6,7 @@
 using namespace std;
 dice::dice()
 {
-	//
-	//cout << "i am a dice" << endl;
+	
 }
 void dice::setDiceTop(string top)
 {

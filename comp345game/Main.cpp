@@ -16,22 +16,34 @@
 using namespace std;
 
 int main() {
-	string input;
+	
 
+	cout << "Loading player:" << endl;
+	playerDriver();
+	system("pause"); system("CLS");
+
+	cout << "Loading test maps:" << endl;
+	mapDriver();
+	system("pause"); system("CLS");
+
+	cout << "Rolling dice:" << endl;
+	diceDriver();
+	system("pause"); system("CLS");
+
+	cout << "Loading cards:" << endl;
+	cardDriver();
+	system("pause"); system("CLS");
+	
+	cout << "Loading Map loader:" << endl;
 	Maploader mapLoaded("test2Bidirectional.map");
-	Map map(mapLoaded.getMap());
-	//playerDriver();
-	//mapDriver();
-	//diceDriver();
-	//cardDriver();
+	Map map(mapLoaded.getMap());	
 
-	cout << "What is your name?" << endl;
-	cin >> input;
+	string input = "TestPlayer";
 	player p1(input);
 
 	vector<Region> mapRegions = map.getRegions();
 
-	cout << "Where would you like to move to " + p1.getName() << endl;
+	cout << p1.getName() + ", where would you like to move?" << endl;
 	cin >> input;
 
 	int position = -1;
@@ -53,7 +65,8 @@ int main() {
 	p1.move(mapRegions[position]);
 
 	cout << p1.getName() + " is now in " + p1.getRegion().getName() << endl;
-
+	
 	system("pause");
+	cout << "End of test." << endl;
  	return 0;
 }

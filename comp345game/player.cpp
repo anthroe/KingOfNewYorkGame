@@ -3,6 +3,7 @@
 #include <ctime>
 #include <string>
 #include "player.h"
+#include "diceRoller.h"
 
 using namespace std;
 
@@ -11,23 +12,20 @@ int player::playerId = 1;
 player::player() {
 	name = "";
 	id = playerId; playerId++;
-	//add deck
-	//add dice
+	
 }
 
 player::player(string name) {
 	this->name = name;
 	id = playerId; playerId++;
-	//add deck
-	//add dice
+	
 }
 
 player::player(string name, Region region) {
 	this->name = name;
 	id = playerId; playerId++;
 	this->region = region;
-	//add deck
-	//add dice
+	
 }
 
 void player::setMonsterCard(MonsterCard monst) {
@@ -59,7 +57,8 @@ void player::addEnergy(int n) {
 }
 
 void player::rollDice() {
-
+	diceRoller playDice;
+	playDice.playerRoll();
 }
 
 void player::resolveDice() {
@@ -68,6 +67,7 @@ void player::resolveDice() {
 
 void player::move(Region region) {
 	this->region = region;
+
 }
 
 void player::buyCards(Deck deck) {
