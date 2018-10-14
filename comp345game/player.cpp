@@ -8,26 +8,26 @@
 using namespace std;
 
 int player::playerId = 1;
-
+//create a default player with an empty string as a name and an automatically assigned id
 player::player() {
 	name = "";
 	id = playerId; playerId++;
 	
 }
-
+//create a player with an a name and an automatically assigned id
 player::player(string name) {
 	this->name = name;
 	id = playerId; playerId++;
 	
 }
-
+//create a player with an a name and an automatically assigned id, starting at a specific region
 player::player(string name, Region region) {
 	this->name = name;
 	id = playerId; playerId++;
 	this->region = region;
 	
 }
-
+//giving a monsterCard to a player
 void player::setMonsterCard(MonsterCard monst) {
 	monsterCard = monst;
 }
@@ -55,7 +55,7 @@ void player::addEnergy(int n) {
 	if (energy + n > 0)
 		energy += n;
 }
-
+//creating a diceRoller object for the player and rolling the dice
 void player::rollDice() {
 	diceRoller playDice;
 	playDice.playerRoll();
@@ -64,7 +64,7 @@ void player::rollDice() {
 void player::resolveDice() {
 
 }
-
+//player moves to a different region
 void player::move(Region region) {
 	this->region = region;
 
