@@ -5,7 +5,7 @@ Comp 345 C++ Project Fall 2018
 * Anthony Funiciello 40054110
 * Lucas Kourouklis 40063612
 * Walid Ennaceur  40060735
-* David
+* David Bodromian 40004881
 
 This is a term project on the board game "King of New York".
 
