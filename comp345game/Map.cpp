@@ -30,7 +30,13 @@ Map::~Map() {
 		regions.pop_back();
 	}
 }
-
+/*
+checkConnection method will verify that all regions have a bidirectional connection. 
+Each region will be iterated through and their neighbours' Ids will be stored in a vector during the process.
+The neighbours of the regions containing the Ids in this vector will be verified.
+A region is considered bidirectional to another if its neighbours have that very region as their neighbour as well. 
+Therefore, checkConnection will return false the moment a region's neighbour does not have that very region as its own neighbour. 
+*/
 bool Map::checkConnection() {
 	vector<Region> regions = this->regions;
 
