@@ -10,11 +10,14 @@ class dice
 		string getDiceTop();
 		void rollDice();
 		string getStatus();
+		void setResolve(bool res);
+		bool getResolve();
 		void setStatus(string str);
 		dice();
 		
 	private:
 		string topOfDice;
 		string status;
+		bool resolve;
 
 };

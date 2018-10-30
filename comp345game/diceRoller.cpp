@@ -17,11 +17,12 @@ void diceRoller::playerRoll()
 {
 	const string enable = "enable";
 	const string disable = "disable";
-	const int size = (sizeof(diceContainer) / sizeof(*diceContainer));
+	const int size = sizeof(diceContainer) / sizeof(*diceContainer);
 	int numberOfMaxRerolls = 2;
 	//first roll
-	for (int index = 0; index < size; index++) {
+	for (int index = 0; index < diceRoller::size(); index++) {
 		diceContainer[index]->rollDice();
+		diceContainer[index]->setResolve(true);
 	}
 	diceRoller::displayDiceContainer();
 	string input;
@@ -44,14 +45,14 @@ void diceRoller::playerRoll()
 		{
 			istringstream buffer(token);
 			buffer >> num;
-			if (num >= 1 && num <= size)
+			if (num >= 1 && num <= diceRoller::size())
 			{
 				enableArray[num - 1] = true;
 			}
 
 		}
 		//rerolling desired dices
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < diceRoller::size(); i++)
 		{
 			if (enableArray[i] == true)
 			{
@@ -72,10 +73,47 @@ void diceRoller::playerRoll()
 		}
 	}
 }
+void diceRoller::resolveDice()
+{
+	diceRoller::displayDiceContainer();
+	bool resolving = true;
+	cout << endl << "Press 1 to resolve Energy dices" << endl << 
+	"Press 2 to resolve Heal dices" << endl << "Press 3 to resolve Attack" << endl
+	<< "Press 4 to resolve Celebrity dices" << endl << "Press 5 to resolve Destruction " << endl << 
+	"Press 6 to resolve Ouch dices" << endl;
+	string ability[6] = { "Energy", "Heal", "Attack", "Celebrity", "Destruction", "Ouch" };
+	while (resolving)
+	{
+		cout << "Which type of dices would you like to resolve?" << endl;
+		int num;
+		cin >> num;
+		int count = 0;
+		for (int i = 0; i < diceRoller::size(); i++)
+		{
+			if (diceContainer[i]->getDiceTop().compare(ability[num - 1]) == 0 && diceContainer[i]->getResolve() == true)
+			{
+				//call a resolve function
+				cout << "Dice number " << i + 1 << " with type " << diceContainer[i]->getDiceTop() << " has been resolved " << endl;
+				diceContainer[i]->setResolve(false);
+			}
+			if (diceContainer[i]->getResolve() == false)
+				count++;
+			if (count == diceRoller::size())
+			{
+				resolving = false;
+				cout << "All dices have been resolved succesfully, you may begone thot" << endl;
+			}
+				
+		}
+	}
+	
+}
 void diceRoller::displayDiceContainer()
 {
-	int size = (sizeof(diceContainer) / sizeof(*diceContainer));
-	for (int index = 0; index < size; index++) {
+	for (int index = 0; index < diceRoller::size(); index++) {
 		cout << "Dice number "<< index+1 << " has the value " << diceContainer[index]->getDiceTop() << endl;
 	}
+}const int diceRoller::size()
+{
+	return (sizeof(diceContainer) / sizeof(*diceContainer));
 }

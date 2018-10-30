@@ -18,6 +18,10 @@ void dice::setStatus(string str)
 {
 	status = str;
 }
+void dice::setResolve(bool res)
+{
+	resolve = res;
+}
 //return the top of the dice
 void dice::printTop()
 {
@@ -32,6 +36,11 @@ string dice::getDiceTop()
 string dice::getStatus()
 {
 	return status;
+}
+//returns the status of the dice
+bool dice::getResolve()
+{
+	return resolve;
 }
 //generating a number between 1 and 5
 void dice::rollDice()
