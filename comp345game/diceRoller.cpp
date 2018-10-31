@@ -8,6 +8,9 @@ using namespace std;
 // creating a diceRoller object that initializes 6 dices, based on the size of the container
 diceRoller::diceRoller()
 {
+	cout << "DICEROLLER CONSTRUCTOR"<< endl;
+	if (diceContainer == NULL)
+		cout << "FML" << endl;
 	const int size = (sizeof(diceContainer) / sizeof(*diceContainer));
 	for (int index = 0; index < size; index++) {
 		diceContainer[index] = new dice();
@@ -73,41 +76,6 @@ void diceRoller::playerRoll()
 		}
 	}
 }
-void diceRoller::resolveDice()
-{
-	diceRoller::displayDiceContainer();
-	bool resolving = true;
-	cout << endl << "Press 1 to resolve Energy dices" << endl << 
-	"Press 2 to resolve Heal dices" << endl << "Press 3 to resolve Attack" << endl
-	<< "Press 4 to resolve Celebrity dices" << endl << "Press 5 to resolve Destruction " << endl << 
-	"Press 6 to resolve Ouch dices" << endl;
-	string ability[6] = { "Energy", "Heal", "Attack", "Celebrity", "Destruction", "Ouch" };
-	while (resolving)
-	{
-		cout << "Which type of dices would you like to resolve?" << endl;
-		int num;
-		cin >> num;
-		int count = 0;
-		for (int i = 0; i < diceRoller::size(); i++)
-		{
-			if (diceContainer[i]->getDiceTop().compare(ability[num - 1]) == 0 && diceContainer[i]->getResolve() == true)
-			{
-				//call a resolve function
-				cout << "Dice number " << i + 1 << " with type " << diceContainer[i]->getDiceTop() << " has been resolved " << endl;
-				diceContainer[i]->setResolve(false);
-			}
-			if (diceContainer[i]->getResolve() == false)
-				count++;
-			if (count == diceRoller::size())
-			{
-				resolving = false;
-				cout << "All dices have been resolved succesfully, you may begone thot" << endl;
-			}
-				
-		}
-	}
-	
-}
 void diceRoller::displayDiceContainer()
 {
 	for (int index = 0; index < diceRoller::size(); index++) {
@@ -116,4 +84,20 @@ void diceRoller::displayDiceContainer()
 }const int diceRoller::size()
 {
 	return (sizeof(diceContainer) / sizeof(*diceContainer));
+}
+dice *diceRoller::getDiceContainer()
+{
+	return *diceContainer;
+}
+string diceRoller::getDiceContainerTop(int n)
+{
+	return diceContainer[n]->getDiceTop();
+}
+void diceRoller::setDiceResolve(int n, bool res)
+{
+	diceContainer[n]->setResolve(res);
+}
+bool diceRoller::getDiceResolve(int n)
+{
+	return diceContainer[n]->getResolve();
 }

@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
+#include <algorithm>
 #include "player.h"
 #include "diceRoller.h"
 
@@ -9,19 +10,21 @@ using namespace std;
 
 int player::playerId = 1;
 //create a default player with an empty string as a name and an automatically assigned id
-player::player() {
+player::player(){
 	name = "";
 	id = playerId; playerId++;
+	playDice = diceRoller::diceRoller();
 	
 }
 //create a player with an a name and an automatically assigned id
-player::player(string name) {
+player::player(string name){
 	this->name = name;
 	id = playerId; playerId++;
 	
+	
 }
 //create a player with an a name and an automatically assigned id, starting at a specific region
-player::player(string name, Region region) {
+player::player(string name, Region region){
 	this->name = name;
 	id = playerId; playerId++;
 	this->region = region;
@@ -57,13 +60,9 @@ void player::addEnergy(int n) {
 }
 //creating a diceRoller object for the player and rolling the dice
 void player::rollDice() {
-	diceRoller playDice;
 	playDice.playerRoll();
 }
 
-void player::resolveDice() {
-
-}
 //player moves to a different region
 void player::move(Region region) {
 	this->region = region;
@@ -117,3 +116,71 @@ void player::buyCards(Deck deck) {
 		} while (cont);
 	}
 }
+void player::resolveDice()
+{
+	bool resolving = true;
+	const int NUMOFSYMBOLS = 6;
+	int* resolveOrder = new int[NUMOFSYMBOLS];
+	int* numOfResolves = new int[NUMOFSYMBOLS];
+	for (int i = 0; i < NUMOFSYMBOLS; i++)
+	{
+		numOfResolves[i] = 0;
+		resolveOrder[i] = 0;
+	}
+	int j = 0;
+	string ability[NUMOFSYMBOLS] = { "Energy", "Heal", "Attack", "Celebrity", "Destruction", "Ouch" };
+	for (int i = 0; i < NUMOFSYMBOLS; i++)
+	{
+		cout << "Press " << i + 1 << " to resolve " << ability[i] << " dices." << endl;
+	}
+	while (resolving)
+	{
+		int num = -1;
+		while (num > NUMOFSYMBOLS || num < 0)
+		{
+			cout << "Which type of dices would you like to resolve?" << endl;
+			cin >> num;
+			int *end = resolveOrder + NUMOFSYMBOLS;
+			// does not allow duplicate values to be placed in the resolveOrder array
+			int *result = std::find(resolveOrder, end, num);
+			if (result != end) {
+				num = -1;
+			}
+		}
+		resolveOrder[j] = num;
+		j++;
+		int count = 0;
+		for (int i = 0; i < playDice.size(); i++)
+		{
+			
+			if (playDice.getDiceContainerTop(i).compare(ability[num - 1]) == 0
+				&& playDice.getDiceResolve(i) == true)
+			{
+				//call a resolve function
+				numOfResolves[num - 1]++;
+				cout << "Dice number " << i + 1 << " with type " << playDice.getDiceContainerTop(i) << " has been resolved " << endl;
+				playDice.setDiceResolve(i,false);
+			}
+			if (playDice.getDiceResolve(i) == false)
+			{
+				count++;
+			}
+				
+			if (count == playDice.size())
+			{
+				resolving = false;
+				cout << "All dices have been resolved succesfully, you may begone thot" << endl;
+			}
+		}
+		
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		if(resolveOrder[i] > 0 && resolveOrder[i] < 7)
+		cout << "The resolve number " << resolveOrder[i] << " of the name " << ability[resolveOrder[i] -1] << 
+			" has this number of dices " << numOfResolves[resolveOrder[i] - 1] << endl; 
+	}
+	cout << "I have reached the end of the file " << endl;
+}
+
+

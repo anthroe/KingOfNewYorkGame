@@ -9,6 +9,7 @@
 #include "gameCard.h"
 #include "monsterCard.h"
 #include "Map.h"
+#include "diceRoller.h"
 
 using namespace std;
 
@@ -20,8 +21,8 @@ private:
 	MonsterCard monsterCard;
 	vector<GameCard> ownedCards;
 	Region region;
+	diceRoller playDice;
 	int energy = 0;
-	//dice* diceContainer[6];
 
 public:
 	player();
