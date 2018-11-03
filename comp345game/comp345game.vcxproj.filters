@@ -75,9 +75,6 @@
     <ClCompile Include="gameStart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="startup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Region.h">
@@ -138,9 +135,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gameStart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="startup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

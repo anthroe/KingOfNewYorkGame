@@ -6,7 +6,7 @@ MonsterCard::MonsterCard() {
 }
 
 bool MonsterCard::changeHP(int n) {
-	// Do not let a monstersubceed 0 hp, nor exceed 10 hp
+	// Do not let a monster subceed 0 hp, nor exceed 10 hp
 	if (hp + n >= 0 && hp + n <= 10)
 		hp += n;
 	else if (hp + n < 0)

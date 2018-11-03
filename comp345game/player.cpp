@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <sstream>
 #include <string>
 #include <algorithm>
 #include "player.h"
@@ -71,51 +72,84 @@ void player::move(Region region) {
 
 void player::buyCards(Deck deck) {
 	// Store the response in a character
-	char response;
-	// Ask the player if they want to buy a card, and repeat until they answer properly
-	do {
-		cout << "Would you like to buy a card? (Y/N)" << endl;;
-		cin >> response;
-		if (response != 'Y' || response != 'y' || response != 'N' || response != 'n')
-			cout << "Invalid response. Try again." << endl;
-	} while (response != 'Y' || response != 'y' || response != 'N' || response != 'n');
+	string response;
+	response = buyCardPrompt("Would you like to buy a card ? (Y / N)");
 
 	// If they want to buy a card, show them what they can buy
-	if (response == 'Y' || response == 'y') {
-		bool cont = false; // continuation condition
+	if (responseToBool(response)) {
 		do {
 			// Ask which card they want to buy, and repeat until they answer properly
+			int i = deck.getPurchaseableCards().size();
 			do {
+				cout << "\nYou have " << energy << " energy." << endl;
 				cout << "Which card would you like to buy? (Enter the row number)" << endl;
+
 				// Give a list of cards
 				for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
 					GameCard card = deck.getPurchaseableCards()[i];
 					cout << i + 1 << ". " << card.getName() << " (Cost: " << card.getCost() << ")" << endl;
 				}
-				cin >> response;
-			} while (response > deck.getPurchaseableCards().size());
+				cout << deck.getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
 
-			// Ensure that they have enough money
-			if (energy >= deck.getPurchaseableCards()[response].getCost()) {
-				addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[response]));
-				energy -= deck.getPurchaseableCards()[response].getCost();
+				cin >> response;
+				istringstream iss(response);
+				iss >> i;
+			} while (i > deck.getPurchaseableCards().size() + 1);
+
+			// If the player chose to get new cards
+			if (i == deck.getPurchaseableCards().size() + 1) {
+				// Ensure that the player has enough energy for the transaction
+				if (energy < 2) {
+					cout << "\nYou don't have enough energy for that card" << endl;
+				} else {
+					energy -= 2;
+					for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
+						if (!deck.discardCard(deck.getPurchaseableCards()[0]))
+							cout << "Error getting new cards";
+						else
+							deck.shuffle();
+					}
+				}
+			// Else the player chose to buy a card
+			} else {
+				// Ensure that the player has enough energy for the transaction
+				if (energy >= deck.getPurchaseableCards()[i-1].getCost()) {
+					energy -= deck.getPurchaseableCards()[i-1].getCost();
+					addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[i-1]));
+				}
+				else
+					cout << "\nYou don't have enough energy for that card" << endl;
 			}
 
-			// Ask the player if they want to buy another card, and repeat until they answer properly
-			do {
-				cout << "Would you like to buy another card? (Y/N)" << endl;;
-				cin >> response;
-				if (response != 'Y' || response != 'y' || response != 'N' || response != 'n')
-					cout << "Invalid response. Try again." << endl;
-			} while (response != 'Y' || response != 'y' || response != 'N' || response != 'n');
+			cout << "\n" << endl;
+			response = buyCardPrompt("Would you like to buy another card ? (Y / N)");
 
-			// If they want to buy another card set cont to true
-			if (response == 'Y' || response == 'y')
-				cont = true;
+			// Add a new purchaseable card
+			deck.shuffle();
 
-		} while (cont);
+		} while (responseToBool(response));
 	}
 }
+
+// Takes a response Y, y, N, or n and turns it into a bool
+bool player::responseToBool(string response) {
+	return (response.compare("Y") == 0 || response.compare("y") == 0);
+}
+
+// Ask the player if they want to buy a card, and repeat until they answer properly
+string inline player::buyCardPrompt(string prompt) {
+	string response = "";
+
+	do {
+		cout << prompt << endl;;
+		cin >> response;
+		if (!(response.compare("Y") == 0 || response.compare("y") == 0 || response.compare("N") == 0 || response.compare("n") == 0))
+			cout << "Invalid response. Try again.\n" << endl;
+	} while (!(response.compare("Y") == 0 || response.compare("y") == 0 || response.compare("N") == 0 || response.compare("n") == 0));
+	
+	return response;
+}
+
 void player::resolveDice()
 {
 	bool resolving = true;

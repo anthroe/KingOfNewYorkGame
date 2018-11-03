@@ -20,6 +20,11 @@ int playerDriver()
 	cout << "Player 1 has rolled " << player1.firstRoll() << " attacks, try to beat that!" << endl;
 	player1.rollDice();
 	player1.resolveDice();
+
+	Deck deck;
+	player1.addEnergy(50);
+	player1.buyCards(deck);
+
 	system("pause");
 	return 0;
 }

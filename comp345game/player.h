@@ -23,6 +23,8 @@ private:
 	Region region;
 	diceRoller playDice;
 	int energy = 0;
+	bool inline responseToBool(string response);
+	string inline buyCardPrompt(string prompt);
 
 public:
 	player();
