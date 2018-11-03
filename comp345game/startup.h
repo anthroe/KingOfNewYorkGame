@@ -15,7 +15,7 @@ private:
 
 public:
 	startup(/*vector<player*>, Map* */);
-	startup(/* vector<player*> players, Map* map, bool quickStart */);
+//	startup(/* vector<player*> players, Map* map, bool quickStart */);
 	void randomPlayerOrder();
 
 	vector<player*> getPlayerOrder();
