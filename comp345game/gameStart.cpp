@@ -66,9 +66,9 @@ void gameStart::createPlayers() {
 	}
 
 	cout << "\nPlayers playing: " << endl;
-	for (int i = 0; i < getPlayers().size(); i++) {
-		cout << getPlayers()[i].getName() + " playing as: " + getPlayers()[i].getMonsterCard().getName() << endl;
-	//	cout << getPlayers()[i].getOwnedCards() << endl;
+
+	for (player player : playersInGame) {
+		cout << player.getName() + " playing as: " + player.getMonsterCard().getName() << endl;
 	}
 }
 
