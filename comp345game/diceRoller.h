@@ -13,6 +13,7 @@ public:
 	bool getDiceResolve(int n);
 	void setDiceResolve(int n, bool res);
 	const int size();
+	void firstRoll();
 
 
 private:

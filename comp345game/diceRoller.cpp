@@ -76,6 +76,7 @@ void diceRoller::playerRoll()
 		}
 	}
 }
+
 void diceRoller::displayDiceContainer()
 {
 	for (int index = 0; index < diceRoller::size(); index++) {
@@ -100,4 +101,16 @@ void diceRoller::setDiceResolve(int n, bool res)
 bool diceRoller::getDiceResolve(int n)
 {
 	return diceContainer[n]->getResolve();
+}
+void diceRoller::firstRoll()
+{
+	const string enable = "enable";
+	const string disable = "disable";
+	const int size = sizeof(diceContainer) / sizeof(*diceContainer);
+	int numberOfMaxRerolls = 2;
+	//first roll
+	for (int index = 0; index < diceRoller::size(); index++) {
+		diceContainer[index]->rollDice();
+		diceContainer[index]->setResolve(true);
+	}
 }

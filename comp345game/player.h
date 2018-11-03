@@ -42,9 +42,10 @@ public:
 
 	void addEnergy(int);
 	int getEnergy() { return energy; }
-
+	void applyDiceEffect(int effect, int numberOfResolves);
 	void rollDice();
 	void resolveDice();
+	int firstRoll();
 
 	void move(Region);
 

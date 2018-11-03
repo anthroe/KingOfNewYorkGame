@@ -16,6 +16,8 @@ int playerDriver()
 	player player1(input);
 	cout << "Welcome to King of New York: " + player1.getName() +"\n" << endl;
 	cout << player1.getName() + " is rolling the dice \n" << endl;
+
+	cout << "Player 1 has rolled " << player1.firstRoll() << " attacks, try to beat that!" << endl;
 	player1.rollDice();
 	player1.resolveDice();
 	system("pause");

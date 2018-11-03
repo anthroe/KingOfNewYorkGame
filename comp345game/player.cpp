@@ -176,11 +176,83 @@ void player::resolveDice()
 	}
 	for (int i = 0; i < 6; i++)
 	{
-		if(resolveOrder[i] > 0 && resolveOrder[i] < 7)
-		cout << "The resolve number " << resolveOrder[i] << " of the name " << ability[resolveOrder[i] -1] << 
-			" has this number of dices " << numOfResolves[resolveOrder[i] - 1] << endl; 
+		if (resolveOrder[i] > 0 && resolveOrder[i] < 7)
+		{
+			cout << "The resolve number " << resolveOrder[i] << " of the name " << ability[resolveOrder[i] - 1] <<
+				" has this number of dices " << numOfResolves[resolveOrder[i] - 1] << endl;
+			applyDiceEffect(resolveOrder[i], numOfResolves[resolveOrder[i] - 1]);
+		}
 	}
 	cout << "I have reached the end of the file " << endl;
 }
-
+void player::applyDiceEffect(int effect, int numberOfResolves)
+{
+	if (effect == 1 && numberOfResolves > 0)
+	{
+		addEnergy(numberOfResolves);
+		cout << "I added energy and this is how much I added " << this->getEnergy() << endl;
+	}
+	else if (effect == 2 && numberOfResolves > 0)
+	{
+		getMonsterCard().changeHP(numberOfResolves);
+		cout << "I added health to monster and this is how much I added " << this->getMonsterCard().getHP() << endl;
+		//monster underfined thus cannot work
+	}
+	else if (effect == 3 && numberOfResolves > 0)
+	{
+		//get the static player vector, iterate through the vector, checking the region
+		//if the corresponding region is inside or outside manhattan
+		//damage according to the dice effect rule
+	}
+	else if (effect == 4 && numberOfResolves > 0) //we need to keep track of superstar card
+	{
+		//if superstar card is infront of you +1 vp for every numberOfResolves
+		if (numberOfResolves > 2)
+		{
+			//remove superstar card from infront of the previous holder
+			//set superstar card infront of you
+			getMonsterCard().changeVP(1);
+			if (numberOfResolves > 3)
+			{
+				getMonsterCard().changeVP(numberOfResolves - 3);
+			}
+		}
+	}
+	else if (effect == 5 && numberOfResolves > 0)
+	{
+		//wait till military buildings and units to be implemented
+	}
+	else if (effect == 6 && numberOfResolves > 0)
+	{
+		if (numberOfResolves == 1)
+		{
+			//self damage 1 * unit tiles in borough
+		}	
+		else if (numberOfResolves == 2)
+		{
+			//all monsters in your borough suffer 1 damage per unit tile of bourough
+		}
+		else if (numberOfResolves > 3)
+		{
+			//all monsters in the borough suffer 1 damage per unit tile of the entire city 
+			//place status of liberty infront
+		}
+		//has to do with unit tiles
+	}
+}
+int player::firstRoll()
+{
+	playDice.firstRoll();
+	playDice.displayDiceContainer();
+	int count = 0;
+	for (int i = 0; i < playDice.size(); i++)
+	{
+		if (playDice.getDiceContainerTop(i).compare("Attack") == 0)
+		{
+			count++;
+		}
+			
+	}
+	return count;
+}
 
