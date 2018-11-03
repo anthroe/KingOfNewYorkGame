@@ -17,17 +17,43 @@ gameStart::gameStart() {
 	createPlayers();
 }
 
+void gameStart::selectMap() {
+	string mapName;
+	cout << "Select a map from the list of maps:" << endl;
+	listMaps();
+
+	cout << "Enter the map name:" << endl;
+	cin >> mapName;
+
+	while (!fileExists(mapName)) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid map name. Try again:" << endl;
+		cin >> mapName;
+	}
+	Maploader mapLoaded(mapName);
+	size_t lastindex = mapName.find_last_of("."); //find "." in file name
+	string rawname = mapName.substr(0, lastindex); //return just the filename
+	cout << "You are now playing on " + rawname << endl;
+	cout << "\n" << endl;
+
+	map = mapLoaded.getMap();
+}
+
 void gameStart::createPlayers() {
-	int inputPlayers =  NULL;
+	float inputPlayers;
 	cout << endl << "How many players will play? (2 - 6)" << endl;
 	cin >> inputPlayers;
-	while ((inputPlayers < 2 || inputPlayers > 6) || (isdigit(inputPlayers))) {
+
+	while (cin.fail() || inputPlayers != (int) inputPlayers|| (inputPlayers < 2 || inputPlayers > 6)) {
 		cin.clear();
 		cin.ignore(6, '\n');
 		cout << "Please select a valid amount of players (2 - 6): " << endl;		
 		cin >> inputPlayers;
 	}
-	
+
+	numberOfPlayers = (int)inputPlayers;
+
 	// Create a new deck and the players
 	Deck deck;
 	for (int i = 1; i <= inputPlayers; i++) {
@@ -44,29 +70,8 @@ void gameStart::createPlayers() {
 		cout << getPlayers()[i].getName() + " playing as: " + getPlayers()[i].getMonsterCard().getName() << endl;
 	//	cout << getPlayers()[i].getOwnedCards() << endl;
 	}
-
 }
 
-void gameStart::selectMap() {
-	string mapName;
-	cout << "Select a map from the list of maps:" << endl;
-	listMaps();
-
-	cout << "Enter the map name:" << endl;
-	cin >> mapName;
-	
-	while (!fileExists(mapName)) {
-		cin.clear();
-		cin.ignore(1000, '\n');
-		cout << "Invalid map name. Try again:" << endl;
-		cin >> mapName;
-	}
-	Maploader mapLoaded(mapName);
-	size_t lastindex = mapName.find_last_of("."); //find "." in file name
-	string rawname = mapName.substr(0, lastindex); //return just the filename
-	cout << "You are now playing on " + rawname << endl;
-	cout << "\n" << endl;
-}
 inline bool gameStart::fileExists(const std::string& name)
 {
 	ifstream file(name);
@@ -75,8 +80,8 @@ inline bool gameStart::fileExists(const std::string& name)
 	else                 // If the file was found, then file is non-0.
 		return true;     // The file was found.
 }
-int gameStart::listMaps() {
 
+int gameStart::listMaps() {
 	DIR *dir;
 	struct dirent *ent;
 	if ((dir = opendir("./maps")) != NULL) {
@@ -110,19 +115,18 @@ int gameStart::listMaps() {
 	}
 	return 0;
 }
+
 void gameStart::buildMonster() {
 	json monsterCardListJson;
 	Deck::getCardList("resources/kony-monster-card-list.json") >> monsterCardListJson;
 
 	// Build a list of MonsterCard objects listing monsters cards
-	
 	for (json card : monsterCardListJson) {
 		string cname = card["name"];
 		ListOfMonsterCards.push_back(cname);
 	}
 }
 MonsterCard gameStart::selectMonster() {
-	
 	//print list of available monsters to choose from
 	cout << "\nMonsters available: " << endl;
 	for (int i = 0; i < ListOfMonsterCards.size(); i++) {
@@ -133,12 +137,14 @@ MonsterCard gameStart::selectMonster() {
 	cout << "\nSelect a monster card: " << endl; 
 	cin >> choice;
 	checkMonsterExists(choice);
+
 	while (!checkMonsterExists(choice)) {
 		cin.clear();
 		cin.ignore(100, '\n');
 		cout << "Please select a valid monster: " << endl;
 		cin >> choice;
 	}
+
 	ListOfMonsterCards.erase(remove(ListOfMonsterCards.begin(), ListOfMonsterCards.end(), choice), ListOfMonsterCards.end());
 	return MonsterCard(choice);
 }
@@ -156,7 +162,4 @@ bool gameStart::checkMonsterExists(string choice) {
 		}
 	}
 	return selectValid;
-}
-vector<player> gameStart::getPlayers() {
-	return playersInGame;
 }

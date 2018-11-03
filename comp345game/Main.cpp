@@ -18,7 +18,7 @@ using namespace std;
 int main() {
 
 	gameStart();
-	
+
 	system("pause");
 	cout << "End of test." << endl;
  	return 0;

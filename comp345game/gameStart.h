@@ -9,23 +9,24 @@ using namespace std;
 
 class gameStart {
 
+private:
+	dice* dice;
+	Map map;
+	int numberOfPlayers;
+	vector<player> playersInGame;
+	vector<string> ListOfMonsterCards;
+
 public:
 	gameStart();
-	vector<player> getPlayers();
-	vector<string> ListOfMonsterCards;
-private:
-	dice * dice;
-	Map * map;
-	string * playerNames = NULL;
-	int numberOfPlayers;
+	vector<player> getPlayers() { return playersInGame; }
+
 	int listMaps();
-	void createPlayers();
-	void selectMap();
 	MonsterCard selectMonster();
-	//bool operator==(const MonsterCard &o);
 	inline bool fileExists(const string&);
 	bool checkMonsterExists(string);
+
+	void selectMap();
+	void createPlayers();
 	void buildMonster();
-	vector<player> playersInGame;
 
 };
