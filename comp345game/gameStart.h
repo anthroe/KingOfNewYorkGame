@@ -10,18 +10,22 @@ using namespace std;
 class gameStart {
 
 public:
-	gameStart(/*int numberOfPlayers, string* playerNames*/);
-	~gameStart();
-	//void Load(string mapName);
-	//int playGame();
-	vector<player*> getPlayers();
+	gameStart();
+	vector<player> getPlayers();
+	vector<string> ListOfMonsterCards;
 private:
 	dice * dice;
 	Map * map;
-	string * playerNames;
+	string * playerNames = NULL;
 	int numberOfPlayers;
 	int listMaps();
 	void createPlayers();
-	vector<player*> playersInGame;
+	void selectMap();
+	MonsterCard selectMonster();
+	//bool operator==(const MonsterCard &o);
+	inline bool fileExists(const string&);
+	bool checkMonsterExists(string);
+	void buildMonster();
+	vector<player> playersInGame;
 
 };

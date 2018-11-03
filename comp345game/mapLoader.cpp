@@ -31,6 +31,7 @@ Maploader::Maploader(string textFileName) {
 	ifstream inFile(textFileName);
 	if (!inFile) { //exit if can't find file
 		cout << "Unable to open file";
+		system("pause");
 		exit(1);
 	}
 

@@ -72,6 +72,12 @@
     <ClCompile Include="diceTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gameStart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="startup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Region.h">
@@ -128,6 +134,15 @@
     <ClInclude Include="diceTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dirent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameStart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="startup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\kony-special-card-list.json">
@@ -144,5 +159,6 @@
     <None Include="test1GameMap.map" />
     <None Include="test2Bidirectional.map" />
     <None Include="test3FullConnect.map" />
+    <None Include="NewYork.map" />
   </ItemGroup>
 </Project>
