@@ -16,6 +16,7 @@ private:
 	dice* dice;
 	int numberOfPlayers;
 	vector<Region*> mapRegions;
+
 	vector<string> ListOfMonsterCards;
 
 public:
@@ -24,7 +25,7 @@ public:
 	vector<player> getPlayers() { return playersInGame; }
 
 	int listMaps();
-	MonsterCard selectMonster();
+	void selectMonster(player *currPlayer);
 	inline bool fileExists(const string&);
 	bool checkMonsterExists(string);
 

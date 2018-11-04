@@ -18,7 +18,7 @@ private:
 	string name;
 	int id;
 	static int playerId;
-	MonsterCard monsterCard;
+	MonsterCard *monsterCard;
 	vector<GameCard> ownedCards;
 	Region* region;
 	diceRoller playDice;
@@ -33,8 +33,9 @@ public:
 	int getId() { return id;  };
 	string getName() { return name; };
 
-	void setMonsterCard(MonsterCard);
-	MonsterCard getMonsterCard() { return monsterCard; };
+
+	void setMonsterCard(MonsterCard *monst);
+	MonsterCard *getMonsterCard() { return monsterCard; };
 
 	bool addOwnedCard(GameCard);
 	vector<GameCard> getOwnedCards() { return ownedCards; };
