@@ -24,11 +24,14 @@ player::player(string name){
 	this->name = name;
 	id = playerId; playerId++;
 	region = NULL;
+	playDice = diceRoller::diceRoller();
+	
 	
 }
 
+
 //giving a monsterCard to a player
-void player::setMonsterCard(MonsterCard monst) {
+void player::setMonsterCard(MonsterCard *monst) {
 	monsterCard = monst;
 }
 
@@ -316,7 +319,7 @@ void player::resolveDice()
 			if (count == playDice.size())
 			{
 				resolving = false;
-				cout << "All dices have been resolved succesfully, you may begone thot" << endl;
+				cout << "All dices have been resolved succesfully" << endl;
 			}
 		}
 		
@@ -341,8 +344,8 @@ void player::applyDiceEffect(int effect, int numberOfResolves)
 	}
 	else if (effect == 2 && numberOfResolves > 0)
 	{
-		getMonsterCard().changeHP(numberOfResolves);
-		cout << "I added health to monster and this is how much I added " << this->getMonsterCard().getHP() << endl;
+		getMonsterCard()->changeHP(numberOfResolves);
+		cout << "I added health to monster and this is how much I added " << getMonsterCard()->getHP() << endl;
 		//monster underfined thus cannot work
 	}
 	else if (effect == 3 && numberOfResolves > 0)
@@ -350,6 +353,15 @@ void player::applyDiceEffect(int effect, int numberOfResolves)
 		//get the static player vector, iterate through the vector, checking the region
 		//if the corresponding region is inside or outside manhattan
 		//damage according to the dice effect rule
+		for (player otherPlayer : gameStart::playersInGame) {
+			//if (player.getRegion().getName() == "Manhattan1" || player.getRegion().getName() == "Manhattan2" || (player.getRegion().getName() == "Manhattan3")) {
+			if(otherPlayer.getName().compare(getName()) != 0)
+			{
+				
+				otherPlayer.getMonsterCard()->changeHP(-numberOfResolves);
+				cout << otherPlayer.getMonsterCard()->getName() << "'s hp is now " << otherPlayer.getMonsterCard()->getHP() << " damage dealt " << numberOfResolves<< endl;
+			}
+		}
 	}
 	else if (effect == 4 && numberOfResolves > 0) //we need to keep track of superstar card
 	{
@@ -358,10 +370,10 @@ void player::applyDiceEffect(int effect, int numberOfResolves)
 		{
 			//remove superstar card from infront of the previous holder
 			//set superstar card infront of you
-			getMonsterCard().changeVP(1);
+			getMonsterCard()->changeVP(1);
 			if (numberOfResolves > 3)
 			{
-				getMonsterCard().changeVP(numberOfResolves - 3);
+				getMonsterCard()->changeVP(numberOfResolves - 3);
 			}
 		}
 	}
@@ -373,7 +385,7 @@ void player::applyDiceEffect(int effect, int numberOfResolves)
 	{
 		if (numberOfResolves == 1)
 		{
-			//self damage 1 * unit tiles in borough
+			//self damage 1 * unit tiles in own your region
 		}	
 		else if (numberOfResolves == 2)
 		{

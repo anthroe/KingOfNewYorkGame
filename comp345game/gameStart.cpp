@@ -67,14 +67,16 @@ void gameStart::createPlayers() {
 		cout << "Enter player " << (i) << "'s name:" << endl;
 		cin >> playerName;
 		player currPlayer = player(playerName);
-		currPlayer.setMonsterCard(selectMonster());
-		playersInGame.push_back(currPlayer);		
+		selectMonster(&currPlayer);
+		playersInGame.push_back(currPlayer);
 	}
 
 	cout << "\nPlayers playing: " << endl;
 
 	for (player player : playersInGame) {
-		cout << player.getName() + " playing as: " + player.getMonsterCard().getName() << endl;
+		cout << player.getName() + " playing as: " + player.getMonsterCard()->getName() << endl;
+		player.rollDice();
+		player.resolveDice();
 	}
 }
 
@@ -132,7 +134,7 @@ void gameStart::buildMonster() {
 		ListOfMonsterCards.push_back(cname);
 	}
 }
-MonsterCard gameStart::selectMonster() {
+void gameStart::selectMonster(player *currPlayer) {
 	//print list of available monsters to choose from
 	cout << "\nMonsters available: " << endl;
 	for (int i = 0; i < ListOfMonsterCards.size(); i++) {
@@ -152,7 +154,8 @@ MonsterCard gameStart::selectMonster() {
 	}
 
 	ListOfMonsterCards.erase(remove(ListOfMonsterCards.begin(), ListOfMonsterCards.end(), choice), ListOfMonsterCards.end());
-	return MonsterCard(choice);
+	MonsterCard *monst = new MonsterCard(choice);
+	currPlayer->setMonsterCard(monst);
 }
 
 bool gameStart::checkMonsterExists(string choice) {
