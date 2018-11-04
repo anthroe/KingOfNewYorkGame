@@ -39,6 +39,7 @@ public:
 
 	bool addOwnedCard(GameCard);
 	vector<GameCard> getOwnedCards() { return ownedCards; };
+	bool transferSpecialCard(string);
 
 	void addEnergy(int);
 	int getEnergy() { return energy; }
@@ -48,9 +49,9 @@ public:
 	void move();
 	void move_kony();
 
-	void applyDiceEffect(int, int);
+	void applyDiceEffect(int, int, Deck);
 	void rollDice();
-	void resolveDice();
+	void resolveDice(Deck);
 	int firstRoll();
 
 	void buyCards(Deck);

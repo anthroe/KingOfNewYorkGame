@@ -21,6 +21,7 @@ class Deck {
 		Deck(string deckFile = "resources/kony-card-list.json", string specialFile = "resources/kony-special-card-list.json");
 		vector<GameCard> getPurchaseableCards() { return purchaseableCards; };
 		vector<GameCard> getDeck() { return deck; };
+		vector<GameCard> getSpecialCards() { return specialCards; };
 		void shuffle();
 		bool discardCard(GameCard card);
 		GameCard purchaseCard(GameCard card);

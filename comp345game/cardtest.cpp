@@ -1,7 +1,7 @@
 #include "cardtest.h"
 #include "deck.h"
 #include "tokens.h"
-#include "unitTiles.h"
+#include "tiles.h"
 #include <ctime>
 #include <iostream>
 #include <fstream>
@@ -168,7 +168,7 @@ int cardDriver() {
 
 	// Unit Tiles Functions
 	cout << "\nTesting Unit Tiles Functions" << endl;
-	UnitTiles ut;
+	Tiles ut;
 	vector<int> tiles = ut.getTiles();
 
 	cout << "Before shuffle:" << endl;

@@ -54,6 +54,20 @@ bool player::addOwnedCard(GameCard card) {
 	return true;
 }
 
+bool player::transferSpecialCard(string cardName) {
+	for (player otherPlayer : gameStart::playersInGame) {
+		if (otherPlayer.getName().compare(getName()) != 0){
+			vector<GameCard> otherOwnedCards = otherPlayer.getOwnedCards();
+			for (int i = 0; i < otherOwnedCards.size(); i++) {
+				if (otherOwnedCards[i].getName().compare("Superstar") == 0) {
+					addOwnedCard(otherOwnedCards[i]);
+					otherPlayer.ownedCards.erase(otherPlayer.ownedCards.begin() + i);
+				}
+			}
+		}
+	}
+}
+
 void player::addEnergy(int n) {
 	if (energy + n > 0)
 		energy += n;
@@ -266,7 +280,7 @@ string inline player::buyCardPrompt(string prompt) {
 	return response;
 }
 
-void player::resolveDice()
+void player::resolveDice(Deck deck)
 {
 	bool resolving = true;
 	const int NUMOFSYMBOLS = 6;
@@ -330,12 +344,13 @@ void player::resolveDice()
 		{
 			cout << "The resolve number " << resolveOrder[i] << " of the name " << ability[resolveOrder[i] - 1] <<
 				" has this number of dices " << numOfResolves[resolveOrder[i] - 1] << endl;
-			applyDiceEffect(resolveOrder[i], numOfResolves[resolveOrder[i] - 1]);
+			applyDiceEffect(resolveOrder[i], numOfResolves[resolveOrder[i] - 1], deck);
 		}
 	}
 	cout << "I have reached the end of the file " << endl;
 }
-void player::applyDiceEffect(int effect, int numberOfResolves)
+
+void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 {
 	if (effect == 1 && numberOfResolves > 0)
 	{
@@ -369,7 +384,17 @@ void player::applyDiceEffect(int effect, int numberOfResolves)
 		if (numberOfResolves > 2)
 		{
 			//remove superstar card from infront of the previous holder
+			if (!(deck.getSpecialCards()[0].getName().compare("Superstar") == 0 || deck.getSpecialCards()[1].getName().compare("Superstar") == 0)) {
+				//find the player that has the Superstar card
+				transferSpecialCard("Superstar");
+			}
 			//set superstar card infront of you
+			else {
+				if (deck.getSpecialCards()[0].getName().compare("Superstar") == 0)
+					addOwnedCard(deck.getSpecialCards()[0]);
+				else
+					addOwnedCard(deck.getSpecialCards()[1]);
+			}
 			getMonsterCard()->changeVP(1);
 			if (numberOfResolves > 3)
 			{
