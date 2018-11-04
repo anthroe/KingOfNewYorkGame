@@ -5,18 +5,22 @@
 #include "Maploader.h"
 #include "player.h"
 #include <string>
+
 using namespace std;
 
 class gameStart {
 
 private:
-	dice* dice;
+
 	Map map;
+	vector<Region> mapRegions;
+	dice* dice;
 	int numberOfPlayers;
 	vector<player> playersInGame;
 	vector<string> ListOfMonsterCards;
 
 public:
+
 	gameStart();
 	vector<player> getPlayers() { return playersInGame; }
 

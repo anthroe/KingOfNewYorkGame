@@ -8,24 +8,25 @@ class Region {
 private:
 	string name;
 	int id;
-	vector<Region> nearbyRegions;
+	int playerCount;
+	vector<Region*> Neighbours;
 
 public:
 	Region();
 	Region(string, int);
-	Region(string name, int id, vector<Region> nearbyRegions);
 	Region (const Region&);
 
 	string getName() const { return name; }
 	int getId() const { return id;  }
-	vector<Region> getNearbyRegions() const { return nearbyRegions; }
-	vector<int> getNearbyRegionIds();
-	
+	vector<Region*> getNeighbours() { return Neighbours; }
+	vector<int> getNeighbourIDs();
+	int getPlayerCount() { return playerCount; }
 
-	void setId(int);
-
-	void addNearbyRegion(Region);
-	void addNearbyRegions(vector<Region>);
+	void setID(int);
+	void increasePlayerCount();
+	void reducePlayerCount();
+	void addNeighbour(Region*);
+	void addNeighbours(vector<Region*>);
 
 	bool operator==(const Region&);
 };

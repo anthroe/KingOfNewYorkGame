@@ -31,113 +31,22 @@ Map::~Map() {
 	}
 }
 /*
-checkConnection method will verify that all regions have a bidirectional connection. 
-Each region will be iterated through and their neighbours' Ids will be stored in a vector during the process.
-The neighbours of the regions containing the Ids in this vector will be verified.
-A region is considered bidirectional to another if its neighbours have that very region as their neighbour as well. 
-Therefore, checkConnection will return false the moment a region's neighbour does not have that very region as its own neighbour. 
+Verify that all regions are connected in some way, be it directly or through neighbors.
 */
-bool Map::checkConnection() {
-	vector<Region> regions = this->regions;
-
-	for (int i = 0; i < regions.size(); i++) {
-		Region currentRegion = regions[i];
-		int currentRegionId = currentRegion.getId();
-		vector<int> neighbourIds = currentRegion.getNearbyRegionIds();
-
-		cout << "Region: " + currentRegion.getName() << endl;
-
-		for (int i = 0; i < neighbourIds.size(); i++) {
-
-			int currentNeighbourId = neighbourIds[i];
-			int currentNeighbourIndex = 0;
-
-			for (int i = 0; i < regions.size(); i++) {
-				if (regions[i].getId() == currentNeighbourId) {
-					currentNeighbourIndex = i;
-				}
-			}
-
-			Region currentNeighbour = regions[currentNeighbourIndex];
-			vector<int> innerNeighbours = currentNeighbour.getNearbyRegionIds();
-
-			cout << currentNeighbour.getName() << endl;
-
-			if (find(innerNeighbours.begin(), innerNeighbours.end(), currentRegionId) == innerNeighbours.end()) {
-				cout << "Region: " + currentRegion.getName() + " is not properly connected. Please load a proper map." << endl;
-				return false;
-			}
-
-		}
-
-	}
-	cout << "The map has been connected successfully." << endl;
-	return true;
-};
-
-/*
-Static verification for one directional maps
-	*I'm leaving this here in case it becomes useful
-
-vector<int> a1 = { 2, 3, 4, 5 };
-vector<int> a2 = { 1, 3, 4, 5 };
-vector<int> a3 = { 1, 2, 4, 5 };
-vector<int> a4 = { 1, 2, 3, 5 };
-vector<int> a5 = { 1, 2, 3, 4, 6 };
-vector<int> a6 = { 1, 2, 3, 4, 7 };
-vector<int> a7 = { 1, 2, 3, 4 };
-vector<int> a7 = { 1, 2, 3, 4, 5 };
 
 bool Map::checkConnection() {
 	vector<Region> regions = this->regions;
+	Region* trivialRegion = &regions[0];
 
-	for (int i = 0; i < regions.size(); i++) {
-		Region currentRegion = regions[i];
-		int id = currentRegion.getId();
+	for (int i = 1; i < regions.size()-1; i++) {
+		vector<Region*> neighbours = regions[i].getNeighbours();
 
-
-		switch (id) {
-		case 1:
-			if (currentRegion.getNearbyRegionIds() != a1)
-				return false;
-			break;
-
-		case 2:
-			if (currentRegion.getNearbyRegionIds() != a2)
-				return false;
-			break;
-
-		case 3:
-			if (currentRegion.getNearbyRegionIds() != a3)
-				return false;
-			break;
-
-		case 4:
-			if (currentRegion.getNearbyRegionIds() != a4)
-				return false;
-
-			break;
-
-		case 5:
-			if (currentRegion.getNearbyRegionIds() != a5)
-				return false;
-			break;
-
-		case 6:
-			if (currentRegion.getNearbyRegionIds() != a6)
-				return false;
-			break;
-
-		case 7:
-			if (currentRegion.getNearbyRegionIds() != a7)
-				return false;
-			break;
+		if (neighbours.size() == 0 || (neighbours.size() == 1 && neighbours[0] == trivialRegion)) {
+			return false;
 		}
 
+		trivialRegion = &regions[i];
 	}
-
-	cout << "we made it " << endl;
 
 	return true;
 }
-*/

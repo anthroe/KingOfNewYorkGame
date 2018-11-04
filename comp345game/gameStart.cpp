@@ -1,14 +1,18 @@
-#include "gameStart.h"
 #include <sstream>
 #include <iostream>
 #include <string>
+#include <filesystem>
+#include "gameStart.h"
 #include "dirent.h"
 #include "player.h"
 #include "deck.h"
-#include <filesystem>
 #include "./libraries/json.hpp"
-using json = nlohmann::json;
+
 using namespace std;
+using json = nlohmann::json;
+
+//Map gameStart::map;
+//vector<Region> gameStart::mapRegions;
 
 gameStart::gameStart() {
 	
@@ -38,6 +42,8 @@ void gameStart::selectMap() {
 	cout << "\n" << endl;
 
 	map = mapLoaded.getMap();
+	mapRegions = map.getRegions();
+
 }
 
 void gameStart::createPlayers() {

@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "player.h"
 #include "diceRoller.h"
+#include "gameStart.h"
 
 using namespace std;
 
@@ -15,22 +16,17 @@ player::player(){
 	name = "";
 	id = playerId; playerId++;
 	playDice = diceRoller::diceRoller();
+	this->region = &Region();
 	
 }
 //create a player with an a name and an automatically assigned id
 player::player(string name){
 	this->name = name;
 	id = playerId; playerId++;
-	
-	
-}
-//create a player with an a name and an automatically assigned id, starting at a specific region
-player::player(string name, Region region){
-	this->name = name;
-	id = playerId; playerId++;
-	this->region = region;
+	this->region = &Region();
 	
 }
+
 //giving a monsterCard to a player
 void player::setMonsterCard(MonsterCard monst) {
 	monsterCard = monst;
@@ -65,9 +61,39 @@ void player::rollDice() {
 }
 
 //player moves to a different region
-void player::move(Region region) {
-	this->region = region;
+void player::move() {
+	vector<Region*> zones = this->region->getNeighbours();
+	float input;
+	int a = 0;
 
+	/*for (int i = 0; i < this->region->getNeighbours().size(); i++) {
+		zones.push_back(this->region->getNeighbours[i]);
+	}*/
+
+	cout << "Choose destination: " << endl;
+	for (int i = 0; i < zones.size(); i++) {
+		cout << i << ". " + zones[i]->getName() + "	";
+	}
+
+	cin >> input;
+
+	while (cin.fail() || input != (int)input || (input < 0 || input > zones.size() - 1)) {
+		cin.clear();
+		cin.ignore(256, '\n');
+		cin >> input;
+	}
+
+	input = (int)input;
+	this->setRegion(zones[input]);
+}
+
+void player::setRegion(Region* region) {
+	if (this->region->getPlayerCount() > 0) {
+		this->region->reducePlayerCount();
+	}
+
+	(*region).increasePlayerCount();
+	this->region = region;
 }
 
 void player::buyCards(Deck deck) {

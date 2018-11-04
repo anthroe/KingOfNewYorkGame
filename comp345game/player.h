@@ -20,7 +20,7 @@ private:
 	static int playerId;
 	MonsterCard monsterCard;
 	vector<GameCard> ownedCards;
-	Region region;
+	Region* region;
 	diceRoller playDice;
 	int energy = 0;
 	bool inline responseToBool(string response);
@@ -29,12 +29,9 @@ private:
 public:
 	player();
 	player(string);
-	player(string, Region);
 
 	int getId() { return id;  };
 	string getName() { return name; };
-
-	Region getRegion() { return region; }
 
 	void setMonsterCard(MonsterCard);
 	MonsterCard getMonsterCard() { return monsterCard; };
@@ -44,12 +41,15 @@ public:
 
 	void addEnergy(int);
 	int getEnergy() { return energy; }
-	void applyDiceEffect(int effect, int numberOfResolves);
+
+	void setRegion(Region*);
+	Region* getRegion() { return region; }
+	void move();
+
+	void applyDiceEffect(int, int);
 	void rollDice();
 	void resolveDice();
 	int firstRoll();
-
-	void move(Region);
 
 	void buyCards(Deck);
 };

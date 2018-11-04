@@ -14,9 +14,9 @@ Region canada("canada", 1);
 Region usa("usa", 2);
 Region mexico("mexico", 3);
 
-canada.addNearbyRegions({ usa, mexico });
-usa.addNearbyRegions({ canada, mexico });
-mexico.addNearbyRegions({ usa, canada });
+canada.addNeighbours({ &usa, &mexico });
+usa.addNeighbours({ &canada, &mexico });
+mexico.addNeighbours({ &usa, &canada });
 
 vector<Region> randomRegions{canada, usa, mexico };
 Map map1("New York", randomRegions);
@@ -35,10 +35,10 @@ Region toronto("toronto", 2);
 Region edmonton("edmonton", 3);
 Region newyork("newyork", 4);
 
-montreal.addNearbyRegions({ montreal, newyork });
-toronto.addNearbyRegions({ toronto, montreal });
-edmonton.addNearbyRegions({ newyork, edmonton });
-newyork.addNearbyRegions({ newyork, edmonton });
+montreal.addNeighbours({ &montreal, &newyork });
+toronto.addNeighbours({ &toronto,& montreal });
+edmonton.addNeighbours({ &newyork, &edmonton });
+newyork.addNeighbours({ &newyork, &edmonton });
 
 vector<Region> cityRegions{ montreal, toronto, edmonton, newyork };
 Map map2("New York", cityRegions);

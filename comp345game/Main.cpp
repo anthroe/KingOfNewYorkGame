@@ -19,6 +19,11 @@ int main() {
 
 	gameStart();
 
+	/*for (Region region : gameStart::mapRegions) {
+
+		cout << region.getName() + "	" << region.getPlayerCount() << endl;
+	}*/
+
 	system("pause");
 	cout << "End of test." << endl;
  	return 0;

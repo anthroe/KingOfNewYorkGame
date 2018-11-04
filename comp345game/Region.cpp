@@ -6,41 +6,47 @@ using namespace std;
 Region::Region() {
 	name = "no name";
 	id = 0;
+	playerCount = 0;
 }
 
 Region::Region(string name, int id) {
 	this->name = name;
 	this->id = id;
+	playerCount = 0;
 }
 
-Region::Region(string name, int id, vector<Region> nearbyRegions) {
-	this->name = name;
-	this->id = id;
-	this->nearbyRegions = nearbyRegions;
-}
-
-vector<int> Region::getNearbyRegionIds() {
-	vector<Region> neighbours = this->getNearbyRegions();
+vector<int> Region::getNeighbourIDs() {
+	vector<Region*> neighbours = this->getNeighbours();
 	vector<int> neighbourIds;
 
 	for (int i = 0; i < neighbours.size(); i++) {
-		neighbourIds.push_back(neighbours[i].getId());
+		neighbourIds.push_back((*neighbours[i]).getId());
 	}
 
 	return neighbourIds;
 }
 
-void Region::setId(int id) {
+void Region::setID(int id) {
 	this->id = id;
 }
 
-void Region::addNearbyRegion(Region region) {
-	nearbyRegions.push_back(region);
+void Region::increasePlayerCount() {
+	playerCount++;
 }
 
-void Region::addNearbyRegions(vector<Region> regions) {
+void Region::reducePlayerCount() {
+	if (playerCount > 0) {
+		playerCount--;
+	}
+}
+
+void Region::addNeighbour(Region* region) {
+	Neighbours.push_back(region);
+}
+
+void Region::addNeighbours(vector<Region*> regions) {
 	for (int i = 0; i < regions.size(); i++) {
-		nearbyRegions.push_back(regions[i]);
+		Neighbours.push_back(regions[i]);
 	}
 }
 
