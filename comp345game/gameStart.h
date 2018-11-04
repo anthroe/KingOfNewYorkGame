@@ -11,16 +11,15 @@ using namespace std;
 class gameStart {
 
 private:
-
-	Map* map;
-	dice* dice;
+	//dice* dice;
 	int numberOfPlayers;
-	vector<Region*> mapRegions;
-
 	vector<string> ListOfMonsterCards;
 
 public:
+	static Map map;
+	static vector<Region> mapRegions;
 	static vector<player> playersInGame;
+
 	gameStart();
 	vector<player> getPlayers() { return playersInGame; }
 

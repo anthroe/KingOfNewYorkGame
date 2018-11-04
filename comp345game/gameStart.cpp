@@ -11,8 +11,8 @@
 using namespace std;
 using json = nlohmann::json;
 
-//Map gameStart::map;
-//vector<Region> gameStart::mapRegions;
+Map gameStart::map;
+vector<Region> gameStart::mapRegions;
 vector<player> gameStart::playersInGame;
 
 gameStart::gameStart() {
@@ -42,8 +42,8 @@ void gameStart::selectMap() {
 	cout << "You are now playing on " + rawname << endl;
 	cout << "\n" << endl;
 
-	//map = mapLoaded->getMap();
-	//mapRegions = map->getRegions();
+	map = mapLoaded.getMap();
+	mapRegions = map.getRegions();
 }
 
 void gameStart::createPlayers() {
@@ -76,7 +76,7 @@ void gameStart::createPlayers() {
 	for (player player : playersInGame) {
 		cout << player.getName() + " playing as: " + player.getMonsterCard()->getName() << endl;
 		player.rollDice();
-		player.resolveDice();
+		//player.resolveDice();
 	}
 }
 

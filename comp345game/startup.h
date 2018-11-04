@@ -8,15 +8,13 @@
 
 class startup {
 private:
-	vector<player*> playerOrder;
-	Map* currMap;
-
-	void clearScreen();
+	vector<player> playerOrder;
+	Map currMap;
 
 public:
 	startup(/*vector<player*>, Map* */);
 //	startup(/* vector<player*> players, Map* map, bool quickStart */);
-	void randomPlayerOrder();
-
-	vector<player*> getPlayerOrder();
+	void decidePlayerOrder();
+	void chooseStartingRegion();
+	
 };

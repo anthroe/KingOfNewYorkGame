@@ -18,17 +18,17 @@ Region::Region(string name, int id) {
 }
 
 vector<int> Region::getNeighbourIDs() {
-	vector<Region*> neighbours = this->getNeighbours();
+	vector<Region> neighbours = getNeighbours();
 	vector<int> neighbourIds;
 
 	for (int i = 0; i < neighbours.size(); i++) {
-		neighbourIds.push_back((*neighbours[i]).getId());
+		neighbourIds.push_back(neighbours[i].getId());
 	}
 
 	return neighbourIds;
 }
 
-vector<Region*> Region::getNeighbours() {
+vector<Region> Region::getNeighbours() {
 	return Neighbours;
 }
 
@@ -46,11 +46,11 @@ void Region::reducePlayerCount() {
 	}
 }
 
-void Region::addNeighbour(Region* region) {
+void Region::addNeighbour(Region region) {
 	Neighbours.push_back(region);
 }
 
-void Region::addNeighbours(vector<Region*> regions) {
+void Region::addNeighbours(vector<Region> regions) {
 	for (int i = 0; i < regions.size(); i++) {
 		Neighbours.push_back(regions[i]);
 	}
@@ -59,6 +59,11 @@ void Region::addNeighbours(vector<Region*> regions) {
 bool Region::operator==(const Region &o)
 {
 	return (this->getName() == o.getName() && this->getId() == o.getId());
+}
+
+bool Region::operator!=(const Region &o)
+{
+	return (this->getName() != o.getName() && this->getId() != o.getId());
 }
 
 Region::Region(const Region& region)

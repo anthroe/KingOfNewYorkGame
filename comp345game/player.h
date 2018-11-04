@@ -20,7 +20,7 @@ private:
 	static int playerId;
 	MonsterCard *monsterCard;
 	vector<GameCard> ownedCards;
-	Region* region;
+	Region region;
 	diceRoller playDice;
 	int energy = 0;
 	bool inline responseToBool(string response);
@@ -44,8 +44,8 @@ public:
 	void addEnergy(int);
 	int getEnergy() { return energy; }
 
-	void setRegion(Region*);
-	Region* getRegion() { return region; }
+	void setRegion(Region);
+	Region getRegion() { return region; }
 	void move();
 	void move_kony();
 

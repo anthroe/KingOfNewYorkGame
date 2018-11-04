@@ -13,15 +13,16 @@
 #include "cardtest.h"
 #include "player.h"
 #include "gameStart.h"
+#include "startup.h"
 using namespace std;
 
 int main() {
 
 	gameStart();
-
-	Maploader loadMap("test1GameMap.map");
+	startup();
+	//Maploader loadMap("test1GameMap.map");
 	//Map map = loadMap.getMap();
-	vector<Region> regions = loadMap.getMap().getRegions();
+	//vector<Region> regions = loadMap.getMap().getRegions();
 
 	/*player p1("david");
 	player p2("anthony");

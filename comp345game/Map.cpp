@@ -32,6 +32,10 @@ Map::Map(vector<Region*> regions) {
 	}
 }
 
+void Map::update(vector<Region> regions) {
+	this->regions = regions;
+}
+
 void Map::addRegion(Region region) {
 	regions.push_back(region);
 }
@@ -50,9 +54,9 @@ bool Map::checkConnection() {
 	Region trivialRegion = regionList[0];
 
 	for (int i = 1; i < regionList.size()-1; i++) {
-		vector<Region*> neighbours = regionList[i].getNeighbours();
+		vector<Region> neighbours = regionList[i].getNeighbours();
 
-		if (neighbours.size() == 0 || (neighbours.size() == 1 && neighbours[0] == &trivialRegion)) {
+		if (neighbours.size() == 0 || (neighbours.size() == 1 && neighbours[0] == trivialRegion)) {
 			return false;
 		}
 

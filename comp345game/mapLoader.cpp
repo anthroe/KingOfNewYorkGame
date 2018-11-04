@@ -77,7 +77,6 @@ Maploader::Maploader(string textFileName) {
 		//remove commas between words
 		vector<string> words = removeCommas(line);
 
-		vector<Region*> neighbours;
 		string currentRegion = words[0];
 		int position = NULL;
 		
@@ -91,27 +90,16 @@ Maploader::Maploader(string textFileName) {
 		for (int i = 0; i < allRegions.size(); i++) {
 			for (int j = 1; j < words.size(); j++) {
 				if ((*allRegions[i]).getName() == words[j]) {
-					neighbours.push_back(allRegions[i]);
+					allRegions[position]->addNeighbour((*allRegions[i]));
 				}
 			}
 		}
-		//set all the nearby regions
-		(*allRegions[position]).addNeighbours(neighbours);
 
 		if (inFile.eof()) {
 			break;
 		}
 
 	}
-
-	/*vector<Region*> regionPointers;
-
-	for (int i = 0; i < allRegions.size(); i++) {
-		regionPointers.push_back(&allRegions[i]);
-	}*/
-
-
-	//Map map(regionPointers);
 
 	Map map(allRegions);
 	mapInPlay = map;

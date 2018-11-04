@@ -19,6 +19,8 @@ public:
 
 	vector<Region> getRegions() { return regions; };
 
+	void update(vector<Region>);
+
 	void addRegion(Region);
 
 	bool checkConnection();

@@ -9,7 +9,7 @@ private:
 	string name;
 	int id;
 	int playerCount;
-	vector<Region*> Neighbours;
+	vector<Region> Neighbours;
 
 public:
 	Region();
@@ -18,15 +18,16 @@ public:
 
 	string getName() const { return name; }
 	int getId() const { return id;  }
-	vector<Region*> getNeighbours();
+	vector<Region> getNeighbours();
 	vector<int> getNeighbourIDs();
 	int getPlayerCount() { return playerCount; }
 
 	void setID(int);
 	void increasePlayerCount();
 	void reducePlayerCount();
-	void addNeighbour(Region*);
-	void addNeighbours(vector<Region*>);
+	void addNeighbour(Region);
+	void addNeighbours(vector<Region>);
 
 	bool operator==(const Region&);
+	bool operator!=(const Region&);
 };
