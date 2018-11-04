@@ -17,12 +17,21 @@ using namespace std;
 
 int main() {
 
-	gameStart();
+	//gameStart();
 
-	/*for (Region region : gameStart::mapRegions) {
+	Region r1("canada", 1);
+	Region r2("usa", 2);
+	Region r3("mexico", 3);
 
-		cout << region.getName() + "	" << region.getPlayerCount() << endl;
-	}*/
+	r1.addNeighbours({ &r2, &r3 });
+	r2.addNeighbours({ &r1, &r3 });
+	r3.addNeighbours({ &r1, &r2 });
+
+	player p1("david");
+	player p2("anthony");
+
+	p1.setRegion(&r1);
+	p1.move();
 
 	system("pause");
 	cout << "End of test." << endl;

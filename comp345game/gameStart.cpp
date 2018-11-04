@@ -43,7 +43,6 @@ void gameStart::selectMap() {
 
 	map = mapLoaded.getMap();
 	mapRegions = map.getRegions();
-
 }
 
 void gameStart::createPlayers() {

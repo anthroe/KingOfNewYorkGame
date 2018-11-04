@@ -4,15 +4,17 @@
 using namespace std;
 
 Region::Region() {
-	name = "no name";
+	name = "no_name";
 	id = 0;
 	playerCount = 0;
+	Neighbours = {};
 }
 
 Region::Region(string name, int id) {
 	this->name = name;
 	this->id = id;
 	playerCount = 0;
+	Neighbours = {};
 }
 
 vector<int> Region::getNeighbourIDs() {

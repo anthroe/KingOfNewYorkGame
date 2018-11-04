@@ -13,9 +13,9 @@ class gameStart {
 private:
 
 	Map map;
-	vector<Region> mapRegions;
 	dice* dice;
 	int numberOfPlayers;
+	vector<Region> mapRegions;
 	vector<player> playersInGame;
 	vector<string> ListOfMonsterCards;
 

@@ -16,14 +16,14 @@ player::player(){
 	name = "";
 	id = playerId; playerId++;
 	playDice = diceRoller::diceRoller();
-	this->region = &Region();
+	region = NULL;
 	
 }
 //create a player with an a name and an automatically assigned id
 player::player(string name){
 	this->name = name;
 	id = playerId; playerId++;
-	this->region = &Region();
+	region = NULL;
 	
 }
 
@@ -62,15 +62,18 @@ void player::rollDice() {
 
 //player moves to a different region
 void player::move() {
-	vector<Region*> zones = this->region->getNeighbours();
+	if (region == NULL) {
+		cout << "Cannot move " + name + ". This player's region has not been set yet." << endl;
+		return;
+	}
+
+	vector<Region*> zones = region->getNeighbours();
 	float input;
-	int a = 0;
 
-	/*for (int i = 0; i < this->region->getNeighbours().size(); i++) {
-		zones.push_back(this->region->getNeighbours[i]);
-	}*/
-
+	cout << "It is " + name + "'s turn to move." << endl;
+	cout << "Current location: " + region->getName() << endl;
 	cout << "Choose destination: " << endl;
+
 	for (int i = 0; i < zones.size(); i++) {
 		cout << i << ". " + zones[i]->getName() + "	";
 	}
@@ -84,11 +87,12 @@ void player::move() {
 	}
 
 	input = (int)input;
-	this->setRegion(zones[input]);
+	setRegion(zones[input]);
+
 }
 
 void player::setRegion(Region* region) {
-	if (this->region->getPlayerCount() > 0) {
+	if (this->region != NULL) {
 		this->region->reducePlayerCount();
 	}
 
