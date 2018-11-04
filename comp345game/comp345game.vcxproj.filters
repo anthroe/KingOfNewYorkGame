@@ -57,9 +57,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="unitTiles.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -70,6 +67,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="gameStart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tiles.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,9 +113,6 @@
     <ClInclude Include="tokens.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="unitTiles.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="mapDriver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -132,6 +129,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gameStart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tiles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

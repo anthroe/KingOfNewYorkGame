@@ -7,18 +7,20 @@
 #include "cardTypes.h"
 #include <vector>
 
+using namespace std;
+
 class Deck {
 	private:
-		std::vector<GameCard> deck;
-		std::vector<GameCard> purchaseableCards;
-		std::vector<GameCard> specialCards;
-		std::vector<GameCard> discard;
+		vector<GameCard> deck;
+		vector<GameCard> purchaseableCards;
+		vector<GameCard> specialCards;
+		vector<GameCard> discard;
 
 	public:
-		static std::ifstream getCardList(std::string fileName, bool verbose = false);
-		Deck(std::string deckFile = "resources/kony-card-list.json", std::string specialFile = "resources/kony-special-card-list.json");
-		std::vector<GameCard> getPurchaseableCards() { return purchaseableCards; };
-		std::vector<GameCard> getDeck() { return deck; };
+		static ifstream getCardList(string fileName, bool verbose = false);
+		Deck(string deckFile = "resources/kony-card-list.json", string specialFile = "resources/kony-special-card-list.json");
+		vector<GameCard> getPurchaseableCards() { return purchaseableCards; };
+		vector<GameCard> getDeck() { return deck; };
 		void shuffle();
 		bool discardCard(GameCard card);
 		GameCard purchaseCard(GameCard card);
