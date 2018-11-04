@@ -18,7 +18,7 @@ public:
 
 	string getName() const { return name; }
 	int getId() const { return id;  }
-	vector<Region*> getNeighbours() { return Neighbours; }
+	vector<Region*> getNeighbours();
 	vector<int> getNeighbourIDs();
 	int getPlayerCount() { return playerCount; }
 

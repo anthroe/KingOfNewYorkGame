@@ -7,10 +7,8 @@
 
 
 class Maploader {
-
 private:
 	Map mapInPlay;
-
 public:
 	Maploader();
 	Maploader(string);

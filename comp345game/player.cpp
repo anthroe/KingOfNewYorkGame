@@ -88,7 +88,90 @@ void player::move() {
 
 	input = (int)input;
 	setRegion(zones[input]);
+}
 
+void player::move_kony() {
+	if (region == NULL) {
+		cout << "Cannot move " + name + ". This player's region has not been set yet." << endl;
+		return;
+	}
+
+	vector<Region*> zones = region->getNeighbours();
+	vector<Region*> moveableAreas;
+	float input;
+	int lowManIndex = -1;
+	int midManIndex = -1;
+	int uppManIndex = -1;
+
+	for (int i = 0; i < zones.size(); i++) {
+		if (zones[i]->getName() == "Manhattan1") {
+			lowManIndex = i;
+		}
+		else if (zones[i]->getName() == "Manhattan2") {
+			midManIndex = i;
+		}
+		else if (zones[i]->getName() == "Manhattan3") {
+			uppManIndex = i;
+		}
+		else if (zones[i]->getPlayerCount() < 2) {
+			moveableAreas.push_back(zones[i]);
+		}
+	}
+
+	cout << "It is " + name + "'s turn to move." << endl;
+	cout << "Current location: " + region->getName() << endl;
+
+	//=================================================================================================
+	//if the player is in upper manhattan, he cannot move.
+	if (region->getName() == "Manhattan2") {
+		cout << name + " cannot move." << endl << endl;
+		return;
+	}
+
+	//=================================================================================================
+	//if the player is in lower or middle manhattan, he advances to the next zone.
+	//this player can only move anywhere other than manhattan if attacked.
+	if (region->getName() == "Manhattan1") {
+		setRegion(zones[midManIndex]);
+		cout << name + " was moved to middle manhattan." << endl << endl;
+		return;
+	}
+
+	if (region->getName() == "Manhattan2") {
+		setRegion(zones[uppManIndex]);
+		cout << name + " was moved to upper Manhattan." << endl << endl;
+		return;
+	}
+
+	//=================================================================================================
+	//if no one is in Manhattan. the player moves to lower Manhattan
+	if (zones[lowManIndex]->getPlayerCount() == 0 && zones[uppManIndex]->getPlayerCount() == 0) {
+		setRegion(zones[lowManIndex]);
+		cout << "Manhattan is empty. " + name + " was moved to lower manhattan." << endl << endl;
+		return;
+	}
+
+	//=================================================================================================
+	//manhattan is occupied, the player may move elsewhere.
+
+	cout << "Manhattan is occupied. Choose destination: " << endl;
+
+	for (int i = 0; i < moveableAreas.size(); i++) {
+		cout << i << ". " + moveableAreas[i]->getName() + "	";
+	}
+
+	cin >> input;
+
+	while (cin.fail() || input != (int)input || (input < 0 || input > zones.size() - 1)) {
+		cin.clear();
+		cin.ignore(256, '\n');
+		cin >> input;
+	}
+
+	input = (int)input;
+	setRegion(moveableAreas[input]);
+
+	cout << name + " moved to " + region->getName() + ". " << endl << endl;
 }
 
 void player::setRegion(Region* region) {

@@ -37,7 +37,7 @@ Maploader::Maploader(string textFileName) {
 
 	string line;
 	string city;
-	vector<Region> allRegions;
+	vector<Region*> allRegions;
 
 	// First line
 	getline(inFile, line);
@@ -68,7 +68,7 @@ Maploader::Maploader(string textFileName) {
 
 		string regionName = words[0];
 		int id = stoi(words[1]); //convert string number to int
-		allRegions.push_back(Region(regionName, id));
+		allRegions.push_back(new Region(regionName, id));
 	}
 
 	// Add neighbours to each region
@@ -83,21 +83,20 @@ Maploader::Maploader(string textFileName) {
 		
 		//assign position to each region
 		for (int i = 0; i < allRegions.size(); i++) {
-			if (allRegions[i].getName() == currentRegion) {
+			if ((*allRegions[i]).getName() == currentRegion) {
 				position = i;
 			}
 		}
 		//for all region names, add their respective neighbours
 		for (int i = 0; i < allRegions.size(); i++) {
 			for (int j = 1; j < words.size(); j++) {
-				if (allRegions[i].getName() == words[j]) {
-					neighbours.push_back(&allRegions[i]);
-
+				if ((*allRegions[i]).getName() == words[j]) {
+					neighbours.push_back(allRegions[i]);
 				}
 			}
 		}
 		//set all the nearby regions
-		allRegions[position].addNeighbours(neighbours);
+		(*allRegions[position]).addNeighbours(neighbours);
 
 		if (inFile.eof()) {
 			break;
@@ -105,16 +104,16 @@ Maploader::Maploader(string textFileName) {
 
 	}
 
-	/*for (int i = 0; i < allRegions.size(); i++) {
-		cout << allRegions[i].getName() << endl;
+	/*vector<Region*> regionPointers;
 
-		vector<Region> neighbours = allRegions[i].getNearbyRegions();
-		for (int j = 0; j < neighbours.size(); j++) {
-			cout << "	" + neighbours[j].getName() << endl;
-		}
+	for (int i = 0; i < allRegions.size(); i++) {
+		regionPointers.push_back(&allRegions[i]);
 	}*/
 
-	Map map("New York", allRegions);
-	map.checkConnection();
+
+	//Map map(regionPointers);
+
+	Map map(allRegions);
 	mapInPlay = map;
+	map.checkConnection();
 }

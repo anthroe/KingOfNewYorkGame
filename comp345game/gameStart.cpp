@@ -13,6 +13,7 @@ using json = nlohmann::json;
 
 //Map gameStart::map;
 //vector<Region> gameStart::mapRegions;
+vector<player> gameStart::playersInGame;
 
 gameStart::gameStart() {
 	
@@ -41,8 +42,8 @@ void gameStart::selectMap() {
 	cout << "You are now playing on " + rawname << endl;
 	cout << "\n" << endl;
 
-	map = mapLoaded.getMap();
-	mapRegions = map.getRegions();
+	//map = mapLoaded->getMap();
+	//mapRegions = map->getRegions();
 }
 
 void gameStart::createPlayers() {

@@ -124,7 +124,6 @@
     <ClCompile Include="gameCard.cpp" />
     <ClCompile Include="gameStart.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="mapDriver.cpp" />
     <ClCompile Include="mapLoader.cpp" />
     <ClCompile Include="monsterCard.cpp" />
     <ClCompile Include="player.cpp" />

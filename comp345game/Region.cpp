@@ -28,6 +28,10 @@ vector<int> Region::getNeighbourIDs() {
 	return neighbourIds;
 }
 
+vector<Region*> Region::getNeighbours() {
+	return Neighbours;
+}
+
 void Region::setID(int id) {
 	this->id = id;
 }

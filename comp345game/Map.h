@@ -13,6 +13,7 @@ private:
 public:
 	Map();
 	Map(string);
+	Map(vector<Region*>);
 	Map(string, vector<Region>);
 	~Map();
 

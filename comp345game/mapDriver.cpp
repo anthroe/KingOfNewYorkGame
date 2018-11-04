@@ -18,7 +18,7 @@ canada.addNeighbours({ &usa, &mexico });
 usa.addNeighbours({ &canada, &mexico });
 mexico.addNeighbours({ &usa, &canada });
 
-vector<Region> randomRegions{canada, usa, mexico };
+vector<Region> randomRegions = { &canada, &usa, &mexico };
 Map map1("New York", randomRegions);
 
 if (map1.checkConnection()) {
@@ -40,7 +40,7 @@ toronto.addNeighbours({ &toronto,& montreal });
 edmonton.addNeighbours({ &newyork, &edmonton });
 newyork.addNeighbours({ &newyork, &edmonton });
 
-vector<Region> cityRegions{ montreal, toronto, edmonton, newyork };
+vector<Region> cityRegions{ &montreal, &toronto, &edmonton, &newyork };
 Map map2("New York", cityRegions);
 
 if (map2.checkConnection()) {

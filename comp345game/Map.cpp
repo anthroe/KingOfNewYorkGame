@@ -19,6 +19,17 @@ Map::Map(string name) {
 Map::Map(string name, vector<Region> regions) {
 	this->name = name;
 	this->regions = regions;
+	/*
+	for (int i = 0; i < regions.size(); i++) {
+		this->regions.push_back(regions[i]);
+	}*/
+}
+
+Map::Map(vector<Region*> regions) {
+	name = "no_name";
+	for (int i = 0; i < regions.size(); i++) {
+		this->regions.push_back((*regions[i]));
+	}
 }
 
 void Map::addRegion(Region region) {
@@ -35,17 +46,17 @@ Verify that all regions are connected in some way, be it directly or through nei
 */
 
 bool Map::checkConnection() {
-	vector<Region> regions = this->regions;
-	Region* trivialRegion = &regions[0];
+	vector<Region> regionList = this->regions;
+	Region trivialRegion = regionList[0];
 
-	for (int i = 1; i < regions.size()-1; i++) {
-		vector<Region*> neighbours = regions[i].getNeighbours();
+	for (int i = 1; i < regionList.size()-1; i++) {
+		vector<Region*> neighbours = regionList[i].getNeighbours();
 
-		if (neighbours.size() == 0 || (neighbours.size() == 1 && neighbours[0] == trivialRegion)) {
+		if (neighbours.size() == 0 || (neighbours.size() == 1 && neighbours[0] == &trivialRegion)) {
 			return false;
 		}
 
-		trivialRegion = &regions[i];
+		trivialRegion = regionList[i];
 	}
 
 	return true;

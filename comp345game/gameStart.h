@@ -12,15 +12,14 @@ class gameStart {
 
 private:
 
-	Map map;
+	Map* map;
 	dice* dice;
 	int numberOfPlayers;
-	vector<Region> mapRegions;
-	vector<player> playersInGame;
+	vector<Region*> mapRegions;
 	vector<string> ListOfMonsterCards;
 
 public:
-
+	static vector<player> playersInGame;
 	gameStart();
 	vector<player> getPlayers() { return playersInGame; }
 

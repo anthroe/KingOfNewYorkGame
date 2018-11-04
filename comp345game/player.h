@@ -45,6 +45,7 @@ public:
 	void setRegion(Region*);
 	Region* getRegion() { return region; }
 	void move();
+	void move_kony();
 
 	void applyDiceEffect(int, int);
 	void rollDice();

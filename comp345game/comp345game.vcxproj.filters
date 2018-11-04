@@ -48,9 +48,6 @@
     <ClCompile Include="gameCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mapDriver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="monsterCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
