@@ -14,12 +14,15 @@
 #include "player.h"
 #include "gameStart.h"
 #include "startup.h"
+#include "mainLoop.h"
+
 using namespace std;
 
 int main() {
 
 	gameStart();
 	startup();
+	mainLoop();
 
 	cout << "We did it!" << endl;
 

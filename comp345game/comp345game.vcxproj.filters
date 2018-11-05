@@ -72,6 +72,9 @@
     <ClCompile Include="startup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mainLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Region.h">
@@ -129,6 +132,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="startup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mainLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

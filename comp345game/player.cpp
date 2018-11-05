@@ -116,6 +116,7 @@ void player::move_kony() {
 		return;
 	}
 
+	vector<Region> regions = gameStart::mapRegions;
 	vector<Region> zones = region.getNeighbours();
 	vector<Region> moveableAreas;
 	float input;
@@ -141,34 +142,56 @@ void player::move_kony() {
 	cout << "It is " + name + "'s turn to move." << endl;
 	cout << "Current location: " + region.getName() << endl;
 
-	//=================================================================================================
-	//if the player is in upper manhattan, he cannot move.
 	if (region.getName() == "Manhattan2") {
+		//if the player is in upper manhattan, he cannot move.
 		cout << name + " cannot move." << endl << endl;
-		return;
 	}
-
-	//=================================================================================================
-	//if the player is in lower or middle manhattan, he advances to the next zone.
-	//this player can only move anywhere other than manhattan if attacked.
-	if (region.getName() == "Manhattan1") {
+	else if (region.getName() == "Manhattan1") {
+		//if the player is in lower or middle manhattan, he advances to the next zone.
+		//this player can only move anywhere other than manhattan if attacked.
 		setRegion(zones[midManIndex]);
+
+		for (int i = 0; i < regions.size(); i++) {
+			if (regions[i] == region) {
+				regions[i].increasePlayerCount();
+				regions[i] = region;
+			}
+		}
+
+		gameStart::map.update(regions);
+
 		cout << name + " was moved to middle manhattan." << endl << endl;
-		return;
 	}
-
-	if (region.getName() == "Manhattan2") {
+	else if (region.getName() == "Manhattan2") {
+		//if the player is in middle manhattan, he advances to upper manhattan.
 		setRegion(zones[uppManIndex]);
+
+		for (int i = 0; i < regions.size(); i++) {
+			if (regions[i] == region) {
+				regions[i].increasePlayerCount();
+				regions[i] = region;
+			}
+		}
+
+		gameStart::map.update(regions);
+
 		cout << name + " was moved to upper Manhattan." << endl << endl;
-		return;
 	}
 
-	//=================================================================================================
-	//if no one is in Manhattan. the player moves to lower Manhattan
-	if (zones[lowManIndex].getPlayerCount() == 0 && zones[uppManIndex].getPlayerCount() == 0) {
+	else if (zones[lowManIndex].getPlayerCount() == 0 && zones[uppManIndex].getPlayerCount() == 0) {
+		//if no one is in Manhattan. the player moves to lower Manhattan
 		setRegion(zones[lowManIndex]);
+
+		for (int i = 0; i < regions.size(); i++) {
+			if (regions[i] == region) {
+				regions[i].increasePlayerCount();
+				regions[i] = region;
+			}
+		}
+
+		gameStart::map.update(regions);
+
 		cout << "Manhattan is empty. " + name + " was moved to lower manhattan." << endl << endl;
-		return;
 	}
 
 	//=================================================================================================
@@ -189,79 +212,21 @@ void player::move_kony() {
 	}
 
 	input = (int)input;
-	setRegion(moveableAreas[input]);
+
+	for (int i = 0; i < regions.size(); i++) {
+		if (regions[i] == moveableAreas[i]) {
+			regions[i].increasePlayerCount();
+			setRegion(regions[i]);
+		}
+	}
+
+	gameStart::map.update(regions);
 
 	cout << name + " moved to " + region.getName() + ". " << endl << endl;
 }
 
 void player::setRegion(Region region) {
-	if (this->region != Region()) {
-		this->region.reducePlayerCount();
-	}
-
-	region.increasePlayerCount();
 	this->region = region;
-}
-
-void player::buyCards(Deck deck) {
-	// Store the response in a character
-	string response;
-	response = buyCardPrompt("Would you like to buy a card ? (Y / N)");
-
-	// If they want to buy a card, show them what they can buy
-	if (responseToBool(response)) {
-		do {
-			// Ask which card they want to buy, and repeat until they answer properly
-			int i = deck.getPurchaseableCards().size();
-			do {
-				cout << "\nYou have " << energy << " energy." << endl;
-				cout << "Which card would you like to buy? (Enter the row number)" << endl;
-
-				// Give a list of cards
-				for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
-					GameCard card = deck.getPurchaseableCards()[i];
-					cout << i + 1 << ". " << card.getName() << " (Cost: " << card.getCost() << ")" << endl;
-				}
-				cout << deck.getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
-
-				cin >> response;
-				istringstream iss(response);
-				iss >> i;
-			} while (i > deck.getPurchaseableCards().size() + 1);
-
-			// If the player chose to get new cards
-			if (i == deck.getPurchaseableCards().size() + 1) {
-				// Ensure that the player has enough energy for the transaction
-				if (energy < 2) {
-					cout << "\nYou don't have enough energy for that card" << endl;
-				} else {
-					energy -= 2;
-					for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
-						if (!deck.discardCard(deck.getPurchaseableCards()[0]))
-							cout << "Error getting new cards";
-						else
-							deck.shuffle();
-					}
-				}
-			// Else the player chose to buy a card
-			} else {
-				// Ensure that the player has enough energy for the transaction
-				if (energy >= deck.getPurchaseableCards()[i-1].getCost()) {
-					energy -= deck.getPurchaseableCards()[i-1].getCost();
-					addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[i-1]));
-				}
-				else
-					cout << "\nYou don't have enough energy for that card" << endl;
-			}
-
-			cout << "\n" << endl;
-			response = buyCardPrompt("Would you like to buy another card ? (Y / N)");
-
-			// Add a new purchaseable card
-			deck.shuffle();
-
-		} while (responseToBool(response));
-	}
 }
 
 // Takes a response Y, y, N, or n and turns it into a bool
@@ -325,7 +290,7 @@ void player::resolveDice(Deck deck)
 			{
 				//call a resolve function
 				numOfResolves[num - 1]++;
-				cout << "Dice number " << i + 1 << " with type " << playDice.getDiceContainerTop(i) << " has been resolved " << endl;
+				//cout << "Dice number " << i + 1 << " with type " << playDice.getDiceContainerTop(i) << " has been resolved " << endl;
 				playDice.setDiceResolve(i,false);
 			}
 			if (playDice.getDiceResolve(i) == false)
@@ -345,8 +310,8 @@ void player::resolveDice(Deck deck)
 	{
 		if (resolveOrder[i] > 0 && resolveOrder[i] < 7)
 		{
-			cout << "The resolve number " << resolveOrder[i] << " of the name " << ability[resolveOrder[i] - 1] <<
-				" has this number of dices " << numOfResolves[resolveOrder[i] - 1] << endl;
+			cout << "The dice of the type " << ability[resolveOrder[i] - 1] <<
+				" has been rolled " << numOfResolves[resolveOrder[i] - 1] <<  " times " <<endl;
 			applyDiceEffect(resolveOrder[i], numOfResolves[resolveOrder[i] - 1], deck);
 		}
 	}
@@ -358,12 +323,12 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 	if (effect == 1 && numberOfResolves > 0)
 	{
 		addEnergy(numberOfResolves);
-		cout << "I added energy and this is how much I added " << this->getEnergy() << endl;
+		cout << "Energy of quantity " << this->getEnergy() << " has been added to player"<< endl;
 	}
 	else if (effect == 2 && numberOfResolves > 0)
 	{
 		getMonsterCard()->changeHP(numberOfResolves);
-		cout << "I added health to monster and this is how much I added " << getMonsterCard()->getHP() << endl;
+		cout << "Monster health updated to " << getMonsterCard()->getHP() << " using + " << numberOfResolves << " hp" << endl;
 		//monster underfined thus cannot work
 	}
 	else if (effect == 3 && numberOfResolves > 0)
@@ -435,7 +400,6 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 				for (vector<int> unit : region.getUnits()) {
 					numOfUnitsInRegion++;
 				}
-
 				vector<player> playersInRegion;
 				for (player plr : gameStart::playersInGame) {
 					// If the player is in the same region, add them to the vector
@@ -443,7 +407,6 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 						playersInRegion.push_back(plr);
 					}
 				}
-
 				// Deal damage to all the players in the region
 				for (player plr : playersInRegion) {
 					plr.getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
@@ -457,7 +420,6 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 			for (Region reg : gameStart::mapRegions) {
 				int numOfUnitsInRegion = 0;
 				vector<player> playersInRegion;
-
 				// Loop through players
 				for (player plr : gameStart::playersInGame) {
 					// If the player is in the current region, add them to the vector
@@ -465,14 +427,13 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 						playersInRegion.push_back(plr);
 					}
 				}
-
 				// Deal damage to all the players in the region
 				for (player plr : playersInRegion) {
 					plr.getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
 				}
 			}
-			//place status of liberty infront
 		}
+		//has to do with unit tiles
 	}
 }
 int player::firstRoll()
@@ -490,5 +451,9 @@ int player::firstRoll()
 	}
 	cout << "Number of attacks: " << count << endl;
 	return count;
+}
+
+bool player::operator==(const player &o) const {
+	return (name == o.name && id == o.id);
 }
 

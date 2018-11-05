@@ -91,19 +91,28 @@ void startup::chooseStartingRegion() {
 		for (int i = 0; i < regions.size(); i++) {
 			if (regions[i] == moveableAreas[input]) {
 				regions[i].increasePlayerCount();
+				player.setRegion(regions[i]);
 			}
 		}
 
+		for (int i = 0; i < playerOrder.size(); i++) {
+			if (player == playerOrder[i]) {
+				playerOrder[i] = player;
+			}
+		}
+		
+
+		gameStart::playersInGame = playerOrder;
 		currMap.update(regions);
 
 	}
-
-	gameStart::map = currMap;
-
 	cout << "Players in each region: " << endl;
 	for (Region region : currMap.getRegions()) {
 		cout << region.getName() + ": " << region.getPlayerCount() << endl;
 	}
+
+	gameStart::map = currMap;
+	gameStart::playersInGame = playerOrder;
 
 }
 

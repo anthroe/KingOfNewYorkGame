@@ -14,6 +14,7 @@ using json = nlohmann::json;
 Map gameStart::map;
 vector<Region> gameStart::mapRegions;
 vector<player> gameStart::playersInGame;
+Deck gameStart::deck;
 
 gameStart::gameStart() {
 	

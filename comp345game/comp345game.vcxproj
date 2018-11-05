@@ -123,6 +123,7 @@
     <ClCompile Include="diceTest.cpp" />
     <ClCompile Include="gameCard.cpp" />
     <ClCompile Include="gameStart.cpp" />
+    <ClCompile Include="mainLoop.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="mapLoader.cpp" />
     <ClCompile Include="monsterCard.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="gameCard.h" />
     <ClInclude Include="gameStart.h" />
     <ClInclude Include="libraries\json.hpp" />
+    <ClInclude Include="mainLoop.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Maploader.h" />
     <ClInclude Include="monsterCard.h" />

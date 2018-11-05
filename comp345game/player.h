@@ -55,6 +55,8 @@ public:
 	int firstRoll();
 
 	void buyCards(Deck);
+
+	bool operator==(const player&) const;
 };
 
 #endif

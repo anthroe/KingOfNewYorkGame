@@ -16,6 +16,7 @@ private:
 	vector<string> ListOfMonsterCards;
 
 public:
+	static Deck deck;
 	static Map map;
 	static vector<Region> mapRegions;
 	static vector<player> playersInGame;
