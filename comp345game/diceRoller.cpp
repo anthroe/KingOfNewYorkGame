@@ -8,7 +8,6 @@ using namespace std;
 // creating a diceRoller object that initializes 6 dices, based on the size of the container
 diceRoller::diceRoller()
 {
-	cout << "DICEROLLER CONSTRUCTOR"<< endl;
 	if (diceContainer == NULL)
 		cout << "FML" << endl;
 	const int size = (sizeof(diceContainer) / sizeof(*diceContainer));

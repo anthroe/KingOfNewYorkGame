@@ -117,81 +117,129 @@ void player::move_kony() {
 	}
 
 	vector<Region> regions = gameStart::mapRegions;
+	vector<player> players = gameStart::playersInGame;
+
+	for (int i = 0; i < regions.size(); i++) {
+		for (int j = 0; j < players.size(); j++) {
+			if (regions[i] == players[j].getRegion()) {
+				regions[i].increasePlayerCount();
+			}
+		}
+	}
+
 	vector<Region> zones = region.getNeighbours();
 	vector<Region> moveableAreas;
+
 	float input;
 	int lowManIndex = -1;
 	int midManIndex = -1;
 	int uppManIndex = -1;
 
-	for (int i = 0; i < zones.size(); i++) {
-		if (zones[i].getName() == "Manhattan1") {
+	for (int i = 0; i < regions.size(); i++) {
+		if (regions[i].getName() == "Manhattan1") {
 			lowManIndex = i;
 		}
-		else if (zones[i].getName() == "Manhattan2") {
+		else if (regions[i].getName() == "Manhattan2") {
 			midManIndex = i;
 		}
-		else if (zones[i].getName() == "Manhattan3") {
+		else if (regions[i].getName() == "Manhattan3") {
 			uppManIndex = i;
 		}
-		else if (zones[i].getPlayerCount() < 2) {
-			moveableAreas.push_back(zones[i]);
+	}
+
+	for (int i = 0; i < zones.size(); i++) {
+		if (zones[i].getPlayerCount() < 2) {
+			if (zones[i].getName() != "Manhattan1" && zones[i].getName() != "Manhattan2" && zones[i].getName() != "Manhattan3") {
+				moveableAreas.push_back(zones[i]);
+			}
 		}
 	}
+	cout << regions[lowManIndex].getName() << endl;
+	cout << regions[midManIndex].getName() << endl;
+	cout << regions[uppManIndex].getName() << endl;
 
 	cout << "It is " + name + "'s turn to move." << endl;
 	cout << "Current location: " + region.getName() << endl;
 
-	if (region.getName() == "Manhattan2") {
+	if (region.getName() == "Manhattan3") {
 		//if the player is in upper manhattan, he cannot move.
 		cout << name + " cannot move." << endl << endl;
 	}
 	else if (region.getName() == "Manhattan1") {
 		//if the player is in lower or middle manhattan, he advances to the next zone.
 		//this player can only move anywhere other than manhattan if attacked.
-		setRegion(zones[midManIndex]);
+		region = regions[midManIndex];
 
 		for (int i = 0; i < regions.size(); i++) {
 			if (regions[i] == region) {
-				regions[i].increasePlayerCount();
+				region.increasePlayerCount();
 				regions[i] = region;
 			}
 		}
 
+		for (int i = 0; i < players.size(); i++) {
+			if (name == players[i].getName() && id == players[i].getId()) {
+				players[i].region = region;
+			}
+		}
+
+		gameStart::playersInGame = players;
+		gameStart::mapRegions = regions;
 		gameStart::map.update(regions);
 
 		cout << name + " was moved to middle manhattan." << endl << endl;
+
+		return;
 	}
 	else if (region.getName() == "Manhattan2") {
 		//if the player is in middle manhattan, he advances to upper manhattan.
-		setRegion(zones[uppManIndex]);
+		region = regions[uppManIndex];
 
 		for (int i = 0; i < regions.size(); i++) {
 			if (regions[i] == region) {
-				regions[i].increasePlayerCount();
+				region.increasePlayerCount();
 				regions[i] = region;
 			}
 		}
 
+		for (int i = 0; i < players.size(); i++) {
+			if (name == players[i].getName() && id == players[i].getId()) {
+				players[i].region = region;
+			}
+		}
+
+		gameStart::playersInGame = players;
+		gameStart::mapRegions = regions;
 		gameStart::map.update(regions);
 
 		cout << name + " was moved to upper Manhattan." << endl << endl;
-	}
 
-	else if (zones[lowManIndex].getPlayerCount() == 0 && zones[uppManIndex].getPlayerCount() == 0) {
+		return;
+	}
+	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0) {
 		//if no one is in Manhattan. the player moves to lower Manhattan
-		setRegion(zones[lowManIndex]);
+		region = regions[lowManIndex];
 
 		for (int i = 0; i < regions.size(); i++) {
 			if (regions[i] == region) {
-				regions[i].increasePlayerCount();
+				region.increasePlayerCount();
 				regions[i] = region;
 			}
 		}
 
+		for (int i = 0; i < players.size(); i++) {
+			if (name == players[i].getName() && id == players[i].getId()) {
+				players[i].region = region;
+			}
+		}
+
+		gameStart::playersInGame = players;
+		gameStart::mapRegions = regions;
 		gameStart::map.update(regions);
 
 		cout << "Manhattan is empty. " + name + " was moved to lower manhattan." << endl << endl;
+
+		return;
 	}
 
 	//=================================================================================================
@@ -214,12 +262,21 @@ void player::move_kony() {
 	input = (int)input;
 
 	for (int i = 0; i < regions.size(); i++) {
-		if (regions[i] == moveableAreas[i]) {
-			regions[i].increasePlayerCount();
-			setRegion(regions[i]);
+		if (regions[i] == moveableAreas[input])
+		{
+			region.increasePlayerCount();
+			region = regions[i];
 		}
 	}
 
+	for (int i = 0; i < players.size(); i++) {
+		if (name == players[i].getName() && id == players[i].getId()) {
+			players[i].region = region;
+		}
+	}
+
+	gameStart::playersInGame = players;
+	gameStart::mapRegions = regions;
 	gameStart::map.update(regions);
 
 	cout << name + " moved to " + region.getName() + ". " << endl << endl;
@@ -232,6 +289,69 @@ void player::setRegion(Region region) {
 // Takes a response Y, y, N, or n and turns it into a bool
 bool player::responseToBool(string response) {
 	return (response.compare("Y") == 0 || response.compare("y") == 0);
+}
+
+void player::buyCards(Deck deck) {
+	// Store the response in a character
+	string response;
+	response = buyCardPrompt("Would you like to buy a card ? (Y / N)");
+
+	// If they want to buy a card, show them what they can buy
+	if (responseToBool(response)) {
+		do {
+			// Ask which card they want to buy, and repeat until they answer properly
+			int i = deck.getPurchaseableCards().size();
+			do {
+				cout << "\nYou have " << energy << " energy." << endl;
+				cout << "Which card would you like to buy? (Enter the row number)" << endl;
+
+				// Give a list of cards
+				for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
+					GameCard card = deck.getPurchaseableCards()[i];
+					cout << i + 1 << ". " << card.getName() << " (Cost: " << card.getCost() << ")" << endl;
+				}
+				cout << deck.getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
+
+				cin >> response;
+				istringstream iss(response);
+				iss >> i;
+			} while (i > deck.getPurchaseableCards().size() + 1);
+
+			// If the player chose to get new cards
+			if (i == deck.getPurchaseableCards().size() + 1) {
+				// Ensure that the player has enough energy for the transaction
+				if (energy < 2) {
+					cout << "\nYou don't have enough energy for that card" << endl;
+				}
+				else {
+					energy -= 2;
+					for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
+						if (!deck.discardCard(deck.getPurchaseableCards()[0]))
+							cout << "Error getting new cards";
+						else
+							deck.shuffle();
+					}
+				}
+				// Else the player chose to buy a card
+			}
+			else {
+				// Ensure that the player has enough energy for the transaction
+				if (energy >= deck.getPurchaseableCards()[i - 1].getCost()) {
+					energy -= deck.getPurchaseableCards()[i - 1].getCost();
+					addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[i - 1]));
+				}
+				else
+					cout << "\nYou don't have enough energy for that card" << endl;
+			}
+
+			cout << "\n" << endl;
+			response = buyCardPrompt("Would you like to buy another card ? (Y / N)");
+
+			// Add a new purchaseable card
+			deck.shuffle();
+
+		} while (responseToBool(response));
+	}
 }
 
 // Ask the player if they want to buy a card, and repeat until they answer properly

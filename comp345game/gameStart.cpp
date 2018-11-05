@@ -76,8 +76,6 @@ void gameStart::createPlayers() {
 
 	for (player player : playersInGame) {
 		cout << player.getName() + " playing as: " + player.getMonsterCard()->getName() << endl;
-		player.rollDice();
-		//player.resolveDice();
 	}
 }
 
