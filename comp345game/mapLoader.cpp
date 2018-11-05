@@ -56,6 +56,8 @@ Maploader::Maploader(string textFileName) {
 		getline(inFile, line);
 	}
 
+	Tiles tiles;
+
 	// Add all regions
 	while (inFile >> line) {
 
@@ -68,7 +70,7 @@ Maploader::Maploader(string textFileName) {
 
 		string regionName = words[0];
 		int id = stoi(words[1]); //convert string number to int
-		allRegions.push_back(new Region(regionName, id));
+		allRegions.push_back(new Region(regionName, id, tiles));
 	}
 
 	// Add neighbours to each region

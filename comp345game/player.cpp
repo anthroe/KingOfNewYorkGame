@@ -407,24 +407,72 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 	}
 	else if (effect == 5 && numberOfResolves > 0)
 	{
-		//wait till military buildings and units to be implemented
+		vector<vector<int>> buildings = region.getBuildings();
+		for (int i = 0; i < buildings.size(); i++) {
+			if (buildings[i][0] <= numberOfResolves)
+				// Add whatever the tile gives you
+				region.flipTile(buildings[i][0], i);
+		}
 	}
 	else if (effect == 6 && numberOfResolves > 0)
 	{
 		if (numberOfResolves == 1)
 		{
-			//self damage 1 * unit tiles in own your region
+			// You suffer 1 damage per unit tile in the bourough
+			if (!region.getUnits().empty()) {
+				int numOfUnitsInRegion = 0;
+				for (vector<int> unit : region.getUnits()) {
+					numOfUnitsInRegion++;
+				}
+				monsterCard->changeHP(numOfUnitsInRegion * -1);
+			}
 		}	
 		else if (numberOfResolves == 2)
 		{
-			//all monsters in your borough suffer 1 damage per unit tile of bourough
+			// All monsters in your borough suffer 1 damage per unit tile of bourough
+			if (!region.getUnits().empty()) {
+				int numOfUnitsInRegion = 0;
+				for (vector<int> unit : region.getUnits()) {
+					numOfUnitsInRegion++;
+				}
+
+				vector<player> playersInRegion;
+				for (player plr : gameStart::playersInGame) {
+					// If the player is in the same region, add them to the vector
+					if (plr.getRegion().getName().compare(region.getName()) == 0) {
+						playersInRegion.push_back(plr);
+					}
+				}
+
+				// Deal damage to all the players in the region
+				for (player plr : playersInRegion) {
+					plr.getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
+				}
+			}
 		}
 		else if (numberOfResolves > 3)
 		{
-			//all monsters in the borough suffer 1 damage per unit tile of the entire city 
+			// All monsters suffer 1 damage per unit tile in their respective bourough
+			// Loop through all regions
+			for (Region reg : gameStart::mapRegions) {
+				int numOfUnitsInRegion = 0;
+				vector<player> playersInRegion;
+
+				// Loop through players
+				for (player plr : gameStart::playersInGame) {
+					// If the player is in the current region, add them to the vector
+					if (plr.getRegion().getName().compare(reg.getName()) == 0) {
+						playersInRegion.push_back(plr);
+					}
+				}
+
+				// Deal damage to all the players in the region
+				for (player plr : playersInRegion) {
+					plr.getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
+				}
+			}
 			//place status of liberty infront
 		}
-		//has to do with unit tiles
 	}
 }
 int player::firstRoll()
