@@ -97,6 +97,9 @@ void startup::chooseStartingRegion() {
 		currMap.update(regions);
 
 	}
+
+	gameStart::map = currMap;
+
 	cout << "Players in each region: " << endl;
 	for (Region region : currMap.getRegions()) {
 		cout << region.getName() + ": " << region.getPlayerCount() << endl;

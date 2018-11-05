@@ -20,29 +20,6 @@ int main() {
 
 	gameStart();
 	startup();
-	//Maploader loadMap("test1GameMap.map");
-	//Map map = loadMap.getMap();
-	//vector<Region> regions = loadMap.getMap().getRegions();
-
-	/*player p1("david");
-	player p2("anthony");
-	player p3("lucas");
-	player p4("walid");
-	player p5("urmom");
-	player p6("urdad");
-
-	p1.setRegion(&regions[3]);
-	p2.setRegion(&regions[3]);
-	p3.setRegion(&regions[4]);
-	p4.setRegion(&regions[4]);
-	p5.setRegion(&regions[5]);
-	p6.setRegion(&regions[6]);
-	
-	vector<player> playerlist = { p1, p2, p3, p4, p5, p6 };*/
-
- 	/*for (player player : playerlist) {
-		player.move_kony();
-	}*/
 
 	cout << "We did it!" << endl;
 
