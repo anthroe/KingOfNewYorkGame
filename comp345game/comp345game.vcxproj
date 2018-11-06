@@ -161,7 +161,6 @@
     <Text Include="resources\kony-special-card-list.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="NewYork.map" />
     <None Include="resources\kony-monster-card-list.json" />
     <None Include="test1GameMap.map" />
     <None Include="test2Bidirectional.map" />

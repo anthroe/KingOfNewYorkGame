@@ -150,9 +150,8 @@
     <None Include="resources\kony-monster-card-list.json">
       <Filter>Resources</Filter>
     </None>
-    <None Include="test1GameMap.map" />
     <None Include="test2Bidirectional.map" />
     <None Include="test3FullConnect.map" />
-    <None Include="NewYork.map" />
+    <None Include="test1GameMap.map" />
   </ItemGroup>
 </Project>

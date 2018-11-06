@@ -29,7 +29,7 @@ public:
 
 	void setID(int);
 	void increasePlayerCount();
-	void reducePlayerCount();
+	void decreasePlayerCount();
 	void addNeighbour(Region);
 	void addNeighbours(vector<Region>);
 

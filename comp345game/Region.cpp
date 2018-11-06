@@ -66,7 +66,7 @@ void Region::increasePlayerCount() {
 	playerCount++;
 }
 
-void Region::reducePlayerCount() {
+void Region::decreasePlayerCount() {
 	if (playerCount > 0) {
 		playerCount--;
 	}

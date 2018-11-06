@@ -116,8 +116,17 @@ void player::move_kony() {
 		return;
 	}
 
+	float input;
+	int lowManIndex = -1;
+	int midManIndex = -1;
+	int uppManIndex = -1;
+
 	vector<Region> regions = gameStart::mapRegions;
 	vector<player> players = gameStart::playersInGame;
+	vector<Region> zones = region.getNeighbours();
+	vector<Region> moveableAreas;
+	vector<string> neighbourNames;
+	Region priorRegion = region;
 
 	for (int i = 0; i < regions.size(); i++) {
 		for (int j = 0; j < players.size(); j++) {
@@ -126,14 +135,6 @@ void player::move_kony() {
 			}
 		}
 	}
-
-	vector<Region> zones = region.getNeighbours();
-	vector<Region> moveableAreas;
-
-	float input;
-	int lowManIndex = -1;
-	int midManIndex = -1;
-	int uppManIndex = -1;
 
 	for (int i = 0; i < regions.size(); i++) {
 		if (regions[i].getName() == "Manhattan1") {
@@ -150,19 +151,25 @@ void player::move_kony() {
 	for (int i = 0; i < zones.size(); i++) {
 		if (zones[i].getPlayerCount() < 2) {
 			if (zones[i].getName() != "Manhattan1" && zones[i].getName() != "Manhattan2" && zones[i].getName() != "Manhattan3") {
-				moveableAreas.push_back(zones[i]);
+				neighbourNames.push_back(zones[i].getName());
 			}
 		}
 	}
-	cout << regions[lowManIndex].getName() << endl;
-	cout << regions[midManIndex].getName() << endl;
-	cout << regions[uppManIndex].getName() << endl;
+
+	for (Region region : regions) {
+		for (string neighbourName : neighbourNames) {
+			if (region.getName() == neighbourName) {
+				moveableAreas.push_back(region);
+			}
+		}
+	}
 
 	cout << "It is " + name + "'s turn to move." << endl;
 	cout << "Current location: " + region.getName() << endl;
 
 	if (region.getName() == "Manhattan3") {
 		//if the player is in upper manhattan, he cannot move.
+
 		cout << name + " cannot move." << endl << endl;
 	}
 	else if (region.getName() == "Manhattan1") {
@@ -170,102 +177,58 @@ void player::move_kony() {
 		//this player can only move anywhere other than manhattan if attacked.
 		region = regions[midManIndex];
 
-		for (int i = 0; i < regions.size(); i++) {
-			if (regions[i] == region) {
-				region.increasePlayerCount();
-				regions[i] = region;
-			}
-		}
-
-		for (int i = 0; i < players.size(); i++) {
-			if (name == players[i].getName() && id == players[i].getId()) {
-				players[i].region = region;
-			}
-		}
-
-		gameStart::playersInGame = players;
-		gameStart::mapRegions = regions;
-		gameStart::map.update(regions);
-
 		cout << name + " was moved to middle manhattan." << endl << endl;
-
-		return;
 	}
 	else if (region.getName() == "Manhattan2") {
 		//if the player is in middle manhattan, he advances to upper manhattan.
 		region = regions[uppManIndex];
 
-		for (int i = 0; i < regions.size(); i++) {
-			if (regions[i] == region) {
-				region.increasePlayerCount();
-				regions[i] = region;
-			}
-		}
-
-		for (int i = 0; i < players.size(); i++) {
-			if (name == players[i].getName() && id == players[i].getId()) {
-				players[i].region = region;
-			}
-		}
-
-		gameStart::playersInGame = players;
-		gameStart::mapRegions = regions;
-		gameStart::map.update(regions);
-
 		cout << name + " was moved to upper Manhattan." << endl << endl;
-
-		return;
 	}
-	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0) {
+	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0) {
 		//if no one is in Manhattan. the player moves to lower Manhattan
 		region = regions[lowManIndex];
 
-		for (int i = 0; i < regions.size(); i++) {
-			if (regions[i] == region) {
-				region.increasePlayerCount();
-				regions[i] = region;
-			}
-		}
-
-		for (int i = 0; i < players.size(); i++) {
-			if (name == players[i].getName() && id == players[i].getId()) {
-				players[i].region = region;
-			}
-		}
-
-		gameStart::playersInGame = players;
-		gameStart::mapRegions = regions;
-		gameStart::map.update(regions);
-
 		cout << "Manhattan is empty. " + name + " was moved to lower manhattan." << endl << endl;
-
-		return;
 	}
+	else {
+		//manhattan is occupied, the player to neighbouring areas.
+		cout << "Manhattan is occupied. Choose destination: " << endl;
 
-	//=================================================================================================
-	//manhattan is occupied, the player may move elsewhere.
+		for (int i = 0; i < moveableAreas.size(); i++) {
+			cout << i << ". " + moveableAreas[i].getName() + "	";
+		}
 
-	cout << "Manhattan is occupied. Choose destination: " << endl;
+		cout << moveableAreas.size() << ". Remain in place.";
 
-	for (int i = 0; i < moveableAreas.size(); i++) {
-		cout << i << ". " + moveableAreas[i].getName() + "	";
-	}
-
-	cin >> input;
-
-	while (cin.fail() || input != (int)input || (input < 0 || input > zones.size() - 1)) {
-		cin.clear();
-		cin.ignore(256, '\n');
 		cin >> input;
-	}
 
-	input = (int)input;
+		while (cin.fail() || input != (int)input || (input < 0 || input > moveableAreas.size())) {
+			cin.clear();
+			cin.ignore(256, '\n');
+			cin >> input;
+		}
+
+		input = (int)input;
+
+		if (input == moveableAreas.size()) {
+			return;
+		}
+
+		region = moveableAreas[input];
+
+		cout << name + " moved to " + region.getName() + ". " << endl << endl;
+	}
 
 	for (int i = 0; i < regions.size(); i++) {
-		if (regions[i] == moveableAreas[input])
-		{
+		if (regions[i] == priorRegion) {
+			priorRegion.decreasePlayerCount();
+			regions[i] = priorRegion;
+		}
+
+		if (regions[i] == region) {
 			region.increasePlayerCount();
-			region = regions[i];
+			regions[i] = region;
 		}
 	}
 
@@ -278,8 +241,6 @@ void player::move_kony() {
 	gameStart::playersInGame = players;
 	gameStart::mapRegions = regions;
 	gameStart::map.update(regions);
-
-	cout << name + " moved to " + region.getName() + ". " << endl << endl;
 }
 
 void player::setRegion(Region region) {
@@ -351,6 +312,12 @@ void player::buyCards(Deck deck) {
 			deck.shuffle();
 
 		} while (responseToBool(response));
+	}
+
+	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
+		if (gameStart::playersInGame[i] == (*this)) {
+			gameStart::playersInGame[i] = (*this);
+		}
 	}
 }
 
@@ -435,11 +402,13 @@ void player::resolveDice(Deck deck)
 			applyDiceEffect(resolveOrder[i], numOfResolves[resolveOrder[i] - 1], deck);
 		}
 	}
-	cout << "I have reached the end of the file " << endl;
 }
 
 void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 {
+	vector<player> players = gameStart::playersInGame;
+	vector<Region> regions = gameStart::mapRegions;
+
 	if (effect == 1 && numberOfResolves > 0)
 	{
 		addEnergy(numberOfResolves);
@@ -456,13 +425,36 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 		//get the static player vector, iterate through the vector, checking the region
 		//if the corresponding region is inside or outside manhattan
 		//damage according to the dice effect rule
-		for (player otherPlayer : gameStart::playersInGame) {
-			//if (player.getRegion().getName() == "Manhattan1" || player.getRegion().getName() == "Manhattan2" || (player.getRegion().getName() == "Manhattan3")) {
-			if(otherPlayer.getName().compare(getName()) != 0)
-			{
-				
-				otherPlayer.getMonsterCard()->changeHP(-numberOfResolves);
-				cout << otherPlayer.getMonsterCard()->getName() << "'s hp is now " << otherPlayer.getMonsterCard()->getHP() << " damage dealt " << numberOfResolves<< endl;
+
+		for (player otherPlayer : players) {
+
+			if (otherPlayer.getName().compare(getName()) != 0) {
+				if (getRegion().getName() == "Manhattan1" || getRegion().getName() == "Manhattan2" || (getRegion().getName() == "Manhattan3")) {
+					if (otherPlayer.getRegion().getName() != "Manhattan1" && otherPlayer.getRegion().getName() != "Manhattan2" && (otherPlayer.getRegion().getName()
+						!= "Manhattan3"))
+					{
+						otherPlayer.getMonsterCard()->changeHP(-numberOfResolves);
+						cout << otherPlayer.getMonsterCard()->getName() << "'s hp is now " << otherPlayer.getMonsterCard()->getHP() << " damage dealt " << numberOfResolves << endl;
+					}
+				}
+				else
+				{
+					if (getRegion().getName() != "Manhattan1" && getRegion().getName() != "Manhattan2" && getRegion().getName() != "Manhattan3")
+					{
+						if (otherPlayer.getRegion().getName() == "Manhattan1" || otherPlayer.getRegion().getName() == "Manhattan2" || otherPlayer.getRegion().getName() == "Manhattan3")
+						{
+							otherPlayer.getMonsterCard()->changeHP(-numberOfResolves);
+							cout << otherPlayer.getMonsterCard()->getName() << "'s hp is now " << otherPlayer.getMonsterCard()->getHP() << " damage dealt " << numberOfResolves << endl;
+
+							//player in manhattan gets prompted to move
+							/*
+							move function will automatically allocate players in manhattan to a higher order in manhattan. 
+							Could prob use a "damaged" attribute in player to counter-act this auto movement.
+							*/
+							//otherPlayer.move_kony();
+						}
+					}
+				}
 			}
 		}
 	}
@@ -507,26 +499,30 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 			if (!region.getUnits().empty()) {
 				int numOfUnitsInRegion = 0;
 				for (vector<int> unit : region.getUnits()) {
-					numOfUnitsInRegion++;
+					if (!unit.empty())
+						numOfUnitsInRegion++;
 				}
 				monsterCard->changeHP(numOfUnitsInRegion * -1);
 			}
-		}	
+		}
 		else if (numberOfResolves == 2)
 		{
 			// All monsters in your borough suffer 1 damage per unit tile of bourough
 			if (!region.getUnits().empty()) {
 				int numOfUnitsInRegion = 0;
 				for (vector<int> unit : region.getUnits()) {
-					numOfUnitsInRegion++;
+					if (!unit.empty())
+						numOfUnitsInRegion++;
 				}
+
 				vector<player> playersInRegion;
-				for (player plr : gameStart::playersInGame) {
+				for (player plr : players) {
 					// If the player is in the same region, add them to the vector
 					if (plr.getRegion().getName().compare(region.getName()) == 0) {
 						playersInRegion.push_back(plr);
 					}
 				}
+
 				// Deal damage to all the players in the region
 				for (player plr : playersInRegion) {
 					plr.getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
@@ -537,25 +533,36 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 		{
 			// All monsters suffer 1 damage per unit tile in their respective bourough
 			// Loop through all regions
-			for (Region reg : gameStart::mapRegions) {
+			for (Region reg : regions) {
 				int numOfUnitsInRegion = 0;
+				for (vector<int> unit : region.getUnits()) {
+					if (!unit.empty())
+						numOfUnitsInRegion++;
+				}
+
 				vector<player> playersInRegion;
+
 				// Loop through players
-				for (player plr : gameStart::playersInGame) {
+				for (player plr : players) {
 					// If the player is in the current region, add them to the vector
 					if (plr.getRegion().getName().compare(reg.getName()) == 0) {
 						playersInRegion.push_back(plr);
 					}
 				}
+
 				// Deal damage to all the players in the region
 				for (player plr : playersInRegion) {
 					plr.getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
 				}
 			}
+			//place status of liberty infront
 		}
-		//has to do with unit tiles
 	}
+
+	gameStart::playersInGame = players;
+	gameStart::mapRegions = regions;
 }
+
 int player::firstRoll()
 {
 	playDice.firstRoll();
