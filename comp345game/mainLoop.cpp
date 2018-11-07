@@ -11,15 +11,8 @@ mainLoop::mainLoop() {
 	play();
 }
 
-/*
-1. Roll the Dice (up to 3 times)
-2. Resolve the Dice (mandatory) someone can get 20vp and win
-if(player.monster.vp... = 20 then gameInPlay false and message player won etc
-3. Move (generally optional, but sometimes mandatory)
-4. Buy Cards (optional)
-5. End Your Turn
-*/
 void mainLoop::play(){
+
 	turn = 0;
 	bool gameInPlay = true;
 
@@ -33,10 +26,12 @@ void mainLoop::play(){
 		for (player player :  gameStart::playersInGame) {
 			cout << player.getName() + ", " + player.getRegion().getName() + ", HP: " << player.getMonsterCard()->getHP() << ", VP: " << player.getMonsterCard()->getVP() << endl;
 		}
-		cout << "__________________" << endl;
+		cout << "______________________" << endl;
+
 
 		//conditions
 		if (players.size() <= 1) {
+			cout << players[0].getName() + " is the last player remaining." << endl;
 			gameInPlay = false;
 		}
 
@@ -50,12 +45,12 @@ void mainLoop::play(){
 				
 			}
 			cout << players[i].getName() + ": " + players[i].getRegion().getName() << endl;
+
 			
 			cout << "Rolling dice: " << endl;
 			players[i].rollDice();
 
 			players[i].resolveDice(gameStart::deck);
-			gameStart::playersInGame = players;
 			if (players[i].getMonsterCard()->getHP() == 0)
 			{
 				players.erase(players.begin() + i);
@@ -70,14 +65,20 @@ void mainLoop::play(){
 				break;
 			}
 
+			players = gameStart::playersInGame;
 			players[i].move_kony();
-			gameStart::playersInGame = players;
-
+			players = gameStart::playersInGame;
 			players[i].buyCards(gameStart::deck);
-			gameStart::playersInGame = players;
-
 			turn++;
 		}
+		/*
+		1. Roll the Dice (up to 3 times)
+		2. Resolve the Dice (mandatory) someone can get 20vp and win
+		if(player.monster.vp... = 20 then gameInPlay false and message player won etc
+		3. Move (generally optional, but sometimes mandatory)
+		4. Buy Cards (optional)
+		5. End Your Turn
+		*/
 	}
 	cout << "Game over" << endl;
 }

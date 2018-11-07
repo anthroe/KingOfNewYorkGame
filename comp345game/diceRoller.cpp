@@ -30,6 +30,13 @@ void diceRoller::playerRoll()
 	string input;
 	cout << "Would you like to roll again? y/n" << endl;
 	cin >> input;
+
+	while (input != "y" && input != "Y" && input != "n" && input != "N") {
+		cin.clear();
+		cin.ignore(256, '\n');
+		cin >> input;
+	}
+
 	int optionalRoll = 1;
 	
 	while (input.compare("y") == 0 && optionalRoll <= 2)

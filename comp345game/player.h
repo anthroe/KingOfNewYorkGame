@@ -25,6 +25,7 @@ private:
 	int energy = 0;
 	bool inline responseToBool(string response);
 	string inline buyCardPrompt(string prompt);
+	bool damaged;
 
 public:
 	player();
@@ -55,6 +56,9 @@ public:
 	int firstRoll();
 
 	void buyCards(Deck);
+
+	void setDamage(bool);
+	bool isDamaged();
 
 	bool operator==(const player&) const;
 };

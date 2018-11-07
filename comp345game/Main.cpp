@@ -24,15 +24,6 @@ int main() {
 	startup();
 	mainLoop();
 
-	cout << "We did it!" << endl;
-
-
-	/*gameStart();
-	cout << "have I entered the loop?" << endl;
-	for (player player : gameStart::playersInGame) {
-			cout << player.getName() << endl;
-	}*/
-
 	system("pause");
 	cout << "End of test." << endl;
  	return 0;
