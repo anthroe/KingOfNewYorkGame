@@ -55,7 +55,7 @@ void startup::chooseStartingRegion() {
 	float input;
 	cout << "Regions: " << endl;
 	
-	for (player player : playerOrder) {
+	for (int i = 0; i < playerOrder.size(); i++) {
 
 		vector<Region> regions = currMap.getRegions();
 		vector<Region> moveableAreas;
@@ -68,7 +68,7 @@ void startup::chooseStartingRegion() {
 			}
 		}
 
-		cout << "It is " + player.getName() + "'s turn to move. Choose Destination:" << endl;
+		cout << "It is " + playerOrder[i].getName() + "'s turn to move. Choose Destination:" << endl;
 
 		for (int i = 0; i < moveableAreas.size(); i++) {
 			cout << i << ". " + moveableAreas[i].getName() + "	";
@@ -83,37 +83,25 @@ void startup::chooseStartingRegion() {
 
 		input = (int)input;
 
-		player.setRegion(moveableAreas[input]);
+		playerOrder[i].setRegion(moveableAreas[input]);
 
-		cout << player.getName() + " moved to " + player.getRegion().getName() + ". " << endl << endl;
+		cout << playerOrder[i].getName() + " moved to " + playerOrder[i].getRegion().getName() + ". " << endl << endl;
 
 		//update map
-		for (int i = 0; i < regions.size(); i++) {
-			if (regions[i] == moveableAreas[input]) {
-				regions[i].increasePlayerCount();
-				player.setRegion(regions[i]);
+		for (int j = 0; j < regions.size(); j++) {
+			if (regions[j] == moveableAreas[input]) {
+				regions[j].increasePlayerCount();
+				playerOrder[i].setRegion(regions[j]);
 			}
 		}
-
-		for (int i = 0; i < playerOrder.size(); i++) {
-			if (player == playerOrder[i]) {
-				playerOrder[i] = player;
-			}
-		}
-		
 
 		gameStart::playersInGame = playerOrder;
 		currMap.update(regions);
 
 	}
-	cout << "Players in each region: " << endl;
-	for (Region region : currMap.getRegions()) {
-		cout << region.getName() + ": " << region.getPlayerCount() << endl;
-	}
 
 	gameStart::map = currMap;
 	gameStart::playersInGame = playerOrder;
-
 }
 
 

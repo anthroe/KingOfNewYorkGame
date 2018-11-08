@@ -132,13 +132,13 @@ void player::move_kony() {
 	vector<string> neighbourNames;
 	Region priorRegion = region;
 
-	/*for (int i = 0; i < regions.size(); i++) {
+	for (int i = 0; i < regions.size(); i++) {
 		for (int j = 0; j < players.size(); j++) {
 			if (regions[i] == players[j].getRegion()) {
 				regions[i].increasePlayerCount();
 			}
 		}
-	}*/
+	}
 
 	for (int i = 0; i < regions.size(); i++) {
 		if (regions[i].getName() == "Manhattan1") {
@@ -252,7 +252,6 @@ void player::move_kony() {
 	}
 
 	gameStart::playersInGame = players;
-	gameStart::mapRegions = regions;
 	gameStart::map.update(regions);
 }
 
