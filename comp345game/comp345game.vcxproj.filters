@@ -72,7 +72,7 @@
     <ClCompile Include="startup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mainLoop.cpp">
+    <ClCompile Include="IPlayerType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mainLoop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayerType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

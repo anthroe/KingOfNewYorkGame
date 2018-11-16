@@ -48,13 +48,14 @@ void gameStart::selectMap() {
 }
 
 void gameStart::createPlayers() {
+	Deck deck;
 	float inputPlayers;
 	cout << endl << "How many players will play? (2 - 6)" << endl;
 	cin >> inputPlayers;
 
 	while (cin.fail() || inputPlayers != (int) inputPlayers|| (inputPlayers < 2 || inputPlayers > 6)) {
 		cin.clear();
-		cin.ignore(6, '\n');
+		cin.ignore(256, '\n');
 		cout << "Please select a valid amount of players (2 - 6): " << endl;		
 		cin >> inputPlayers;
 	}
@@ -62,16 +63,69 @@ void gameStart::createPlayers() {
 	numberOfPlayers = (int)inputPlayers;
 
 	// Create a new deck and the players
-	Deck deck;
 	for (int i = 1; i <= inputPlayers; i++) {
 		string playerName;
 		cout << "Enter player " << (i) << "'s name:" << endl;
 		cin >> playerName;
 		player currPlayer = player(playerName);
+		currPlayer.setPlayerType(new client());
 		selectMonster(&currPlayer);
 		playersInGame.push_back(currPlayer);
 	}
 
+	// ============================ Strategy Pattern	Adding Bots		=====================================
+	// Choose to add bots if there's room for more players.
+	if ((int) inputPlayers < 6) {
+		float inputBots;
+		cout << "How many bots would you like to add? (0 - " << 6 - (int) inputPlayers << ")" << endl;
+		cin >> inputBots;
+
+		while (cin.fail() || inputBots != (int)inputBots || (inputBots < 0 || inputBots >(6 - (int)inputPlayers))) {
+			cin.clear();
+			cin.ignore(256, '\n');
+			cout << "Please enter a valid amount of bots." << endl;
+			cin >> inputBots;
+		}
+
+		for (int i = 1; i <= inputBots; i++) {
+			string botName;
+			float inputBotType;
+
+			cout << "Enter bot " << i << "'s name" << endl;
+			cin >> botName;
+			player currBot = player(botName);
+
+			//Select bot type (aggressive or moderate)
+			cout << "What type of bot will this be?" << endl;
+			cout << "[0]. Aggressive \t [1]. Moderate" << endl;
+			cin >> inputBotType;
+
+			while (cin.fail() || inputBotType != (int) inputBotType || ((int) inputBotType < 0 || (int) inputBotType > 1)) {
+				cin.clear();
+				cin.ignore(256, '\n');
+				cout << "Please enter 0 or 1 to select a type." << endl;
+				cin >> inputBotType;
+			}
+
+			if ((int) inputBotType == 0) {
+				currBot.setPlayerType(new aggressiveBot());
+			}
+			else {
+				currBot.setPlayerType(new moderateBot());
+			}
+
+			int botMonsterNum = rand() % ListOfMonsterCards.size(); //select random monster for bot
+			string choice = ListOfMonsterCards[botMonsterNum];		//set choice of monster
+			ListOfMonsterCards.erase(remove(ListOfMonsterCards.begin(), ListOfMonsterCards.end(), choice), ListOfMonsterCards.end()); //remove from list
+
+			MonsterCard *monst = new MonsterCard(choice);
+			currBot.setMonsterCard(monst);
+			playersInGame.push_back(currBot);
+		}
+	}
+	//=======================================================================================================
+
+	//Display players
 	cout << "\nPlayers playing: " << endl;
 
 	for (player player : playersInGame) {

@@ -120,3 +120,9 @@ void diceRoller::firstRoll()
 		diceContainer[index]->setResolve(true);
 	}
 }
+
+void diceRoller::rollNDice(int n)
+{
+	if (n >= 0 && n <= 6)
+		diceContainer[n]->rollDice();
+}

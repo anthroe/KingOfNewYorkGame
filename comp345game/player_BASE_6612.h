@@ -10,11 +10,8 @@
 #include "monsterCard.h"
 #include "Map.h"
 #include "diceRoller.h"
-#include "IPlayerType.h"
 
 using namespace std;
-
-class IPlayerType;
 
 class player {
 private:
@@ -30,17 +27,13 @@ private:
 	string inline buyCardPrompt(string prompt);
 	bool damaged;
 
-	// === Strategy Design ===
-	IPlayerType* playerType;
-	//========================
-
 public:
 	player();
 	player(string);
 
 	int getId() { return id;  };
 	string getName() { return name; };
-	diceRoller getDice() { return playDice; }
+
 
 	void setMonsterCard(MonsterCard *monst);
 	MonsterCard *getMonsterCard() { return monsterCard; };
@@ -54,23 +47,20 @@ public:
 
 	void setRegion(Region);
 	Region getRegion() { return region; }
+	void move();
+	void move_kony();
 
 	void applyDiceEffect(int, int, Deck);
+	void rollDice();
+	void resolveDice(Deck);
 	int firstRoll();
+
+	void buyCards(Deck);
 
 	void setDamage(bool);
 	bool isDamaged();
 
 	bool operator==(const player&) const;
-
-	// === Strategy Design ===
-	void setPlayerType(IPlayerType* type) { this->playerType = type; }
-	void move();
-	void chooseStartingRegion();
-	void rollDice();
-	void resolveDice();
-	void buyCards();
-	//========================
 };
 
 #endif

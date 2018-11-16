@@ -12,8 +12,7 @@ private:
 	Map currMap;
 
 public:
-	startup(/*vector<player*>, Map* */);
-//	startup(/* vector<player*> players, Map* map, bool quickStart */);
+	startup();
 	void decidePlayerOrder();
 	void chooseStartingRegion();
 	

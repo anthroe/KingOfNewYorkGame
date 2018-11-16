@@ -11,6 +11,7 @@
 using namespace std;
 
 int player::playerId = 1;
+
 //create a default player with an empty string as a name and an automatically assigned id
 player::player(){
 	name = "";
@@ -79,181 +80,6 @@ void player::addEnergy(int n) {
 	if (energy + n > 0)
 		energy += n;
 }
-//creating a diceRoller object for the player and rolling the dice
-void player::rollDice() {
-	playDice.playerRoll();
-}
-
-//player moves to a different region
-void player::move() {
-	if (region == Region()) {
-		cout << "Cannot move " + name + ". This player's region has not been set yet." << endl;
-		return;
-	}
-
-	vector<Region> zones = region.getNeighbours();
-	float input;
-
-	cout << "It is " + name + "'s turn to move." << endl;
-	cout << "Current location: " + region.getName() << endl;
-	cout << "Choose destination: " << endl;
-
-	for (int i = 0; i < zones.size(); i++) {
-		cout << i << ". " + zones[i].getName() + "	";
-	}
-
-	cin >> input;
-
-	while (cin.fail() || input != (int)input || (input < 0 || input > zones.size() - 1)) {
-		cin.clear();
-		cin.ignore(256, '\n');
-		cin >> input;
-	}
-
-	input = (int)input;
-	setRegion(zones[input]);
-}
-
-void player::move_kony() {
-	if (region == Region()) {
-		cout << "Cannot move " + name + ". This player's region has not been set yet." << endl;
-		return;
-	}
-
-	float input;
-	int lowManIndex = -1;
-	int midManIndex = -1;
-	int uppManIndex = -1;
-
-	vector<Region> regions = gameStart::mapRegions;
-	vector<player> players = gameStart::playersInGame;
-	vector<Region> zones = region.getNeighbours();
-	vector<Region> moveableAreas;
-	vector<string> neighbourNames;
-	Region priorRegion = region;
-
-	for (int i = 0; i < regions.size(); i++) {
-		for (int j = 0; j < players.size(); j++) {
-			if (regions[i] == players[j].getRegion()) {
-				regions[i].increasePlayerCount();
-			}
-		}
-	}
-
-	for (int i = 0; i < regions.size(); i++) {
-		if (regions[i].getName() == "Manhattan1") {
-			lowManIndex = i;
-		}
-		else if (regions[i].getName() == "Manhattan2") {
-			midManIndex = i;
-		}
-		else if (regions[i].getName() == "Manhattan3") {
-			uppManIndex = i;
-		}
-	}
-
-	for (int i = 0; i < zones.size(); i++) {
-		if (zones[i].getPlayerCount() < 2) {
-			if (zones[i].getName() != "Manhattan1" && zones[i].getName() != "Manhattan2" && zones[i].getName() != "Manhattan3") {
-				neighbourNames.push_back(zones[i].getName());
-			}
-		}
-	}
-
-	for (Region region : regions) {
-		for (string neighbourName : neighbourNames) {
-			if (region.getName() == neighbourName) {
-				moveableAreas.push_back(region);
-			}
-		}
-	}
-
-	if (!damaged) {
-		cout << "It is " + name + "'s turn to move." << endl;
-		cout << "Current location: " + region.getName() << endl;
-	}
-
-	if (region.getName() == "Manhattan3" && !damaged) {
-		//if the player is in upper manhattan, he cannot move.
-
-		cout << name + " cannot move." << endl << endl;
-	}
-	else if (region.getName() == "Manhattan1" && !damaged) {
-		//if the player is in lower or middle manhattan, he advances to the next zone.
-		//this player can only move anywhere other than manhattan if attacked.
-		region = regions[midManIndex];
-
-		cout << name + " was moved to middle manhattan." << endl << endl;
-	}
-	else if (region.getName() == "Manhattan2" && !damaged) {
-		//if the player is in middle manhattan, he advances to upper manhattan.
-		region = regions[uppManIndex];
-
-		cout << name + " was moved to upper Manhattan." << endl << endl;
-	}
-	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0 && !damaged) {
-		//if no one is in Manhattan. the player moves to lower Manhattan
-		region = regions[lowManIndex];
-
-		cout << "Manhattan is empty. " + name + " was moved to lower manhattan." << endl << endl;
-	}
-	else {
-
-		if (!damaged) {
-			//manhattan is occupied, the player to neighbouring areas.
-			cout << "Manhattan is occupied. Choose destination: " << endl;
-		}
-		else {
-			cout << name + " is in Manhattan and has been damaged. Move or remain in place." << endl;
-			damaged = false;
-		}
-
-		for (int i = 0; i < moveableAreas.size(); i++) {
-			cout << i << ". " + moveableAreas[i].getName() + "	";
-		}
-
-		cout << moveableAreas.size() << ". Remain in place.";
-
-		cin >> input;
-
-		while (cin.fail() || input != (int)input || (input < 0 || input > moveableAreas.size())) {
-			cin.clear();
-			cin.ignore(256, '\n');
-			cin >> input;
-		}
-
-		input = (int)input;
-
-		if (input == moveableAreas.size()) {
-			return;
-		}
-
-		region = moveableAreas[input];
-
-		cout << name + " moved to " + region.getName() + ". " << endl << endl;
-	}
-
-	for (int i = 0; i < regions.size(); i++) {
-		if (regions[i] == priorRegion) {
-			priorRegion.decreasePlayerCount();
-			regions[i] = priorRegion;
-		}
-
-		if (regions[i] == region) {
-			region.increasePlayerCount();
-			regions[i] = region;
-		}
-	}
-
-	for (int i = 0; i < players.size(); i++) {
-		if (name == players[i].getName() && id == players[i].getId()) {
-			players[i].region = region;
-		}
-	}
-
-	gameStart::playersInGame = players;
-	gameStart::map.update(regions);
-}
 
 void player::setRegion(Region region) {
 	this->region = region;
@@ -262,75 +88,6 @@ void player::setRegion(Region region) {
 // Takes a response Y, y, N, or n and turns it into a bool
 bool player::responseToBool(string response) {
 	return (response.compare("Y") == 0 || response.compare("y") == 0);
-}
-
-void player::buyCards(Deck deck) {
-	// Store the response in a character
-	string response;
-	response = buyCardPrompt("Would you like to buy a card ? (Y / N)");
-
-	// If they want to buy a card, show them what they can buy
-	if (responseToBool(response)) {
-		do {
-			// Ask which card they want to buy, and repeat until they answer properly
-			int i = deck.getPurchaseableCards().size();
-			do {
-				cout << "\nYou have " << energy << " energy." << endl;
-				cout << "Which card would you like to buy? (Enter the row number)" << endl;
-
-				// Give a list of cards
-				for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
-					GameCard card = deck.getPurchaseableCards()[i];
-					cout << i + 1 << ". " << card.getName() << " (Cost: " << card.getCost() << ")" << endl;
-				}
-				cout << deck.getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
-
-				cin >> response;
-				istringstream iss(response);
-				iss >> i;
-			} while (i > deck.getPurchaseableCards().size() + 1);
-
-			// If the player chose to get new cards
-			if (i == deck.getPurchaseableCards().size() + 1) {
-				// Ensure that the player has enough energy for the transaction
-				if (energy < 2) {
-					cout << "\nYou don't have enough energy for that card" << endl;
-				}
-				else {
-					energy -= 2;
-					for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
-						if (!deck.discardCard(deck.getPurchaseableCards()[0]))
-							cout << "Error getting new cards";
-						else
-							deck.shuffle();
-					}
-				}
-				// Else the player chose to buy a card
-			}
-			else {
-				// Ensure that the player has enough energy for the transaction
-				if (energy >= deck.getPurchaseableCards()[i - 1].getCost()) {
-					energy -= deck.getPurchaseableCards()[i - 1].getCost();
-					addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[i - 1]));
-				}
-				else
-					cout << "\nYou don't have enough energy for that card" << endl;
-			}
-
-			cout << "\n" << endl;
-			response = buyCardPrompt("Would you like to buy another card ? (Y / N)");
-
-			// Add a new purchaseable card
-			deck.shuffle();
-
-		} while (responseToBool(response));
-	}
-
-	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		if (gameStart::playersInGame[i] == (*this)) {
-			gameStart::playersInGame[i] = (*this);
-		}
-	}
 }
 
 // Ask the player if they want to buy a card, and repeat until they answer properly
@@ -345,82 +102,6 @@ string inline player::buyCardPrompt(string prompt) {
 	} while (!(response.compare("Y") == 0 || response.compare("y") == 0 || response.compare("N") == 0 || response.compare("n") == 0));
 	
 	return response;
-}
-
-void player::resolveDice(Deck deck)
-{
-	bool resolving = true;
-	const int NUMOFSYMBOLS = 6;
-	int* resolveOrder = new int[NUMOFSYMBOLS];
-	int* numOfResolves = new int[NUMOFSYMBOLS];
-	for (int i = 0; i < NUMOFSYMBOLS; i++)
-	{
-		numOfResolves[i] = 0;
-		resolveOrder[i] = 0;
-	}
-	int j = 0;
-	string ability[NUMOFSYMBOLS] = { "Energy", "Heal", "Attack", "Celebrity", "Destruction", "Ouch" };
-	for (int i = 0; i < NUMOFSYMBOLS; i++)
-	{
-		cout << "Press " << i + 1 << " to resolve " << ability[i] << " dices." << endl;
-	}
-	while (resolving)
-	{
-		float num = -1;
-		while (num > NUMOFSYMBOLS || num < 0)
-		{
-			cout << "Which type of dices would you like to resolve?" << endl;
-			cin >> num;
-
-			while (cin.fail() || num != (int)num || (num < 1 || num > 6)) {
-				cin.clear();
-				cin.ignore(256, '\n');
-				cin >> num;
-			}
-
-			int *end = resolveOrder + NUMOFSYMBOLS;
-			// does not allow duplicate values to be placed in the resolveOrder array
-			int *result = std::find(resolveOrder, end, num);
-			if (result != end) {
-				num = -1;
-			}
-		}
-		resolveOrder[j] = num;
-		j++;
-		int count = 0;
-		for (int i = 0; i < playDice.size(); i++)
-		{
-			
-			if (playDice.getDiceContainerTop(i).compare(ability[(int) num - 1]) == 0
-				&& playDice.getDiceResolve(i) == true)
-			{
-				//call a resolve function
-				numOfResolves[(int) num - 1]++;
-				//cout << "Dice number " << i + 1 << " with type " << playDice.getDiceContainerTop(i) << " has been resolved " << endl;
-				playDice.setDiceResolve(i,false);
-			}
-			if (playDice.getDiceResolve(i) == false)
-			{
-				count++;
-			}
-				
-			if (count == playDice.size())
-			{
-				resolving = false;
-				cout << "All dices have been resolved succesfully" << endl;
-			}
-		}
-		
-	}
-	for (int i = 0; i < 6; i++)
-	{
-		if (resolveOrder[i] > 0 && resolveOrder[i] < 7)
-		{
-			cout << "The dice of the type " << ability[resolveOrder[i] - 1] <<
-				" has been rolled " << numOfResolves[resolveOrder[i] - 1] <<  " times " <<endl;
-			applyDiceEffect(resolveOrder[i], numOfResolves[resolveOrder[i] - 1], deck);
-		}
-	}
 }
 
 void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
@@ -467,7 +148,7 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 
 							//player in manhattan gets prompted to move
 							players[i].setDamage(true);
-							players[i].move_kony();
+							players[i].move();
 							regions = gameStart::mapRegions;
 						}
 					}
@@ -594,4 +275,25 @@ bool player::isDamaged() {
 
 bool player::operator==(const player &o) const {
 	return (name == o.name && id == o.id);
+}
+
+// ========= Strategy Design ==========
+void player::move() {
+	this->playerType->move(this);
+}
+
+void player::chooseStartingRegion() {
+	this->playerType->chooseStartingRegion(this);
+}
+
+void player::rollDice() {
+	this->playerType->rollDice(this);
+}
+
+void player::resolveDice() {
+	this->playerType->resolveDice(this);
+}
+
+void player::buyCards() {
+	this->playerType->buyCards(this);
 }

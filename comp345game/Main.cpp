@@ -22,7 +22,11 @@ int main() {
 
 	gameStart();
 	startup();
-	mainLoop();
+	//mainLoop();
+
+	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
+
+	}
 
 	system("pause");
 	cout << "End of test." << endl;

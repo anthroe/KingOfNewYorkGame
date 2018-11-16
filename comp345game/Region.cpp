@@ -72,6 +72,10 @@ void Region::decreasePlayerCount() {
 	}
 }
 
+void Region::setPlayerCount(int count) {
+	playerCount = count;
+}
+
 void Region::addNeighbour(Region region) {
 	Neighbours.push_back(region);
 }
