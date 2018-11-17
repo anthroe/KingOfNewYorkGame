@@ -59,6 +59,10 @@ bool player::addOwnedCard(GameCard card) {
 	return true;
 }
 
+void player::setOwnedCards(vector<GameCard> cards) {
+	this->ownedCards = cards;
+}
+
 bool player::transferSpecialCard(string cardName) {
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
 		if (gameStart::playersInGame[i].getName().compare(getName()) != 0){
@@ -81,27 +85,12 @@ void player::addEnergy(int n) {
 		energy += n;
 }
 
+void player::setEnergy(int energy) {
+	this->energy = energy;
+}
+
 void player::setRegion(Region region) {
 	this->region = region;
-}
-
-// Takes a response Y, y, N, or n and turns it into a bool
-bool player::responseToBool(string response) {
-	return (response.compare("Y") == 0 || response.compare("y") == 0);
-}
-
-// Ask the player if they want to buy a card, and repeat until they answer properly
-string inline player::buyCardPrompt(string prompt) {
-	string response = "";
-
-	do {
-		cout << prompt << endl;;
-		cin >> response;
-		if (!(response.compare("Y") == 0 || response.compare("y") == 0 || response.compare("N") == 0 || response.compare("n") == 0))
-			cout << "Invalid response. Try again.\n" << endl;
-	} while (!(response.compare("Y") == 0 || response.compare("y") == 0 || response.compare("N") == 0 || response.compare("n") == 0));
-	
-	return response;
 }
 
 void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)

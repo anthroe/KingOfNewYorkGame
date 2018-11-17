@@ -26,8 +26,6 @@ private:
 	Region region;
 	diceRoller playDice;
 	int energy = 0;
-	bool inline responseToBool(string response);
-	string inline buyCardPrompt(string prompt);
 	bool damaged;
 
 	// === Strategy Design ===
@@ -47,10 +45,12 @@ public:
 
 	bool addOwnedCard(GameCard);
 	vector<GameCard> getOwnedCards() { return ownedCards; };
+	void setOwnedCards(vector<GameCard>);
 	bool transferSpecialCard(string);
 
 	void addEnergy(int);
 	int getEnergy() { return energy; }
+	void setEnergy(int);
 
 	void setRegion(Region);
 	Region getRegion() { return region; }

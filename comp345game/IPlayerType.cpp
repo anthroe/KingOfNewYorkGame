@@ -6,6 +6,7 @@
 #include "gameStart.h"
 #include "startup.h"
 #include "diceRoller.h"
+#include "deck.h"
 
 using namespace std;
 
@@ -579,7 +580,7 @@ void moderateBot::rollDice(player* currentPlayer) {
 		for (int i = 0; i < currentPlayer->getDice().size(); i++)
 		{
 
-			if (currentPlayer->getDice().getDiceContainerTop(i).compare("Heal") != 0 
+			if (currentPlayer->getDice().getDiceContainerTop(i).compare("Heal") != 0
 				&& currentPlayer->getDice().getDiceContainerTop(i).compare("Energy") != 0
 				&& currentPlayer->getDice().getDiceContainerTop(i).compare("Celebrity") != 0) {
 				currentPlayer->getDice().rollNDice(i);
@@ -591,8 +592,36 @@ void moderateBot::rollDice(player* currentPlayer) {
 }
 
 // =========================== Resolve Dice ===============================
-void IPlayerType::resolveDice(player* currentPlayer){
-	cout << "Dices have been resolved xD " << endl;
+void IPlayerType::resolveDice(player* currentPlayer) {
+	Deck deck;
+	bool resolving = true;
+	const int NUMOFSYMBOLS = 6;
+	int* numOfResolves = new int[NUMOFSYMBOLS];
+	string ability[NUMOFSYMBOLS] = { "Energy", "Heal", "Attack", "Celebrity", "Destruction", "Ouch" };
+
+	for (int i = 0; i < NUMOFSYMBOLS; i++)
+	{
+		numOfResolves[i] = 0;
+	}
+
+	for (int i = 0; i < NUMOFSYMBOLS; i++)
+	{
+		for (int j = 0; j < currentPlayer->getDice().size(); j++)
+		{
+			if (currentPlayer->getDice().getDiceContainerTop(j).compare(ability[i]) == 0)
+				numOfResolves[i]++;
+		}
+	}
+	for (int i = 0; i < NUMOFSYMBOLS; i++)
+	{
+		if (numOfResolves[i] > 0)
+		{
+			cout << "The dice of the type " << ability[i] <<
+				" has been rolled " << numOfResolves[i] << " times " << endl;
+			currentPlayer->applyDiceEffect(i + 1, numOfResolves[i], deck);
+		}
+	}
+
 }
 
 void client::resolveDice(player* currentPlayer) {
@@ -672,40 +701,115 @@ void client::resolveDice(player* currentPlayer) {
 
 //	=========================== Buy Cards =================================
 void IPlayerType::buyCards(player* currentPlayer) {
+	Deck deck;
+	int input;
+
+	cout << "\nIt is " + currentPlayer->getName() + "'s turn to buy a card. " << endl;
+
+	// The bot has more than 2 energy, he can buy something. 
+	if (currentPlayer->getEnergy() > 2) {
+		// Card to purchase is randomly selected
+		input = rand() % (deck.getPurchaseableCards().size()) + 1;
+
+		// Ask which card they want to buy, and repeat until they answer properly
+		cout << "\nYou have " << currentPlayer->getEnergy() << " energy." << endl;
+		cout << "Which card would you like to buy? (Enter the row number)" << endl;
+
+		// Give a list of cards
+		for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
+			GameCard card = deck.getPurchaseableCards()[i];
+			cout << i + 1 << ". " << card.getName() << " (Cost: " << card.getCost() << ")" << endl;
+		}
+		cout << deck.getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
+
+		// If the player chose to get new cards
+		if (input == deck.getPurchaseableCards().size() + 1) {
+			// Ensure that the player has enough energy for the transaction
+			if (currentPlayer->getEnergy() < 2) {
+				cout << "\nYou don't have enough energy for that card" << endl;
+			}
+			else {
+				currentPlayer->setEnergy(currentPlayer->getEnergy() - 2);
+				for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
+					if (!deck.discardCard(deck.getPurchaseableCards()[0]))
+						cout << "Error getting new cards";
+					else
+						deck.shuffle();
+				}
+			}
+		}
+		//player chose to buy a card.
+		else {
+			// Ensure that the player has enough energy for the transaction
+			if (currentPlayer->getEnergy() >= deck.getPurchaseableCards()[input - 1].getCost()) {
+				currentPlayer->setEnergy(currentPlayer->getEnergy() - deck.getPurchaseableCards()[input - 1].getCost());
+				currentPlayer->addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[input - 1]));
+
+				cout << currentPlayer->getName() + " has purchased " + deck.getPurchaseableCards()[input - 1].getName() << endl;
+			}
+			else
+				cout << "\nYou don't have enough energy for that card" << endl;
+		}
+
+		
+
+		//update player info
+		for (int i = 0; i < gameStart::playersInGame.size(); i++) {
+			if (gameStart::playersInGame[i].getName() == currentPlayer->getName() && gameStart::playersInGame[i].getId() == currentPlayer->getId()) {
+				gameStart::playersInGame[i].setEnergy(currentPlayer->getEnergy());
+				gameStart::playersInGame[i].setOwnedCards(currentPlayer->getOwnedCards());
+			}
+		}
+	}
+	else {
+		cout << currentPlayer->getName() + " doesn't have enough energy to buy cards. " << endl;
+	}
+}
+
+void client::buyCards(player* currentPlayer) {
 	// Store the response in a character
 	string response;
 	Deck deck;
-	response = currentPlayer->buyCardPrompt("Would you like to buy a card ? (Y / N)");
+
+	cout << currentPlayer->getName() + ", would you like to buy a card ? (Y / N)" << endl;
+	cin >> response;
+
+	while (response.compare("Y") != 0 && response.compare("y") != 0 && response.compare("N") != 0 && response.compare("n") != 0) {
+		cout << "Invalid response. Try again.\n" << endl;
+		cin >> response;
+	}
 
 	// If they want to buy a card, show them what they can buy
-	if (responseToBool(response)) {
+	if (response.compare("Y") == 0 || response.compare("y") == 0) {
+		float input;
 		do {
 			// Ask which card they want to buy, and repeat until they answer properly
-			int i = deck.getPurchaseableCards().size();
-			do {
-				cout << "\nYou have " << energy << " energy." << endl;
-				cout << "Which card would you like to buy? (Enter the row number)" << endl;
+			cout << "\nYou have " << currentPlayer->getEnergy() << " energy." << endl;
+			cout << "Which card would you like to buy? (Enter the row number)" << endl;
 
-				// Give a list of cards
-				for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
-					GameCard card = deck.getPurchaseableCards()[i];
-					cout << i + 1 << ". " << card.getName() << " (Cost: " << card.getCost() << ")" << endl;
-				}
-				cout << deck.getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
+			// Give a list of cards
+			for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
+				GameCard card = deck.getPurchaseableCards()[i];
+				cout << i + 1 << ". " << card.getName() << " (Cost: " << card.getCost() << ")" << endl;
+			}
+			cout << deck.getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
+			cin >> input;
 
-				cin >> response;
-				istringstream iss(response);
-				iss >> i;
-			} while (i > deck.getPurchaseableCards().size() + 1);
+			while (cin.fail() || input != (int)input || (input < 1 || input >= (deck.getPurchaseableCards().size() + 1))) {
+				cin.clear();
+				cin.ignore(256, '\n');
+				cout << "Please enter the correct row number." << endl;
+				cin >> input;
+			}
 
 			// If the player chose to get new cards
-			if (i == deck.getPurchaseableCards().size() + 1) {
+			if (input == deck.getPurchaseableCards().size() + 1) {
 				// Ensure that the player has enough energy for the transaction
-				if (energy < 2) {
+				if (currentPlayer->getEnergy() < 2) {
 					cout << "\nYou don't have enough energy for that card" << endl;
 				}
 				else {
-					energy -= 2;
+					currentPlayer->setEnergy(currentPlayer->getEnergy() - 2);
 					for (int i = 0; i < deck.getPurchaseableCards().size(); i++) {
 						if (!deck.discardCard(deck.getPurchaseableCards()[0]))
 							cout << "Error getting new cards";
@@ -713,30 +817,35 @@ void IPlayerType::buyCards(player* currentPlayer) {
 							deck.shuffle();
 					}
 				}
-				// Else the player chose to buy a card
 			}
+			//player chose to buy a card.
 			else {
 				// Ensure that the player has enough energy for the transaction
-				if (energy >= deck.getPurchaseableCards()[i - 1].getCost()) {
-					energy -= deck.getPurchaseableCards()[i - 1].getCost();
-					addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[i - 1]));
+				if (currentPlayer->getEnergy() >= deck.getPurchaseableCards()[input - 1].getCost()) {
+					currentPlayer->setEnergy(currentPlayer->getEnergy() - deck.getPurchaseableCards()[input - 1].getCost());
+					currentPlayer->addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[input - 1]));
+
+					cout << currentPlayer->getName() + " has purchased " + deck.getPurchaseableCards()[input - 1].getName() << endl;
 				}
 				else
 					cout << "\nYou don't have enough energy for that card" << endl;
 			}
-
-			cout << "\n" << endl;
-			response = buyCardPrompt("Would you like to buy another card ? (Y / N)");
-
+			cout << "\nWould you like to buy another card ? (Y / N)" << endl;
+			cin >> response;
+			while (response.compare("Y") != 0 && response.compare("y") != 0 && response.compare("N") != 0 && response.compare("n") != 0) {
+				cout << "Invalid response. Try again.\n" << endl;
+				cin >> response;
+			}
 			// Add a new purchaseable card
 			deck.shuffle();
 
-		} while (responseToBool(response));
+		} while (response.compare("Y") == 0 || response.compare("y") == 0);
 	}
 
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		if (gameStart::playersInGame[i] == (*this)) {
-			gameStart::playersInGame[i] = (*this);
+		if (gameStart::playersInGame[i].getName() == currentPlayer->getName() && gameStart::playersInGame[i].getId() == currentPlayer->getId()) {
+			gameStart::playersInGame[i].setEnergy(currentPlayer->getEnergy());
+			gameStart::playersInGame[i].setOwnedCards(currentPlayer->getOwnedCards());
 		}
 	}
 }

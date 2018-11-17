@@ -25,11 +25,11 @@ int main() {
 	//mainLoop();
 
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-
+		gameStart::playersInGame[i].addEnergy(10);
+		gameStart::playersInGame[i].buyCards();
 	}
 
 	system("pause");
 	cout << "End of test." << endl;
  	return 0;
-
 }

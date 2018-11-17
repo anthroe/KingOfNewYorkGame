@@ -32,4 +32,5 @@ public:
 	virtual void resolveDice(player*);
 	virtual void move(player*);
 	virtual void chooseStartingRegion(player*);
+	virtual void buyCards(player*);
 };

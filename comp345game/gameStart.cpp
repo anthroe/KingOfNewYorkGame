@@ -114,12 +114,7 @@ void gameStart::createPlayers() {
 				currBot.setPlayerType(new moderateBot());
 			}
 
-			int botMonsterNum = rand() % ListOfMonsterCards.size(); //select random monster for bot
-			string choice = ListOfMonsterCards[botMonsterNum];		//set choice of monster
-			ListOfMonsterCards.erase(remove(ListOfMonsterCards.begin(), ListOfMonsterCards.end(), choice), ListOfMonsterCards.end()); //remove from list
-
-			MonsterCard *monst = new MonsterCard(choice);
-			currBot.setMonsterCard(monst);
+			selectMonster(&currBot); //remove from list
 			playersInGame.push_back(currBot);
 		}
 	}
@@ -190,37 +185,39 @@ void gameStart::buildMonster() {
 void gameStart::selectMonster(player *currPlayer) {
 	//print list of available monsters to choose from
 	cout << "\nMonsters available: " << endl;
+
+	cout << ListOfMonsterCards.size() << endl;
+
 	for (int i = 0; i < ListOfMonsterCards.size(); i++) {
-		cout << ListOfMonsterCards[i] << endl;
+		cout << "[" << i <<"] " + ListOfMonsterCards[i] << endl;
 	}
-	string choice = "";
-	bool selectValid = false;
+	float choice;
 	cout << "\nSelect a monster card: " << endl; 
 	cin >> choice;
-	checkMonsterExists(choice);
 
-	while (!checkMonsterExists(choice)) {
+	while (cin.fail() || choice != (int) choice || (choice < 0 || choice >= ListOfMonsterCards.size())) {
 		cin.clear();
-		cin.ignore(100, '\n');
+		cin.ignore(256, '\n');
 		cout << "Please select a valid monster: " << endl;
 		cin >> choice;
 	}
-
-	ListOfMonsterCards.erase(remove(ListOfMonsterCards.begin(), ListOfMonsterCards.end(), choice), ListOfMonsterCards.end());
-	MonsterCard *monst = new MonsterCard(choice);
+	
+	MonsterCard *monst = new MonsterCard(ListOfMonsterCards[choice]);
 	currPlayer->setMonsterCard(monst);
+	ListOfMonsterCards.erase(remove(ListOfMonsterCards.begin(), ListOfMonsterCards.end(), ListOfMonsterCards[choice]), ListOfMonsterCards.end());
 }
 
 bool gameStart::checkMonsterExists(string choice) {
 	bool selectValid;
 	for (int i = 0; i < ListOfMonsterCards.size(); i++) {
-		if (choice != ListOfMonsterCards[i]) {
-			selectValid = false;
+	
+		if (choice.compare(ListOfMonsterCards[i]) == 0) {
+			selectValid = true;
+			
+			break;
 		}
 		else {
-			selectValid = true; 
-	
-			break;
+			selectValid = false;
 		}
 	}
 	return selectValid;
