@@ -127,10 +127,14 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="mapLoader.cpp" />
     <ClCompile Include="monsterCard.cpp" />
+    <ClCompile Include="phase.cpp" />
+    <ClCompile Include="phaseObserver.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="startup.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="tokens.cpp" />
     <ClCompile Include="tiles.cpp" />
   </ItemGroup>
@@ -145,12 +149,16 @@
     <ClInclude Include="dirent.h" />
     <ClInclude Include="gameCard.h" />
     <ClInclude Include="gameStart.h" />
+    <ClInclude Include="Observer.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="IPlayerType.h" />
     <ClInclude Include="libraries\json.hpp" />
     <ClInclude Include="mainLoop.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Maploader.h" />
     <ClInclude Include="monsterCard.h" />
+    <ClInclude Include="phase.h" />
+    <ClInclude Include="phaseObserver.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="startup.h" />
