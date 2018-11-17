@@ -7,6 +7,7 @@
 #include "player.h"
 #include "diceRoller.h"
 #include "gameStart.h"
+#include "phaseObserver.h"
 
 using namespace std;
 
@@ -285,4 +286,22 @@ void player::resolveDice() {
 
 void player::buyCards() {
 	this->playerType->buyCards(this);
+}
+
+// |--------------------------------------------------------------------------|
+// |The following section is methods that have to do with the observer pattern|
+// |--------------------------------------------------------------------------|
+void player::setState(int newState) {
+	state = newState;
+	notifyAll();
+}
+
+void player::notify(Observer* o) {
+	o->update();
+}
+
+void player::notifyAll() {
+	for (phaseObserver* obs : observers) {
+		obs->update();
+	}
 }

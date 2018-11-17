@@ -4,12 +4,15 @@
 
 class phaseObserver : public Observer
 {
-	public:
-		void update();
-		void update(player* p, string currPhase, string currAct);
-		void displayPhase();
 	private:
 		player* currPlayer;
 		string currPhase;
 		string currAction;
+
+	public:
+		//phaseObserver() {};
+		//phaseObserver(player* plr) : currPlayer(plr) {};
+		void update();
+		void update(player* p, string currPhase, string currAct);
+		void displayPhase();
 };

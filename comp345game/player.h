@@ -4,19 +4,23 @@
 
 #include <vector>
 #include <string>
-#include "region.h"
 #include "deck.h"
-#include "gameCard.h"
-#include "monsterCard.h"
-#include "Map.h"
 #include "diceRoller.h"
+#include "gameCard.h"
 #include "IPlayerType.h"
+#include "Map.h"
+#include "monsterCard.h"
+#include "Observer.h"
+//#include "phaseObserver.h" //causes errors
+#include "region.h"
+#include "Subject.h"
 
 using namespace std;
 
 class IPlayerType;
+class phaseObserver; //incomplete declaration causes it limited functionality
 
-class player {
+class player : public Subject {
 private:
 	string name;
 	int id;
@@ -71,6 +75,22 @@ public:
 	void resolveDice();
 	void buyCards();
 	//========================
+
+// |--------------------------------------------------------------------------|
+// |The following section is methods that have to do with the observer pattern|
+// |--------------------------------------------------------------------------|
+private:
+	vector<phaseObserver*> observers;
+	int state;
+
+public:
+	int getState() { return state; };
+	void setState(int);
+
+	void attach(phaseObserver* obs) { observers.push_back(obs); };
+
+	void notify(Observer* o);
+	void notifyAll();
 };
 
 #endif
