@@ -46,13 +46,13 @@ void mainLoop::play(){
 			cout << "Rolling dice: " << endl;
 			gameStart::playersInGame[i].rollDice();
 			gameStart::playersInGame[i].resolveDice();
-			if (gameStart::playersInGame[i].getMonsterCard()->getHP() == 0)
+			if (gameStart::playersInGame[i].getMonsterCard()->getHP() == 0 )
 			{
 				gameStart::playersInGame.erase(gameStart::playersInGame.begin() + i);
 				continue;
 				
 			}
-			else if (gameStart::playersInGame[i].getMonsterCard()->getVP() == 20)
+			else if (gameStart::playersInGame[i].getMonsterCard()->getVP() == 20 || turn == 5)
 			{
 				cout << "Player " << gameStart::playersInGame[i].getName() << " has won the game! Round of applause!";
 				gameInPlay = false;
@@ -62,7 +62,7 @@ void mainLoop::play(){
 			gameStart::playersInGame[i].move();
 			gameStart::playersInGame[i].buyCards();
 			turn++;
-			system("pause");
+			//system("pause");
 		}
 		/*
 		1. Roll the Dice (up to 3 times)
@@ -74,4 +74,5 @@ void mainLoop::play(){
 		*/
 	}
 	cout << "Game over" << endl;
+	system("pause");
 }
