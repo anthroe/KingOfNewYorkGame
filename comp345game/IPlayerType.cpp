@@ -484,7 +484,7 @@ void client::chooseStartingRegion(player* currentPlayer) {
 		cin >> input;
 	}
 
-	input = (int)input;
+	input = static_cast<int>(input);
 
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
 		if (gameStart::playersInGame[i].getName() == currentPlayer->getName() && gameStart::playersInGame[i].getId() == currentPlayer->getId()) {
@@ -662,7 +662,7 @@ void client::resolveDice(player* currentPlayer) {
 				num = -1;
 			}
 		}
-		resolveOrder[j] = num;
+		resolveOrder[j] = static_cast<int>(num);
 		j++;
 		int count = 0;
 		for (int i = 0; i < currentPlayer->getDice().size(); i++)

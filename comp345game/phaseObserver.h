@@ -10,7 +10,7 @@ class phaseObserver : public Observer
 		string currAction;
 
 	public:
-		//phaseObserver() {};
+		phaseObserver() {};
 		//phaseObserver(player* plr) : currPlayer(plr) {};
 		void update();
 		void update(player* p, string currPhase, string currAct);

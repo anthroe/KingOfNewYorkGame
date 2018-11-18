@@ -1,8 +1,8 @@
 #include "startup.h"
 #include "gameStart.h"
 #include "mainLoop.h"
-#include <iostream>;
-#include <algorithm>;
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,7 +12,6 @@ mainLoop::mainLoop() {
 }
 
 void mainLoop::play(){
-
 	turn = 0;
 	bool gameInPlay = true;
 
@@ -50,7 +49,8 @@ void mainLoop::play(){
 			cout << "Rolling dice: " << endl;
 			players[i].rollDice();
 
-			players[i].resolveDice(gameStart::deck);
+			players[i].resolveDice();
+			//players[i].resolveDice(gameStart::deck);
 			if (players[i].getMonsterCard()->getHP() == 0)
 			{
 				players.erase(players.begin() + i);
@@ -66,9 +66,11 @@ void mainLoop::play(){
 			}
 
 			players = gameStart::playersInGame;
-			players[i].move_kony();
+			//players[i].move_kony();
+			players[i].move();
 			players = gameStart::playersInGame;
-			players[i].buyCards(gameStart::deck);
+			//players[i].buyCards(gameStart::deck);
+			players[i].buyCards();
 			turn++;
 		}
 		/*

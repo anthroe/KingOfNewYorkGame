@@ -6,6 +6,7 @@
 #include "dirent.h"
 #include "player.h"
 #include "deck.h"
+#include "phaseObserver.h"
 #include "./libraries/json.hpp"
 
 using namespace std;
@@ -20,7 +21,8 @@ gameStart::gameStart() {
 	
 	selectMap();
 	buildMonster();
-	createPlayers();
+	walidTest();
+	//createPlayers();
 }
 
 void gameStart::selectMap() {
@@ -46,7 +48,19 @@ void gameStart::selectMap() {
 	map = mapLoaded.getMap();
 	mapRegions = map.getRegions();
 }
-
+void gameStart::walidTest()
+{
+	string playerName;
+	cout << "Enter player's name: " << endl;
+	cin >> playerName;
+	player currPlayer = player(playerName);
+	currPlayer.setPlayerType(new client());
+	selectMonster(&currPlayer);
+	phaseObserver obs = phaseObserver();
+	currPlayer.attach(&obs);
+	currPlayer.notifyAll("phase", "action");
+	//obs.update(&currPlayer, "Test", "Test");
+}
 void gameStart::createPlayers() {
 	Deck deck;
 	float inputPlayers;
@@ -70,9 +84,10 @@ void gameStart::createPlayers() {
 		player currPlayer = player(playerName);
 		currPlayer.setPlayerType(new client());
 		selectMonster(&currPlayer);
+		//phaseObserver obs
+		//currPlayer.attach();
 		playersInGame.push_back(currPlayer);
 	}
-
 	// ============================ Strategy Pattern	Adding Bots		=====================================
 	// Choose to add bots if there's room for more players.
 	if ((int) inputPlayers < 6) {

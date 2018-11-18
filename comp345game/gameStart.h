@@ -32,5 +32,6 @@ public:
 	void selectMap();
 	void createPlayers();
 	void buildMonster();
+	void walidTest();
 
 };

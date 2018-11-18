@@ -90,7 +90,8 @@ public:
 	void attach(phaseObserver* obs) { observers.push_back(obs); };
 
 	void notify(Observer* o);
-	void notifyAll();
+	void notifyAll(string phase, string action);
+	void notifyAll() {};
 };
 
 #endif

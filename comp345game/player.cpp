@@ -300,8 +300,8 @@ void player::notify(Observer* o) {
 	o->update();
 }
 
-void player::notifyAll() {
+void player::notifyAll(string phase, string action) {
 	for (phaseObserver* obs : observers) {
-		obs->update();
+		obs->update(this, phase, action);
 	}
 }

@@ -1,7 +1,7 @@
 #include "startup.h"
 #include "gameStart.h"
-#include <iostream>;
-#include <algorithm>;
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
 vector<player> players;
