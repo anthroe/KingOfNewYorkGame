@@ -82,17 +82,21 @@ void aggressiveBot::move(player* currentBot) {
 
 	if (currentBot->getRegion().getName() == "Manhattan3") {
 		cout << currentBot->getName() + " cannot move." << endl << endl;
+		currentBot->notifyAll("Move", "cannot move");
 	}
 	else if (currentBot->getRegion().getName() == "Manhattan1") {
 		currentBot->setRegion(regions[midManIndex]);
 		cout << currentBot->getName() + " was moved to middle manhattan." << endl << endl;
+		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 	}
 	else if (currentBot->getRegion().getName() == "Manhattan2") {
 		currentBot->setRegion(regions[uppManIndex]);
+		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 		cout << currentBot->getName() + " was moved to upper Manhattan." << endl << endl;
 	}
 	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0) {
 		currentBot->setRegion(regions[lowManIndex]);
+		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 		cout << "Manhattan is empty. " + currentBot->getName() + " was moved to lower manhattan." << endl << endl;
 	}
 	else {
@@ -219,18 +223,22 @@ void moderateBot::move(player* currentBot) {
 
 	if (currentBot->getRegion().getName() == "Manhattan3") {
 		cout << currentBot->getName() + " cannot move." << endl << endl;
+		currentBot->notifyAll("Move", "cannot move");
 	}
 	else if (currentBot->getRegion().getName() == "Manhattan1") {
 		currentBot->setRegion(regions[midManIndex]);
 		cout << currentBot->getName() + " was moved to middle manhattan." << endl << endl;
+		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 	}
 	else if (currentBot->getRegion().getName() == "Manhattan2") {
 		currentBot->setRegion(regions[uppManIndex]);
 		cout << currentBot->getName() + " was moved to upper Manhattan." << endl << endl;
+		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 	}
 	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0) {
 		currentBot->setRegion(regions[lowManIndex]);
 		cout << "Manhattan is empty. " + currentBot->getName() + " was moved to lower manhattan." << endl << endl;
+		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 	}
 	else {
 		// ==================================== Move Process =====================================
@@ -354,21 +362,26 @@ void client::move(player* currentPlayer) {
 	if (currentPlayer->getRegion().getName() == "Manhattan3") {
 		//player in upper manhattan cannot move unless damaged.
 		cout << currentPlayer->getName() + " cannot move." << endl << endl;
+		currentPlayer->notifyAll("Move", "cannot move");
 	}
 	else if (currentPlayer->getRegion().getName() == "Manhattan1") {
 		//player in lower manhattan advances to middle manhattan.
 		currentPlayer->setRegion(regions[midManIndex]);
 		cout << currentPlayer->getName() + " was moved to middle manhattan." << endl << endl;
+		currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
+
 	}
 	else if (currentPlayer->getRegion().getName() == "Manhattan2") {
 		//player in middle manhattan advances to upper manhattan.
 		currentPlayer->setRegion(regions[uppManIndex]);
 		cout << currentPlayer->getName() + " was moved to upper Manhattan." << endl << endl;
+		currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
 	}
 	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0) {
 		//if no one is in Manhattan. the player moves to lower Manhattan
 		currentPlayer->setRegion(regions[lowManIndex]);
 		cout << "Manhattan is empty. " + currentPlayer->getName() + " was moved to lower manhattan." << endl << endl;
+		currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
 	}
 	else {
 		if (!currentPlayer->isDamaged()) {
