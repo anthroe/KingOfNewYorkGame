@@ -130,11 +130,9 @@ void aggressiveBot::move(player* currentBot) {
 
 		if (input == moveableAreas.size()) {
 			cout << currentBot->getName() + " remains in place." << endl;
-			currentBot->notifyAll("Move", "player remained in place.");
 		}
 		else {
 			currentBot->setRegion(moveableAreas[(int)input]);
-			currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 			cout << currentBot->getName() + " moved to " + currentBot->getRegion().getName() + ". " << endl << endl;
 		}
 	}
@@ -157,10 +155,10 @@ void aggressiveBot::move(player* currentBot) {
 			players[i].setRegion(currentBot->getRegion());
 		}
 	}
-
 	
 	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
+	currentBot->notifyAll("Move", "location -> " + currentBot->getRegion().getName());
 }
 
 void moderateBot::move(player* currentBot) {
@@ -273,11 +271,9 @@ void moderateBot::move(player* currentBot) {
 
 		if (input == moveableAreas.size()) {
 			cout << currentBot->getName() + " remains in place." << endl;
-			currentBot->notifyAll("Move", "player remained in place.");
 		}
 		else {
 			currentBot->setRegion(moveableAreas[(int)input]);
-			currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 			cout << currentBot->getName() + " moved to " + currentBot->getRegion().getName() + ". " << endl << endl;
 		}
 	}
@@ -303,6 +299,7 @@ void moderateBot::move(player* currentBot) {
 
 	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
+	currentBot->notifyAll("Move", "location -> " + currentBot->getRegion().getName());
 }
 
 void client::move(player* currentPlayer) {
@@ -420,7 +417,6 @@ void client::move(player* currentPlayer) {
 
 		if (input == moveableAreas.size()) {
 			cout << currentPlayer->getName() + " remains in place." << endl;
-			currentPlayer->notifyAll("Move", "player remained in place.");
 		}
 		else {
 			currentPlayer->setRegion(moveableAreas[(int)input]);
@@ -449,6 +445,7 @@ void client::move(player* currentPlayer) {
 
 	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
+	currentPlayer->notifyAll("Move", "location -> " + currentPlayer->getRegion().getName());
 	// ============================================================================================
 }
 

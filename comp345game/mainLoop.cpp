@@ -17,8 +17,6 @@ void mainLoop::play(){
 
 	while (gameInPlay)
 	{
-		vector<player> players = gameStart::playersInGame;
-
 		system("CLS");
 		cout << "It is now turn " << turn << endl;
 		cout << "___PLAYER INFO___" << endl;
@@ -29,46 +27,40 @@ void mainLoop::play(){
 
 
 		//conditions
-		if (players.size() <= 1) {
-			cout << players[0].getName() + " is the last player remaining." << endl;
+		if (gameStart::playersInGame.size() <= 1) {
+			cout << gameStart::playersInGame[0].getName() + " is the last player remaining." << endl;
 			gameInPlay = false;
 		}
 
-		for (int i = 0; i < players.size(); i++) {
-			cout << "It is now " << players[i].getName() << "'s turn." << endl;
-			if (players[i].getMonsterCard()->getHP() == 0)
+		for (int i = 0; i < gameStart::playersInGame.size(); i++) {
+			cout << "It is now " << gameStart::playersInGame[i].getName() << "'s turn." << endl;
+			if (gameStart::playersInGame[i].getMonsterCard()->getHP() == 0)
 			{
-				players.erase(players.begin() + i); 
-				gameStart::playersInGame = players;
+				gameStart::playersInGame.erase(gameStart::playersInGame.begin() + i);
 				continue;
 				
 			}
-			cout << players[i].getName() + ": " + players[i].getRegion().getName() << endl;
+			cout << gameStart::playersInGame[i].getName() + ": " + gameStart::playersInGame[i].getRegion().getName() << endl;
 
 			
 			cout << "Rolling dice: " << endl;
-			players[i].rollDice();
-
-			players[i].resolveDice();
-			//players[i].resolveDice(gameStart::deck);
-			if (players[i].getMonsterCard()->getHP() == 0)
+			gameStart::playersInGame[i].rollDice();
+			gameStart::playersInGame[i].resolveDice();
+			if (gameStart::playersInGame[i].getMonsterCard()->getHP() == 0)
 			{
-				players.erase(players.begin() + i);
-				gameStart::playersInGame = players;
+				gameStart::playersInGame.erase(gameStart::playersInGame.begin() + i);
 				continue;
 				
 			}
-			else if (players[i].getMonsterCard()->getVP() == 20)
+			else if (gameStart::playersInGame[i].getMonsterCard()->getVP() == 20)
 			{
-				cout << "Player " << players[i].getName() << " has won the game! Round of applause!";
+				cout << "Player " << gameStart::playersInGame[i].getName() << " has won the game! Round of applause!";
 				gameInPlay = false;
 				break;
 			}
 
-			players = gameStart::playersInGame;
-			players[i].move();
-			players = gameStart::playersInGame;
-			players[i].buyCards();
+			gameStart::playersInGame[i].move();
+			gameStart::playersInGame[i].buyCards();
 			turn++;
 			system("pause");
 		}
