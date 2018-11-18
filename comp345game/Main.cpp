@@ -22,7 +22,7 @@ int main() {
 
 	gameStart();
 	startup();
-	//mainLoop();
+	mainLoop();
 
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
 		gameStart::playersInGame[i].addEnergy(10);
