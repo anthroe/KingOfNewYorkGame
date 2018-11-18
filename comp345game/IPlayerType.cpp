@@ -80,21 +80,21 @@ void aggressiveBot::move(player* currentBot) {
 		cout << "Current location: " + currentBot->getRegion().getName() << endl;
 	}
 
-	if (currentBot->getRegion().getName() == "Manhattan3") {
+	if (currentBot->getRegion().getName() == "Manhattan3" && !currentBot->isDamaged()) {
 		cout << currentBot->getName() + " cannot move." << endl << endl;
 		currentBot->notifyAll("Move", "cannot move");
 	}
-	else if (currentBot->getRegion().getName() == "Manhattan1") {
+	else if (currentBot->getRegion().getName() == "Manhattan1" && !currentBot->isDamaged()) {
 		currentBot->setRegion(regions[midManIndex]);
 		cout << currentBot->getName() + " was moved to middle manhattan." << endl << endl;
 		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 	}
-	else if (currentBot->getRegion().getName() == "Manhattan2") {
+	else if (currentBot->getRegion().getName() == "Manhattan2" && !currentBot->isDamaged()) {
 		currentBot->setRegion(regions[uppManIndex]);
 		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 		cout << currentBot->getName() + " was moved to upper Manhattan." << endl << endl;
 	}
-	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0) {
+	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0 && !currentBot->isDamaged()) {
 		currentBot->setRegion(regions[lowManIndex]);
 		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 		cout << "Manhattan is empty. " + currentBot->getName() + " was moved to lower manhattan." << endl << endl;
@@ -122,15 +122,21 @@ void aggressiveBot::move(player* currentBot) {
 		cout << moveableAreas.size() << ". Remain in place." << endl;
 
 		if (isLowHP) {
-			input = rand() % (moveableAreas.size()) - 1;
-		}
-		else {
 			input = rand() % (moveableAreas.size());
 		}
+		else {
+			input = rand() % (moveableAreas.size() + 1);
+		}
 
-		currentBot->setRegion(moveableAreas[input]);
-		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
-		cout << "*** " + currentBot->getName() + " moved to " + currentBot->getRegion().getName() + ". " << endl << endl;
+		if (input == moveableAreas.size()) {
+			cout << currentBot->getName() + " remains in place." << endl;
+			currentBot->notifyAll("Move", "player remained in place.");
+		}
+		else {
+			currentBot->setRegion(moveableAreas[(int)input]);
+			currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
+			cout << currentBot->getName() + " moved to " + currentBot->getRegion().getName() + ". " << endl << endl;
+		}
 	}
 
 	// ======================================= Update Map ========================================
@@ -221,21 +227,21 @@ void moderateBot::move(player* currentBot) {
 		cout << "Current location: " + currentBot->getRegion().getName() << endl;
 	}
 
-	if (currentBot->getRegion().getName() == "Manhattan3") {
+	if (currentBot->getRegion().getName() == "Manhattan3" && !currentBot->isDamaged()) {
 		cout << currentBot->getName() + " cannot move." << endl << endl;
 		currentBot->notifyAll("Move", "cannot move");
 	}
-	else if (currentBot->getRegion().getName() == "Manhattan1") {
+	else if (currentBot->getRegion().getName() == "Manhattan1" && !currentBot->isDamaged()) {
 		currentBot->setRegion(regions[midManIndex]);
 		cout << currentBot->getName() + " was moved to middle manhattan." << endl << endl;
 		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 	}
-	else if (currentBot->getRegion().getName() == "Manhattan2") {
+	else if (currentBot->getRegion().getName() == "Manhattan2" && !currentBot->isDamaged()) {
 		currentBot->setRegion(regions[uppManIndex]);
 		cout << currentBot->getName() + " was moved to upper Manhattan." << endl << endl;
 		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 	}
-	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0) {
+	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0 && !currentBot->isDamaged()) {
 		currentBot->setRegion(regions[lowManIndex]);
 		cout << "Manhattan is empty. " + currentBot->getName() + " was moved to lower manhattan." << endl << endl;
 		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
@@ -259,17 +265,21 @@ void moderateBot::move(player* currentBot) {
 		}
 
 		if (isLowHP) {
-			input = rand() % (moveableAreas.size()) - 1;
-		}
-		else {
 			input = rand() % (moveableAreas.size());
 		}
+		else {
+			input = rand() % (moveableAreas.size() + 1);
+		}
 
-		cout << moveableAreas.size() << ". Remain in place." << endl;;
-		input = rand() % (moveableAreas.size());
-		currentBot->setRegion(moveableAreas[input]);
-		cout << "*** " + currentBot->getName() + " moved to " + currentBot->getRegion().getName() + ". " << endl << endl;
-		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
+		if (input == moveableAreas.size()) {
+			cout << currentBot->getName() + " remains in place." << endl;
+			currentBot->notifyAll("Move", "player remained in place.");
+		}
+		else {
+			currentBot->setRegion(moveableAreas[(int)input]);
+			currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
+			cout << currentBot->getName() + " moved to " + currentBot->getRegion().getName() + ". " << endl << endl;
+		}
 	}
 
 	// ======================================= Update Map ========================================
@@ -359,25 +369,25 @@ void client::move(player* currentPlayer) {
 		cout << "Current location: " + currentPlayer->getRegion().getName() << endl;
 	}
 
-	if (currentPlayer->getRegion().getName() == "Manhattan3") {
+	if (currentPlayer->getRegion().getName() == "Manhattan3" && !currentPlayer->isDamaged()) {
 		//player in upper manhattan cannot move unless damaged.
 		cout << currentPlayer->getName() + " cannot move." << endl << endl;
 		currentPlayer->notifyAll("Move", "cannot move");
 	}
-	else if (currentPlayer->getRegion().getName() == "Manhattan1") {
+	else if (currentPlayer->getRegion().getName() == "Manhattan1" && !currentPlayer->isDamaged()) {
 		//player in lower manhattan advances to middle manhattan.
 		currentPlayer->setRegion(regions[midManIndex]);
 		cout << currentPlayer->getName() + " was moved to middle manhattan." << endl << endl;
 		currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
 
 	}
-	else if (currentPlayer->getRegion().getName() == "Manhattan2") {
+	else if (currentPlayer->getRegion().getName() == "Manhattan2" && !currentPlayer->isDamaged()) {
 		//player in middle manhattan advances to upper manhattan.
 		currentPlayer->setRegion(regions[uppManIndex]);
 		cout << currentPlayer->getName() + " was moved to upper Manhattan." << endl << endl;
 		currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
 	}
-	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0) {
+	else if (regions[lowManIndex].getPlayerCount() == 0 && regions[midManIndex].getPlayerCount() == 0 && regions[uppManIndex].getPlayerCount() == 0 && !currentPlayer->isDamaged()) {
 		//if no one is in Manhattan. the player moves to lower Manhattan
 		currentPlayer->setRegion(regions[lowManIndex]);
 		cout << "Manhattan is empty. " + currentPlayer->getName() + " was moved to lower manhattan." << endl << endl;
@@ -408,9 +418,14 @@ void client::move(player* currentPlayer) {
 			cin >> input;
 		}
 
-		currentPlayer->setRegion(moveableAreas[(int)input]);
-		currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
-		cout << currentPlayer->getName() + " moved to " + currentPlayer->getRegion().getName() + ". " << endl << endl;
+		if (input == moveableAreas.size()) {
+			cout << currentPlayer->getName() + " remains in place." << endl;
+			currentPlayer->notifyAll("Move", "player remained in place.");
+		}
+		else {
+			currentPlayer->setRegion(moveableAreas[(int)input]);
+			cout << currentPlayer->getName() + " moved to " + currentPlayer->getRegion().getName() + ". " << endl << endl;
+		}
 	}
 
 	// ======================================= Update Map ========================================

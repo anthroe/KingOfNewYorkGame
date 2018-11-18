@@ -66,12 +66,11 @@ void mainLoop::play(){
 			}
 
 			players = gameStart::playersInGame;
-			//players[i].move_kony();
 			players[i].move();
 			players = gameStart::playersInGame;
-			//players[i].buyCards(gameStart::deck);
 			players[i].buyCards();
 			turn++;
+			system("pause");
 		}
 		/*
 		1. Roll the Dice (up to 3 times)
