@@ -72,7 +72,7 @@ void gameStart::createPlayers() {
 		currPlayer.setPlayerType(new client());
 		selectMonster(&currPlayer);
 		currPlayer.attach(obs);
-		currPlayer.notifyAll("phase", "action");
+		//currPlayer.notifyAll("phase", "action");
 		playersInGame.push_back(currPlayer);
 
 	}
@@ -119,7 +119,7 @@ void gameStart::createPlayers() {
 
 			selectMonster(&currBot); //remove from list
 			currBot.attach(obs);
-			currBot.notifyAll("phase", "action");
+			//currBot.notifyAll("phase", "action");
 			playersInGame.push_back(currBot);
 		}
 	}

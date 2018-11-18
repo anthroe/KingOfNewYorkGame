@@ -58,7 +58,7 @@ void startup::decidePlayerOrder() {
 void startup::chooseStartingRegion() {
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
 		gameStart::playersInGame[i].chooseStartingRegion();
-		gameStart::playersInGame[i].notifyAll("phase", "actions");
+		//gameStart::playersInGame[i].notifyAll("phase", "actions");
 	}
 }
 

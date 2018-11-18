@@ -15,6 +15,7 @@ void IPlayerType::move(player* player) {
 }
 
 void aggressiveBot::move(player* currentBot) {
+	currentBot->notifyAll("Move", "");
 	if (currentBot->getRegion() == Region()) {
 		cout << "Cannot move " + currentBot->getName() + ". This player's region has not been set yet." << endl;
 
@@ -124,6 +125,7 @@ void aggressiveBot::move(player* currentBot) {
 		}
 
 		currentBot->setRegion(moveableAreas[input]);
+		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 		cout << "*** " + currentBot->getName() + " moved to " + currentBot->getRegion().getName() + ". " << endl << endl;
 	}
 
@@ -146,12 +148,13 @@ void aggressiveBot::move(player* currentBot) {
 		}
 	}
 
-	currentBot->notifyAll("phase", "In Aggressive Move Function");
+	
 	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
 }
 
 void moderateBot::move(player* currentBot) {
+	currentBot->notifyAll("Move", "");
 	if (currentBot->getRegion() == Region()) {
 		cout << "Cannot move " + currentBot->getName() + ". This player's region has not been set yet." << endl;
 		return;
@@ -258,6 +261,7 @@ void moderateBot::move(player* currentBot) {
 		input = rand() % (moveableAreas.size());
 		currentBot->setRegion(moveableAreas[input]);
 		cout << "*** " + currentBot->getName() + " moved to " + currentBot->getRegion().getName() + ". " << endl << endl;
+		currentBot->notifyAll("Move", "player moved to " + currentBot->getRegion().getName());
 	}
 
 	// ======================================= Update Map ========================================
@@ -279,12 +283,12 @@ void moderateBot::move(player* currentBot) {
 		}
 	}
 
-	currentBot->notifyAll("phase", "In Moderate Move Function");
 	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
 }
 
 void client::move(player* currentPlayer) {
+	currentPlayer->notifyAll("Move", "");
 	if (currentPlayer->getRegion() == Region()) {
 		cout << "Cannot move " + currentPlayer->getName() + ". This player's region has not been set yet." << endl;
 		return;
@@ -340,7 +344,7 @@ void client::move(player* currentPlayer) {
 			}
 		}
 	}
-
+	
 	// ==================================== Manhattan Process =====================================
 	if (!currentPlayer->isDamaged()) {
 		cout << "It is " + currentPlayer->getName() + "'s turn to move." << endl;
@@ -392,6 +396,7 @@ void client::move(player* currentPlayer) {
 		}
 
 		currentPlayer->setRegion(moveableAreas[(int)input]);
+		currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
 		cout << currentPlayer->getName() + " moved to " + currentPlayer->getRegion().getName() + ". " << endl << endl;
 	}
 
@@ -407,20 +412,20 @@ void client::move(player* currentPlayer) {
 			regions[i] = currentPlayer->getRegion();
 		}
 	}
-
+	
 	for (int i = 0; i < players.size(); i++) {
 		if (currentPlayer->getName() == players[i].getName() && currentPlayer->getId() == players[i].getId()) {
 			players[i].setRegion(currentPlayer->getRegion());
 		}
 	}
 
-	currentPlayer->notifyAll("phase", "In Client Move Function");
 	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
 	// ============================================================================================
 }
 
 void IPlayerType::chooseStartingRegion(player* currentPlayer) {
+	currentPlayer->notifyAll("Move", "");
 	cout << "Regions: " << endl;
 	vector<Region> regions = gameStart::map.getRegions();
 	vector<Region> moveableAreas;
@@ -432,7 +437,7 @@ void IPlayerType::chooseStartingRegion(player* currentPlayer) {
 			}
 		}
 	}
-
+	
 	cout << "It is " + currentPlayer->getName() + "'s turn to move. Choose Destination:" << endl;
 
 	for (int i = 0; i < moveableAreas.size(); i++) {
@@ -448,7 +453,7 @@ void IPlayerType::chooseStartingRegion(player* currentPlayer) {
 	}
 
 	cout << "***" + currentPlayer->getName() + " moved to " + currentPlayer->getRegion().getName() + ". " << endl << endl;
-
+	currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
 	//update map
 	for (int j = 0; j < regions.size(); j++) {
 		if (regions[j] == moveableAreas[input]) {
@@ -461,6 +466,7 @@ void IPlayerType::chooseStartingRegion(player* currentPlayer) {
 }
 
 void client::chooseStartingRegion(player* currentPlayer) {
+	currentPlayer->notifyAll("Move", "");
 	float input;
 	cout << "Regions: " << endl;
 	vector<Region> regions = gameStart::map.getRegions();
@@ -473,7 +479,7 @@ void client::chooseStartingRegion(player* currentPlayer) {
 			}
 		}
 	}
-
+	
 	cout << "It is " + currentPlayer->getName() + "'s turn to move. Choose Destination:" << endl;
 
 	for (int i = 0; i < moveableAreas.size(); i++) {
@@ -498,17 +504,18 @@ void client::chooseStartingRegion(player* currentPlayer) {
 
 
 	cout << currentPlayer->getName() + " moved to " + currentPlayer->getRegion().getName() + ". " << endl << endl;
-
+	currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
 	//update map
 	for (int j = 0; j < regions.size(); j++) {
 		if (regions[j] == moveableAreas[input]) {
 			regions[j].increasePlayerCount();
+			
 			//gameStart::playersInGame[i].setRegion(regions[j]);
 		}
 	}
 
 	gameStart::map.update(regions);
-
+	
 }
 
 // ============================ Roll Dice =================================
@@ -517,14 +524,16 @@ void IPlayerType::rollDice(player* player) {
 }
 
 void client::rollDice(player* currentPlayer) {
+	currentPlayer->notifyAll("Roll Dice", "");
 	cout << currentPlayer->getName() + ": roll your die." << endl;
 	currentPlayer->getDice().playerRoll();
 
-	currentPlayer->notifyAll("phase", "In Client rollDice Function");
+	currentPlayer->notifyAll("Roll Dice", "dice rolled");
 }
 
 void aggressiveBot::rollDice(player* currentPlayer) {
 	cout << currentPlayer->getName() + ": roll your die." << endl;
+	currentPlayer->notifyAll("Roll Dice", "");
 	const int size = currentPlayer->getDice().size();
 	for (int index = 0; index < size; index++) {
 		currentPlayer->getDice().rollNDice(index); // has no value
@@ -557,11 +566,12 @@ void aggressiveBot::rollDice(player* currentPlayer) {
 		currentPlayer->getDice().displayDiceContainer();
 	}
 
-	currentPlayer->notifyAll("phase", "In aggressive rollDice Function");
+	currentPlayer->notifyAll("Roll Dice", "dice rolled");
 }
 
 void moderateBot::rollDice(player* currentPlayer) {
 	cout << currentPlayer->getName() + ": roll your die." << endl;
+	currentPlayer->notifyAll("Roll Dice", "");
 	const int size = currentPlayer->getDice().size();
 	for (int index = 0; index < size; index++) {
 		currentPlayer->getDice().rollNDice(index); // has no value
@@ -597,7 +607,7 @@ void moderateBot::rollDice(player* currentPlayer) {
 		currentPlayer->getDice().displayDiceContainer();
 	}
 
-	currentPlayer->notifyAll("phase", "In Moderate rollDice Function");
+	currentPlayer->notifyAll("Roll Dice", "dice rolled");
 }
 
 // =========================== Resolve Dice ===============================
@@ -607,7 +617,7 @@ void IPlayerType::resolveDice(player* currentPlayer) {
 	const int NUMOFSYMBOLS = 6;
 	int* numOfResolves = new int[NUMOFSYMBOLS];
 	string ability[NUMOFSYMBOLS] = { "Energy", "Heal", "Attack", "Celebrity", "Destruction", "Ouch" };
-
+	currentPlayer->notifyAll("roll Dice", "resolve dice");
 	for (int i = 0; i < NUMOFSYMBOLS; i++)
 	{
 		numOfResolves[i] = 0;
@@ -621,6 +631,7 @@ void IPlayerType::resolveDice(player* currentPlayer) {
 				numOfResolves[i]++;
 		}
 	}
+	currentPlayer->notifyAll("roll Dice", "dices have been resolved");
 	for (int i = 0; i < NUMOFSYMBOLS; i++)
 	{
 		if (numOfResolves[i] > 0)
@@ -630,8 +641,8 @@ void IPlayerType::resolveDice(player* currentPlayer) {
 			currentPlayer->applyDiceEffect(i + 1, numOfResolves[i], deck);
 		}
 	}
-
-	currentPlayer->notifyAll("phase", "In IPlayerType resolveDice Function");
+	currentPlayer->notifyAll("roll Dice", "dice effects have been applied");
+	
 }
 
 void client::resolveDice(player* currentPlayer) {
@@ -640,6 +651,7 @@ void client::resolveDice(player* currentPlayer) {
 	const int NUMOFSYMBOLS = 6;
 	int* resolveOrder = new int[NUMOFSYMBOLS];
 	int* numOfResolves = new int[NUMOFSYMBOLS];
+	currentPlayer->notifyAll("roll Dice", "resolve dice");
 	for (int i = 0; i < NUMOFSYMBOLS; i++)
 	{
 		numOfResolves[i] = 0;
@@ -694,6 +706,7 @@ void client::resolveDice(player* currentPlayer) {
 			{
 				resolving = false;
 				cout << "All dices have been resolved succesfully" << endl;
+				currentPlayer->notifyAll("roll Dice", "dices have been resolved");
 			}
 		}
 
@@ -708,14 +721,14 @@ void client::resolveDice(player* currentPlayer) {
 		}
 	}
 
-	currentPlayer->notifyAll("phase", "In Client resolveDice Function");
+	currentPlayer->notifyAll("roll Dice", "dice effects have been applied");
 }
 
 //	=========================== Buy Cards =================================
 void IPlayerType::buyCards(player* currentPlayer) {
 	Deck deck;
 	int input;
-
+	currentPlayer->notifyAll("buyCards", "");
 	cout << "\nIt is " + currentPlayer->getName() + "'s turn to buy a card. " << endl;
 
 	// The bot has more than 2 energy, he can buy something. 
@@ -756,7 +769,7 @@ void IPlayerType::buyCards(player* currentPlayer) {
 			if (currentPlayer->getEnergy() >= deck.getPurchaseableCards()[input - 1].getCost()) {
 				currentPlayer->setEnergy(currentPlayer->getEnergy() - deck.getPurchaseableCards()[input - 1].getCost());
 				currentPlayer->addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[input - 1]));
-
+				currentPlayer->notifyAll("buyCards", "card purchased");
 				cout << currentPlayer->getName() + " has purchased " + deck.getPurchaseableCards()[input - 1].getName() << endl;
 			}
 			else
@@ -776,15 +789,13 @@ void IPlayerType::buyCards(player* currentPlayer) {
 	else {
 		cout << currentPlayer->getName() + " doesn't have enough energy to buy cards. " << endl;
 	}
-
-	currentPlayer->notifyAll("phase", "In IPlayerType buyCards Function");
 }
 
 void client::buyCards(player* currentPlayer) {
 	// Store the response in a character
 	string response;
 	Deck deck;
-
+	currentPlayer->notifyAll("buyCards", "");
 	cout << currentPlayer->getName() + ", would you like to buy a card ? (Y / N)" << endl;
 	cin >> response;
 
@@ -840,6 +851,7 @@ void client::buyCards(player* currentPlayer) {
 					currentPlayer->addOwnedCard(deck.purchaseCard(deck.getPurchaseableCards()[input - 1]));
 
 					cout << currentPlayer->getName() + " has purchased " + deck.getPurchaseableCards()[input - 1].getName() << endl;
+					currentPlayer->notifyAll("buyCards", "card purchased");
 				}
 				else
 					cout << "\nYou don't have enough energy for that card" << endl;
@@ -863,5 +875,5 @@ void client::buyCards(player* currentPlayer) {
 		}
 	}
 
-	currentPlayer->notifyAll("phase", "In Client buyCards Function");
+	
 }
