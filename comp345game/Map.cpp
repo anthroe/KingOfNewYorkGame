@@ -42,6 +42,7 @@ void Map::addRegion(Region region) {
 
 Map::~Map() {
 	while (regions.size() > 0) {
+		
 		regions.pop_back();
 	}
 }

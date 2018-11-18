@@ -224,15 +224,15 @@ void gameStart::selectMonster(player *currPlayer) {
 		cin >> choice;
 	}
 	
-	MonsterCard *monst = new MonsterCard(ListOfMonsterCards[choice]);
-	currPlayer->setMonsterCard(monst);
-	ListOfMonsterCards.erase(remove(ListOfMonsterCards.begin(), ListOfMonsterCards.end(), ListOfMonsterCards[choice]), ListOfMonsterCards.end());
+	MonsterCard *monst = new MonsterCard(ListOfMonsterCards[choice]); //make a new monster card
+	currPlayer->setMonsterCard(monst); //assign it to the player
+	ListOfMonsterCards.erase(remove(ListOfMonsterCards.begin(), ListOfMonsterCards.end(), ListOfMonsterCards[choice]), ListOfMonsterCards.end()); //remove it from the available list
 }
 
 bool gameStart::checkMonsterExists(string choice) {
 	bool selectValid;
 	for (int i = 0; i < ListOfMonsterCards.size(); i++) {
-	
+	//if user's choice exists in thew available monsters
 		if (choice.compare(ListOfMonsterCards[i]) == 0) {
 			selectValid = true;
 			

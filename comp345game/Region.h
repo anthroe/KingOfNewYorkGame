@@ -20,6 +20,7 @@ public:
 	Region(string, int);
 	Region(string, int, Tiles);
 	Region (const Region&);
+	~Region();
 
 	string getName() const { return name; }
 	int getId() const { return id;  }

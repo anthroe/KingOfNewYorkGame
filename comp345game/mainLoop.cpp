@@ -27,6 +27,8 @@ void mainLoop::play(){
 
 
 		//conditions
+		
+
 		if (gameStart::playersInGame.size() <= 1) {
 			cout << gameStart::playersInGame[0].getName() + " is the last player remaining." << endl;
 			gameInPlay = false;
@@ -41,7 +43,14 @@ void mainLoop::play(){
 				
 			}
 			cout << gameStart::playersInGame[i].getName() + ": " + gameStart::playersInGame[i].getRegion().getName() << endl;
-
+			//check if player is in manhattan to get a vp
+			if (gameStart::playersInGame[i].getRegion().getName().compare("Manhattan1") == 0 ||
+				gameStart::playersInGame[i].getRegion().getName().compare("Manhattan2") == 0 ||
+				gameStart::playersInGame[i].getRegion().getName().compare("Manhattan3") == 0) {
+				cout << gameStart::playersInGame[i].getName() << " : " << gameStart::playersInGame[i].getMonsterCard()->getName() 
+					<< "awarded 1 VP point for staying in a Manhattan region" << endl;
+				gameStart::playersInGame[i].getMonsterCard()->changeVP(1);
+			}
 			
 			cout << "Rolling dice: " << endl;
 			gameStart::playersInGame[i].rollDice();
@@ -52,7 +61,7 @@ void mainLoop::play(){
 				continue;
 				
 			}
-			else if (gameStart::playersInGame[i].getMonsterCard()->getVP() == 20 || turn == 5)
+			else if (gameStart::playersInGame[i].getMonsterCard()->getVP() == 20)
 			{
 				cout << "Player " << gameStart::playersInGame[i].getName() << " has won the game! Round of applause!";
 				gameInPlay = false;

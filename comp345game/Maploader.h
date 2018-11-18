@@ -13,6 +13,6 @@ private:
 public:
 	Maploader();
 	Maploader(string);
-
+	~Maploader();
 	Map getMap() { return mapInPlay; }
 };

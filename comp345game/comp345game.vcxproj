@@ -134,7 +134,6 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="startup.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="tokens.cpp" />
