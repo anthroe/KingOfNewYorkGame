@@ -21,8 +21,7 @@ gameStart::gameStart() {
 	
 	selectMap();
 	buildMonster();
-	walidTest();
-	//createPlayers();
+	createPlayers();
 }
 
 void gameStart::selectMap() {
@@ -48,29 +47,17 @@ void gameStart::selectMap() {
 	map = mapLoaded.getMap();
 	mapRegions = map.getRegions();
 }
-void gameStart::walidTest()
-{
-	string playerName;
-	cout << "Enter player's name: " << endl;
-	cin >> playerName;
-	player currPlayer = player(playerName);
-	currPlayer.setPlayerType(new client());
-	selectMonster(&currPlayer);
-	phaseObserver obs = phaseObserver();
-	currPlayer.attach(&obs);
-	currPlayer.notifyAll("phase", "action");
-	//obs.update(&currPlayer, "Test", "Test");
-}
 void gameStart::createPlayers() {
+	phaseObserver* obs = new phaseObserver();
 	Deck deck;
 	float inputPlayers;
-	cout << endl << "How many players will play? (2 - 6)" << endl;
+	cout << endl << "How many players will play? (0 - 6)" << endl;
 	cin >> inputPlayers;
 
-	while (cin.fail() || inputPlayers != (int) inputPlayers|| (inputPlayers < 2 || inputPlayers > 6)) {
+	while (cin.fail() || inputPlayers != (int) inputPlayers|| (inputPlayers < 0 || inputPlayers > 6)) {
 		cin.clear();
 		cin.ignore(256, '\n');
-		cout << "Please select a valid amount of players (2 - 6): " << endl;		
+		cout << "Please select a valid amount of players (0 - 6): " << endl;		
 		cin >> inputPlayers;
 	}
 
@@ -84,9 +71,10 @@ void gameStart::createPlayers() {
 		player currPlayer = player(playerName);
 		currPlayer.setPlayerType(new client());
 		selectMonster(&currPlayer);
-		//phaseObserver obs
-		//currPlayer.attach();
+		currPlayer.attach(obs);
+		currPlayer.notifyAll("phase", "action");
 		playersInGame.push_back(currPlayer);
+
 	}
 	// ============================ Strategy Pattern	Adding Bots		=====================================
 	// Choose to add bots if there's room for more players.
@@ -130,6 +118,8 @@ void gameStart::createPlayers() {
 			}
 
 			selectMonster(&currBot); //remove from list
+			currBot.attach(obs);
+			currBot.notifyAll("phase", "action");
 			playersInGame.push_back(currBot);
 		}
 	}

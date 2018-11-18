@@ -146,6 +146,7 @@ void aggressiveBot::move(player* currentBot) {
 		}
 	}
 
+	currentBot->notifyAll("phase", "In Aggressive Move Function");
 	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
 }
@@ -278,6 +279,7 @@ void moderateBot::move(player* currentBot) {
 		}
 	}
 
+	currentBot->notifyAll("phase", "In Moderate Move Function");
 	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
 }
@@ -412,6 +414,7 @@ void client::move(player* currentPlayer) {
 		}
 	}
 
+	currentPlayer->notifyAll("phase", "In Client Move Function");
 	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
 	// ============================================================================================
@@ -516,6 +519,8 @@ void IPlayerType::rollDice(player* player) {
 void client::rollDice(player* currentPlayer) {
 	cout << currentPlayer->getName() + ": roll your die." << endl;
 	currentPlayer->getDice().playerRoll();
+
+	currentPlayer->notifyAll("phase", "In Client rollDice Function");
 }
 
 void aggressiveBot::rollDice(player* currentPlayer) {
@@ -551,6 +556,8 @@ void aggressiveBot::rollDice(player* currentPlayer) {
 		}
 		currentPlayer->getDice().displayDiceContainer();
 	}
+
+	currentPlayer->notifyAll("phase", "In aggressive rollDice Function");
 }
 
 void moderateBot::rollDice(player* currentPlayer) {
@@ -589,6 +596,8 @@ void moderateBot::rollDice(player* currentPlayer) {
 		}
 		currentPlayer->getDice().displayDiceContainer();
 	}
+
+	currentPlayer->notifyAll("phase", "In Moderate rollDice Function");
 }
 
 // =========================== Resolve Dice ===============================
@@ -622,6 +631,7 @@ void IPlayerType::resolveDice(player* currentPlayer) {
 		}
 	}
 
+	currentPlayer->notifyAll("phase", "In IPlayerType resolveDice Function");
 }
 
 void client::resolveDice(player* currentPlayer) {
@@ -697,6 +707,8 @@ void client::resolveDice(player* currentPlayer) {
 			currentPlayer->applyDiceEffect(resolveOrder[i], numOfResolves[resolveOrder[i] - 1], deck);
 		}
 	}
+
+	currentPlayer->notifyAll("phase", "In Client resolveDice Function");
 }
 
 //	=========================== Buy Cards =================================
@@ -764,6 +776,8 @@ void IPlayerType::buyCards(player* currentPlayer) {
 	else {
 		cout << currentPlayer->getName() + " doesn't have enough energy to buy cards. " << endl;
 	}
+
+	currentPlayer->notifyAll("phase", "In IPlayerType buyCards Function");
 }
 
 void client::buyCards(player* currentPlayer) {
@@ -848,4 +862,6 @@ void client::buyCards(player* currentPlayer) {
 			gameStart::playersInGame[i].setOwnedCards(currentPlayer->getOwnedCards());
 		}
 	}
+
+	currentPlayer->notifyAll("phase", "In Client buyCards Function");
 }

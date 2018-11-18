@@ -11,7 +11,6 @@
 #include "Map.h"
 #include "monsterCard.h"
 #include "Observer.h"
-//#include "phaseObserver.h" //causes errors
 #include "region.h"
 #include "Subject.h"
 
@@ -32,8 +31,9 @@ private:
 	int energy = 0;
 	bool damaged;
 
-	// === Strategy Design ===
+	// === Designs ===
 	IPlayerType* playerType;
+	vector<phaseObserver*> observers;
 	//========================
 
 public:
@@ -80,7 +80,6 @@ public:
 // |The following section is methods that have to do with the observer pattern|
 // |--------------------------------------------------------------------------|
 private:
-	vector<phaseObserver*> observers;
 	int state;
 
 public:

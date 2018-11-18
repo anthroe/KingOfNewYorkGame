@@ -5,9 +5,7 @@ private:
 	vector<player> playerOrder;
 	Map currMap;
 	int turn;
-	//player* getWinner();
 public:
 	mainLoop();
 	void play();
-	//int getTurn();
 };
