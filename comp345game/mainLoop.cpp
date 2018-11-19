@@ -7,70 +7,95 @@
 using namespace std;
 
 mainLoop::mainLoop() {
-	
+	turn = 0;
+	GameStatsObserver* statObs = new GameStatsObserver(this);
+	observers.push_back(statObs);
 	play();
 }
 
 void mainLoop::play(){
-	turn = 0;
+	// turn = 0;
 	bool gameInPlay = true;
 
 	while (gameInPlay)
 	{
-		vector<player> players = gameStart::playersInGame;
+		vector<player>* players = &gameStart::playersInGame;
 
 		system("CLS");
-		cout << "It is now turn " << turn << endl;
-		cout << "___PLAYER INFO___" << endl;
+		std::cout << "It is now turn " << turn << endl;
+
+		notify();
+
+		/*cout << "___PLAYER INFO___" << endl;
 		for (player player :  gameStart::playersInGame) {
 			cout << player.getName() + ", " + player.getRegion().getName() + ", HP: " << player.getMonsterCard()->getHP() << ", VP: " << player.getMonsterCard()->getVP() << endl;
 		}
-		cout << "______________________" << endl;
+		cout << "______________________" << endl;*/
 
 
 		//conditions
-		if (players.size() <= 1) {
-			cout << players[0].getName() + " is the last player remaining." << endl;
+		if ((*players).size() <= 1) {
+			std::cout << (*players)[0].getName() + " is the last player remaining." << endl;
 			gameInPlay = false;
 		}
 
-		for (int i = 0; i < players.size(); i++) {
-			cout << "It is now " << players[i].getName() << "'s turn." << endl;
-			if (players[i].getMonsterCard()->getHP() == 0)
+		for (int i = 0; i < (*players).size(); i++) {
+			std::cout << "It is now " << (*players)[i].getName() << "'s turn." << endl;
+			if ((*players)[i].getMonsterCard()->getHP() == 0)
 			{
-				players.erase(players.begin() + i); 
-				gameStart::playersInGame = players;
+				(*players).erase((*players).begin() + i); 
+				// gameStart::playersInGame = (*players);
 				continue;
 				
 			}
-			cout << players[i].getName() + ": " + players[i].getRegion().getName() << endl;
+			std::cout << (*players)[i].getName() + ": " + (*players)[i].getRegion().getName() << endl;
 
 			
-			cout << "Rolling dice: " << endl;
-			players[i].rollDice();
+			std::cout << "Rolling dice: " << endl;
+			(*players)[i].rollDice();
 
-			players[i].resolveDice();
+			notify();
+
+			(*players)[i].resolveDice();
+
+			notify();
+
 			//players[i].resolveDice(gameStart::deck);
-			if (players[i].getMonsterCard()->getHP() == 0)
+			if ((*players)[i].getMonsterCard()->getHP() == 0)
 			{
-				players.erase(players.begin() + i);
-				gameStart::playersInGame = players;
+				(*players).erase((*players).begin() + i);
+				// gameStart::playersInGame = (*players);
+
+				notify();
+
 				continue;
-				
 			}
-			else if (players[i].getMonsterCard()->getVP() == 20)
+			else if ((*players)[i].getMonsterCard()->getVP() == 20)
 			{
-				cout << "Player " << players[i].getName() << " has won the game! Round of applause!";
+				std::cout << "Player " << (*players)[i].getName() << " has won the game! Round of applause!";
 				gameInPlay = false;
 				break;
 			}
 
-			players = gameStart::playersInGame;
+			// (*players) = gameStart::playersInGame;
 			//players[i].move_kony();
-			players[i].move();
-			players = gameStart::playersInGame;
+			(*players)[i].move();
+			// (*players) = gameStart::playersInGame;
+
+			// (*players)[i].addEnergy(50);
+			// gameStart::playersInGame = (*players);
+
+			notify();
+
 			//players[i].buyCards(gameStart::deck);
-			players[i].buyCards();
+			(*players)[i].buyCards();
+
+			notify();
+
+			(*players)[i].getMonsterCard()->changeHP(-12);
+
+			notify();
+
 			turn++;
 		}
 		/*
@@ -82,5 +107,11 @@ void mainLoop::play(){
 		5. End Your Turn
 		*/
 	}
-	cout << "Game over" << endl;
+	std::cout << "Game over" << endl;
+}
+
+void mainLoop::notify() {
+	for (GameStatsObserver* gso : observers) {
+		gso->update();
+	}
 }
