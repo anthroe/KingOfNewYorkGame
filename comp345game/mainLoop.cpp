@@ -14,7 +14,6 @@ mainLoop::mainLoop() {
 }
 
 void mainLoop::play(){
-	// turn = 0;
 	bool gameInPlay = true;
 
 	while (gameInPlay)
@@ -25,13 +24,6 @@ void mainLoop::play(){
 		std::cout << "It is now turn " << turn << endl;
 
 		notify();
-
-		/*cout << "___PLAYER INFO___" << endl;
-		for (player player :  gameStart::playersInGame) {
-			cout << player.getName() + ", " + player.getRegion().getName() + ", HP: " << player.getMonsterCard()->getHP() << ", VP: " << player.getMonsterCard()->getVP() << endl;
-		}
-		cout << "______________________" << endl;*/
-
 
 		//conditions
 		if ((*players).size() <= 1) {
@@ -44,12 +36,23 @@ void mainLoop::play(){
 			if ((*players)[i].getMonsterCard()->getHP() == 0)
 			{
 				(*players).erase((*players).begin() + i); 
-				// gameStart::playersInGame = (*players);
 				continue;
 				
 			}
 			std::cout << (*players)[i].getName() + ": " + (*players)[i].getRegion().getName() << endl;
-
+			
+			if (gameStart::playersInGame[i].getRegion().getName().compare("Manhattan1") == 0 ||
+				gameStart::playersInGame[i].getRegion().getName().compare("Manhattan2") == 0
+				) {
+				cout << gameStart::playersInGame[i].getName() << " : " << gameStart::playersInGame[i].getMonsterCard()->getName()
+					<< " awarded 1 VP point for staying in a Manhattan 1 or 2 region" << endl;
+				gameStart::playersInGame[i].getMonsterCard()->changeVP(1);
+			}
+			else if (gameStart::playersInGame[i].getRegion().getName().compare("Manhattan3") == 0) {
+				cout << gameStart::playersInGame[i].getName() << " : " << gameStart::playersInGame[i].getMonsterCard()->getName()
+					<< " awarded 2 VP points for staying in Manhattan 3 region" << endl;
+				gameStart::playersInGame[i].getMonsterCard()->changeVP(2);
+			}
 			
 			std::cout << "Rolling dice: " << endl;
 			(*players)[i].rollDice();
@@ -59,12 +62,10 @@ void mainLoop::play(){
 			(*players)[i].resolveDice();
 
 			notify();
-
-			//players[i].resolveDice(gameStart::deck);
+		
 			if ((*players)[i].getMonsterCard()->getHP() == 0)
 			{
-				(*players).erase((*players).begin() + i);
-				// gameStart::playersInGame = (*players);
+				(*players).erase((*players).begin() + i);			
 
 				notify();
 
@@ -77,23 +78,17 @@ void mainLoop::play(){
 				break;
 			}
 
-			// (*players) = gameStart::playersInGame;
-			//players[i].move_kony();
+			
 			(*players)[i].move();
-			// (*players) = gameStart::playersInGame;
-
-			// (*players)[i].addEnergy(50);
-			// gameStart::playersInGame = (*players);
-
+		
 			notify();
 
-			//players[i].buyCards(gameStart::deck);
 			(*players)[i].buyCards();
 
 			notify();
 
 			turn++;
-			//system("pause");
+			system("pause");
 		}
 		/*
 		1. Roll the Dice (up to 3 times)
