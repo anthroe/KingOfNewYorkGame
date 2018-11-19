@@ -20,7 +20,7 @@
 using namespace std;
 
 int main() {
-
+	cout << "Welcome " << endl;
 	gameStart();
 	startup();
 	mainLoop();

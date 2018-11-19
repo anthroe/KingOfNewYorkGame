@@ -97,6 +97,7 @@ void mainLoop::play(){
 			notify();
 
 			turn++;
+			//system("pause");
 		}
 		/*
 		1. Roll the Dice (up to 3 times)
@@ -108,6 +109,7 @@ void mainLoop::play(){
 		*/
 	}
 	std::cout << "Game over" << endl;
+	system("pause");
 }
 
 void mainLoop::notify() {

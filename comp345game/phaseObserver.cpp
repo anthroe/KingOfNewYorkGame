@@ -20,7 +20,7 @@ void phaseObserver::displayPhase() {
 	cout << currPlayer->getName() + ": " + currPhase + " step" << endl;
 	if (currAction.compare("") != 0 && currAction.compare(" ") != 0)
 		cout << currPlayer->getName() + "'s action is: " << currAction << endl;
-	cout << endl << "................................................" << endl << endl;
+	cout << "................................................" << endl << endl;
 }
 
 void phaseObserver :: update() {

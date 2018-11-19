@@ -107,3 +107,7 @@ Maploader::Maploader(string textFileName) {
 	mapInPlay = map;
 	map.checkConnection();
 }
+
+Maploader::~Maploader() {
+	
+}

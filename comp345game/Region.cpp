@@ -35,7 +35,9 @@ Region::Region(string name, int id, Tiles tiles) {
 		units.push_back(unitStack);
 	}
 }
-
+Region::~Region() {
+	
+}
 void Region::flipTile(int unit, int index) {
 	if (index < BUILDING_UNIT_SIZE) {
 		units[index].push_back(Tiles::flipTile(unit));
