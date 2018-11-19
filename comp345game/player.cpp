@@ -29,7 +29,6 @@ player::player(string name){
 	playDice = diceRoller::diceRoller();
 }
 
-
 //giving a monsterCard to a player
 void player::setMonsterCard(MonsterCard *monst) {
 	monsterCard = monst;

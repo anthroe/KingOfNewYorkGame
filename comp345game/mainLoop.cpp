@@ -92,10 +92,6 @@ void mainLoop::play(){
 
 			notify();
 
-			(*players)[i].getMonsterCard()->changeHP(-12);
-
-			notify();
-
 			turn++;
 			//system("pause");
 		}
