@@ -1,4 +1,6 @@
 #include "diceRoller.h"
+#include "player.h"
+#include "turnObserver.h"
 #include <iostream>
 #include <ctime> 
 #include <string>
@@ -9,7 +11,7 @@ using namespace std;
 diceRoller::diceRoller()
 {
 	if (diceContainer == NULL)
-		cout << "FML" << endl;
+		cout << "No dice container created" << endl;
 	const int size = (sizeof(diceContainer) / sizeof(*diceContainer));
 	for (int index = 0; index < size; index++) {
 		diceContainer[index] = new dice();
@@ -82,6 +84,53 @@ void diceRoller::playerRoll()
 		}
 	}
 }
+void diceRoller::botRoll(string botType, player* currentPlayer)
+{
+	const int size = sizeof(diceContainer) / sizeof(*diceContainer);
+	for (int index = 0; index < size; index++) {
+		diceContainer[index]->rollDice(); // has no value
+	}
+
+	int numberOfMaxRerolls = 2;
+	//first roll
+	notifyAllTurnObs(currentPlayer);
+	//displayDiceContainer();
+
+
+	int roll = 0; // bot rolls twice without input
+
+	while (roll < numberOfMaxRerolls)
+	{
+		cout << "Rerolling..." << endl;
+		roll++;
+		if (botType.compare("agressive") == 0)
+		{
+			for (int i = 0; i < size; i++)
+			{
+
+				if (getDiceContainerTop(i).compare("Attack") != 0 && getDiceContainerTop(i).compare("Destruction") != 0) {
+					diceContainer[i]->rollDice();
+				}
+
+			}
+		}
+		else if (botType.compare("moderate") == 0)
+		{
+			for (int i = 0; i < size; i++)
+			{
+
+				if (getDiceContainerTop(i).compare("Heal") != 0
+					&& getDiceContainerTop(i).compare("Energy") != 0
+					&& getDiceContainerTop(i).compare("Celebrity") != 0) {
+					diceContainer[i]->rollDice();
+				}
+
+			}
+		}
+		notifyAllTurnObs(currentPlayer);
+		
+	}
+}
 
 void diceRoller::displayDiceContainer()
 {
@@ -125,4 +174,10 @@ void diceRoller::rollNDice(int n)
 {
 	if (n >= 0 && n <= 6)
 		diceContainer[n]->rollDice();
+}
+void diceRoller::notifyAllTurnObs(player *p)
+{
+	for (turnObserver* obs : turnObservers) {
+		obs->update(p);
+	}
 }

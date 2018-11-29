@@ -559,37 +559,7 @@ void client::rollDice(player* currentPlayer) {
 void aggressiveBot::rollDice(player* currentPlayer) {
 	cout << currentPlayer->getName() + ": roll your die." << endl;
 	currentPlayer->notifyAll("Roll Dice", "");
-	const int size = currentPlayer->getDice().size();
-	for (int index = 0; index < size; index++) {
-		currentPlayer->getDice().rollNDice(index); // has no value
-	}
-
-	int numberOfMaxRerolls = 2;
-	//first roll
-	for (int index = 0; index < currentPlayer->getDice().size(); index++) {
-		currentPlayer->getDice().rollNDice(index); //populate your dice roller
-	}
-	currentPlayer->getDice().displayDiceContainer();
-
-
-	int roll = 0; // bot rolls twice without input
-
-	while (roll < 2)
-	{
-		cout << "Rerolling..." << endl;
-		roll++;
-
-		//rerolling desired dices
-		for (int i = 0; i < currentPlayer->getDice().size(); i++)
-		{
-
-			if (currentPlayer->getDice().getDiceContainerTop(i).compare("Attack") != 0 && currentPlayer->getDice().getDiceContainerTop(i).compare("Destruction") != 0) {
-				currentPlayer->getDice().rollNDice(i);
-			}
-
-		}
-		currentPlayer->getDice().displayDiceContainer();
-	}
+	currentPlayer->getDice().botRoll("agressive", currentPlayer);
 
 	currentPlayer->notifyAll("Roll Dice", "dice rolled");
 }
@@ -597,42 +567,12 @@ void aggressiveBot::rollDice(player* currentPlayer) {
 void moderateBot::rollDice(player* currentPlayer) {
 	cout << currentPlayer->getName() + ": roll your die." << endl;
 	currentPlayer->notifyAll("Roll Dice", "");
-	const int size = currentPlayer->getDice().size();
-	for (int index = 0; index < size; index++) {
-		currentPlayer->getDice().rollNDice(index); // has no value
-		//cout << "Top: " << diceContainer[index]->getDiceTop() << endl;
-	}
-
-	int numberOfMaxRerolls = 2;
-	//first roll
-	for (int index = 0; index < currentPlayer->getDice().size(); index++) {
-		currentPlayer->getDice().rollNDice(index); //populate your dice roller
-	}
-	currentPlayer->getDice().displayDiceContainer();
-
-
-	int roll = 0; // bot rolls twice without input
-
-	while (roll < 2)
-	{
-		cout << "Rerolling..." << endl;
-		roll++;
-
-		//rerolling desired dices
-		for (int i = 0; i < currentPlayer->getDice().size(); i++)
-		{
-
-			if (currentPlayer->getDice().getDiceContainerTop(i).compare("Heal") != 0
-				&& currentPlayer->getDice().getDiceContainerTop(i).compare("Energy") != 0
-				&& currentPlayer->getDice().getDiceContainerTop(i).compare("Celebrity") != 0) {
-				currentPlayer->getDice().rollNDice(i);
-			}
-
-		}
-		currentPlayer->getDice().displayDiceContainer();
-	}
+	currentPlayer->getDice().botRoll("moderate", currentPlayer);
 
 	currentPlayer->notifyAll("Roll Dice", "dice rolled");
+
+	
+
 }
 
 // =========================== Resolve Dice ===============================

@@ -8,7 +8,7 @@
 #include "diceRoller.h"
 #include "gameStart.h"
 #include "phaseObserver.h"
-
+#include "turnObserver.h"
 using namespace std;
 
 int player::playerId = 1;
@@ -19,6 +19,8 @@ player::player(){
 	id = playerId; playerId++;
 	playDice = diceRoller::diceRoller();
 	region = Region();
+	turnObserver* obs = new turnObserver();
+	playDice.attachTurnObs(obs);
 	
 }
 //create a player with an a name and an automatically assigned id
@@ -27,6 +29,8 @@ player::player(string name){
 	id = playerId; playerId++;
 	region = Region();
 	playDice = diceRoller::diceRoller();
+	turnObserver* obs = new turnObserver();
+	playDice.attachTurnObs(obs);
 }
 
 //giving a monsterCard to a player

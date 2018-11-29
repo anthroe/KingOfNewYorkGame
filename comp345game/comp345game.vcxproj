@@ -144,6 +144,8 @@
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="tokens.cpp" />
     <ClCompile Include="tiles.cpp" />
+    <ClCompile Include="turn.cpp" />
+    <ClCompile Include="turnObserver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="card.h" />
@@ -173,6 +175,8 @@
     <ClInclude Include="startup.h" />
     <ClInclude Include="tokens.h" />
     <ClInclude Include="tiles.h" />
+    <ClInclude Include="turn.h" />
+    <ClInclude Include="turnObserver.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\kony-card-list.json" />
