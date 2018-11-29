@@ -10,7 +10,7 @@ class diceRoller : public Subject
 {
 public:
 	diceRoller();
-	void playerRoll();
+	void playerRoll(player* currentPlayer);
 	void botRoll(string type, player* currentPlayer);
 	void displayDiceContainer();
 	dice *getDiceContainer();

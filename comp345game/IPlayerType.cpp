@@ -551,7 +551,7 @@ void IPlayerType::rollDice(player* player) {
 void client::rollDice(player* currentPlayer) {
 	currentPlayer->notifyAll("Roll Dice", "");
 	cout << currentPlayer->getName() + ": roll your die." << endl;
-	currentPlayer->getDice().playerRoll();
+	currentPlayer->getDice().playerRoll(currentPlayer);
 
 	currentPlayer->notifyAll("Roll Dice", "dice rolled");
 }

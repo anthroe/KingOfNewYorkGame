@@ -12,7 +12,7 @@ int diceDriver()
 	srand((unsigned)time(0));
 	cout << "Rolling the dice 6 times" << endl;
 	diceRoller r1;
-	r1.playerRoll();
+	//r1.playerRoll();
 	
 	return 0;
 }
