@@ -12,7 +12,6 @@ private:
 public:
 	turnObserver() {};
 	//phaseObserver(player* plr) : currPlayer(plr) {};
-	int* countResolves();
 	void update();
 	void update(player* p);
 	void displayDice();

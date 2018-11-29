@@ -28,8 +28,8 @@ void diceRoller::playerRoll(player* currentPlayer)
 		diceContainer[index]->rollDice();
 		diceContainer[index]->setResolve(true);
 	}
-	diceRoller::displayDiceContainer();
-	//notifyAllTurnObs(currentPlayer);
+	//diceRoller::displayDiceContainer();
+	notifyAllTurnObs(currentPlayer);
 	string input;
 	cout << "Would you like to roll again? y/n" << endl;
 	cin >> input;
@@ -77,8 +77,8 @@ void diceRoller::playerRoll(player* currentPlayer)
 			}
 			
 		}
-		diceRoller::displayDiceContainer(); 
-		//notifyAllTurnObs(currentPlayer);
+		//diceRoller::displayDiceContainer(); 
+		notifyAllTurnObs(currentPlayer);
 		if (optionalRoll <= numberOfMaxRerolls)
 		{
 			cout << "Would you like to roll again? y/n" << endl;

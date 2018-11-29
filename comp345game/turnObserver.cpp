@@ -31,15 +31,20 @@ void turnObserver::displayDice() {
 				numOfResolves[i]++;
 		}
 	}
-	//string ability[NUMOFSYMBOLS] = { "Energy", "Heal", "Attack", "Celebrity", "Destruction", "Ouch" };
 	cout << endl << "................................................" << endl;
 	cout << currPlayer->getName() << " has rolled:" << endl;
-	//	int *numOfResolves = countResolves();
-	cout << "Type:     Number Rolled:" << endl;
+	cout << "Type and the number of time they have been rolled:" << endl;
 	for (int i = 0; i < playDice.size(); i++) {
 		if (numOfResolves[i] > 0)
+		{
 			cout << ability[i] << " : " << numOfResolves[i] << endl;
+		}
 	}
+	cout << "Dices symbols: ordered from 1-6" << endl;
+	for (int i = 0; i < playDice.size(); i++) {
+		cout << i + 1 << " : " << playDice.getDiceContainerTop(i) << endl;
+	}
+
 }
 
 void turnObserver::update() {
