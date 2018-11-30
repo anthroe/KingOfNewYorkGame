@@ -7,7 +7,7 @@
  
 void Tournament::tournamentInitialization() {
 	gameStart start;
-	maps.push_back(start.getMap());
+	map= start.getMap();
 	players = start.getPlayers();
 	
 	cout << "Select the number of games to play (1 to 5): " << endl;
@@ -26,7 +26,7 @@ void Tournament::startTournament() {
 	
 	for (int i = 0; i < gamesToPlay; i++) {
 		cout << "Playing KONY Game #" << i+1 << endl;
-		g = new GameTournament(cleanUpMap(maps[0]), players, (i + 1));
+		g = new GameTournament(cleanUpMap(map), players, (i + 1));
 		gamesIterator++;
 		games.push_back(g);
 		g->startGame();
@@ -41,17 +41,21 @@ void Tournament::printReport() {
 	for (int i = 0; i < gamesToPlay; i++) {
 		cout << "Game" + to_string(i + 1) << ": ";
 		cout << games[gamesIterator]->getWinnerName() << endl;
-		gamesIterator++;
-	
+		gamesIterator++;	
 	}
-	cout << endl;
-	
-
-	
+	cout << endl;	
 }
 
 Map Tournament::cleanUpMap(Map m) {
-	
+	for (int playerIndex = 0; playerIndex < players.size(); playerIndex++) {
+		if (players[playerIndex]->getMonsterCard()->getVP() != 0) {
+			players[playerIndex]->getMonsterCard()->changeVP(-100);
+		}
+		if (players[playerIndex]->getMonsterCard()->getHP() != 10) {
+			players[playerIndex]->getMonsterCard()->changeHP(+100);
+		}
+	}
+
 	for (int regionIndex = 0; regionIndex < m.getRegions().size(); regionIndex++) {
 		Region currRegion = m.getRegions()[regionIndex];
 		currRegion.setPlayerCount(0);

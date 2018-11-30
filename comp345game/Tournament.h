@@ -12,7 +12,7 @@ class Player;
 class Tournament {
 
 private:
-	vector<Map> maps;
+	Map map;
 	vector<player*> players;
 	int gamesToPlay;
 	vector<GameTournament*> games;
