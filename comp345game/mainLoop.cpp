@@ -98,7 +98,6 @@ int mainLoop::play(){
 			system("pause");
 		}
 	}
-	std::cout << "\nGame over\n" << endl;
 	return playerWinnerId;
 }
 
