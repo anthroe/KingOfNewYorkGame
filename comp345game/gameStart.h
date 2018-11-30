@@ -19,10 +19,10 @@ public:
 	static Deck deck;
 	static Map map;
 	static vector<Region> mapRegions;
-	static vector<player> playersInGame;
+	static vector<player*> playersInGame;
 
 	gameStart();
-	vector<player> getPlayers() { return playersInGame; }
+	vector<player*> getPlayers() { return playersInGame; }
 
 	int listMaps();
 	void selectMonster(player *currPlayer);

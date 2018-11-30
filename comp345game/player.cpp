@@ -51,8 +51,8 @@ bool player::addOwnedCard(GameCard card) {
 	if (cardNotOwned) {
 		ownedCards.push_back(card);
 		for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-			if (gameStart::playersInGame[i] == (*this)) {
-				gameStart::playersInGame[i] = (*this);
+			if (gameStart::playersInGame[i] == this) {
+				gameStart::playersInGame[i] = this;
 			}
 		}
 	}
@@ -69,12 +69,12 @@ void player::setOwnedCards(vector<GameCard> cards) {
 
 bool player::transferSpecialCard(string cardName) {
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		if (gameStart::playersInGame[i].getName().compare(getName()) != 0){
-			vector<GameCard> otherOwnedCards = gameStart::playersInGame[i].getOwnedCards();
+		if (gameStart::playersInGame[i]->getName().compare(getName()) != 0){
+			vector<GameCard> otherOwnedCards = gameStart::playersInGame[i]->getOwnedCards();
 			for (int i = 0; i < otherOwnedCards.size(); i++) {
 				if (otherOwnedCards[i].getName().compare("Superstar") == 0) {
 					addOwnedCard(otherOwnedCards[i]);
-					gameStart::playersInGame[i].ownedCards.erase(gameStart::playersInGame[i].ownedCards.begin() + i);
+					gameStart::playersInGame[i]->ownedCards.erase(gameStart::playersInGame[i]->ownedCards.begin() + i);
 					return true;
 				}
 			}
@@ -97,11 +97,8 @@ void player::setRegion(Region region) {
 	this->region = region;
 }
 
-void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
+void player::applyDiceEffect(int effect, int numberOfResolves, Deck* deck)
 {
-	vector<player>* players = &gameStart::playersInGame;
-	vector<Region> regions = gameStart::mapRegions;
-
 	if (effect == 1 && numberOfResolves > 0)
 	{
 		addEnergy(numberOfResolves);
@@ -109,8 +106,8 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 	}
 	else if (effect == 2 && numberOfResolves > 0)
 	{
-		getMonsterCard()->changeHP(numberOfResolves);
-		cout << "Monster health updated to " << getMonsterCard()->getHP() << " using + " << numberOfResolves << " hp" << endl;
+		monsterCard->changeHP(numberOfResolves);
+		cout << "Monster health updated to " << monsterCard->getHP() << " using + " << numberOfResolves << " hp" << endl;
 		//monster underfined thus cannot work
 	}
 	else if (effect == 3 && numberOfResolves > 0)
@@ -119,30 +116,28 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 		//if the corresponding region is inside or outside manhattan
 		//damage according to the dice effect rule
 
-		for (int i = 0; i < (*players).size(); i++) {
+		for (int i = 0; i < gameStart::playersInGame.size(); i++) {
 
-			if ((*players)[i].getName().compare(getName()) != 0) {
-				if (getRegion().getName() == "Manhattan1" || getRegion().getName() == "Manhattan2" || (getRegion().getName() == "Manhattan3")) {
-					if ((*players)[i].getRegion().getName() != "Manhattan1" && (*players)[i].getRegion().getName() != "Manhattan2" && ((*players)[i].getRegion().getName()
-						!= "Manhattan3"))
+			if (gameStart::playersInGame[i]->getName().compare(name) != 0) {
+				if (region.getName() == "Manhattan1" || region.getName() == "Manhattan2" || (region.getName() == "Manhattan3")) {
+					if (gameStart::playersInGame[i]->getRegion().getName() != "Manhattan1" && gameStart::playersInGame[i]->getRegion().getName() != "Manhattan2" && (gameStart::playersInGame[i]->getRegion().getName() != "Manhattan3"))
 					{
-						(*players)[i].getMonsterCard()->changeHP(-numberOfResolves);
-						cout << (*players)[i].getMonsterCard()->getName() << "'s hp is now " << (*players)[i].getMonsterCard()->getHP() << " damage dealt " << numberOfResolves << endl;
+						gameStart::playersInGame[i]->getMonsterCard()->changeHP(-numberOfResolves);
+						cout << gameStart::playersInGame[i]->getMonsterCard()->getName() << "'s hp is now " << gameStart::playersInGame[i]->getMonsterCard()->getHP() << " damage dealt " << numberOfResolves << endl;
 					}
 				}
 				else
 				{
-					if (getRegion().getName() != "Manhattan1" && getRegion().getName() != "Manhattan2" && getRegion().getName() != "Manhattan3")
+					if (region.getName() != "Manhattan1" && region.getName() != "Manhattan2" && region.getName() != "Manhattan3")
 					{
-						if ((*players)[i].getRegion().getName() == "Manhattan1" || (*players)[i].getRegion().getName() == "Manhattan2" || (*players)[i].getRegion().getName() == "Manhattan3")
+						if (gameStart::playersInGame[i]->getRegion().getName() == "Manhattan1" || gameStart::playersInGame[i]->getRegion().getName() == "Manhattan2" || gameStart::playersInGame[i]->getRegion().getName() == "Manhattan3")
 						{
-							(*players)[i].getMonsterCard()->changeHP(-numberOfResolves);
-							cout << (*players)[i].getMonsterCard()->getName() << "'s hp is now " << (*players)[i].getMonsterCard()->getHP() << " damage dealt " << numberOfResolves << endl;
+							gameStart::playersInGame[i]->getMonsterCard()->changeHP(-numberOfResolves);
+							cout << gameStart::playersInGame[i]->getMonsterCard()->getName() << "'s hp is now " << gameStart::playersInGame[i]->getMonsterCard()->getHP() << " damage dealt " << numberOfResolves << endl;
 
 							//player in manhattan gets prompted to move
-							(*players)[i].setDamage(true);
-							(*players)[i].move();
-							regions = gameStart::mapRegions;
+							gameStart::playersInGame[i]->setDamage(true);
+							gameStart::playersInGame[i]->move();
 						}
 					}
 				}
@@ -155,16 +150,16 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 		if (numberOfResolves > 2)
 		{
 			//remove superstar card from infront of the previous holder
-			if (!(deck.getSpecialCards()[0].getName().compare("Superstar") == 0 || deck.getSpecialCards()[1].getName().compare("Superstar") == 0)) {
+			if (!(deck->getSpecialCards()[0].getName().compare("Superstar") == 0 || deck->getSpecialCards()[1].getName().compare("Superstar") == 0)) {
 				//find the player that has the Superstar card
 				transferSpecialCard("Superstar");
 			}
 			//set superstar card infront of you
 			else {
-				if (deck.getSpecialCards()[0].getName().compare("Superstar") == 0)
-					addOwnedCard(deck.getSpecialCards()[0]);
+				if (deck->getSpecialCards()[0].getName().compare("Superstar") == 0)
+					addOwnedCard(deck->getSpecialCards()[0]);
 				else
-					addOwnedCard(deck.getSpecialCards()[1]);
+					addOwnedCard(deck->getSpecialCards()[1]);
 			}
 			getMonsterCard()->changeVP(1);
 			if (numberOfResolves > 3)
@@ -177,9 +172,12 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 	{
 		vector<vector<int>> buildings = region.getBuildings();
 		for (int i = 0; i < buildings.size(); i++) {
-			if (buildings[i][0] <= numberOfResolves)
-				// Add whatever the tile gives you
-				region.flipTile(buildings[i][0], i);
+			if (buildings.at(i).size() != 0) {
+				if (buildings[i][0] <= numberOfResolves) {
+					// Add whatever the tile gives you
+					region.flipTile(buildings[i][0], i);
+				}
+			}
 		}
 	}
 	else if (effect == 6 && numberOfResolves > 0)
@@ -206,9 +204,9 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 						numOfUnitsInRegion++;
 				}
 
-				for (int i = 0; i < (*players).size(); i++) {
-					if ((*players)[i].getRegion().getName().compare(region.getName()) == 0) {
-						(*players)[i].getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
+				for (int i = 0; i < gameStart::playersInGame.size(); i++) {
+					if (gameStart::playersInGame[i]->getRegion().getName().compare(region.getName()) == 0) {
+						gameStart::playersInGame[i]->getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
 					}
 				}
 
@@ -218,7 +216,7 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 		{
 			// All monsters suffer 1 damage per unit tile in their respective bourough
 			// Loop through all regions
-			for (Region reg : regions) {
+			for (int i = 0; i < gameStart::mapRegions.size(); i++) {
 				int numOfUnitsInRegion = 0;
 				for (vector<int> unit : region.getUnits()) {
 					if (!unit.empty())
@@ -226,9 +224,9 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 				}
 
 				// Deal damage to all the players in the region
-				for (int i = 0; i < (*players).size(); i++) {
-					if ((*players)[i].getRegion().getName().compare(reg.getName()) == 0) {
-						(*players)[i].getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
+				for (int i = 0; i < gameStart::playersInGame.size(); i++) {
+					if (gameStart::playersInGame[i]->getRegion().getName().compare(gameStart::playersInGame[i]->getName()) == 0) {
+						gameStart::playersInGame[i]->getMonsterCard()->changeHP(numOfUnitsInRegion * -1);
 					}
 				}
 
@@ -237,8 +235,14 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 		}
 	}
 
-	gameStart::playersInGame = (*players);
-	gameStart::mapRegions = regions;
+	// Update the rest of the map
+	for (int i = 0; i < gameStart::mapRegions.size(); i++) {
+		if (gameStart::mapRegions[i] == region) {
+			gameStart::mapRegions[i] = region;
+		}
+	}
+
+	gameStart::map.update(gameStart::mapRegions);
 }
 
 int player::firstRoll()

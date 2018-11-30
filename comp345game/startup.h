@@ -8,7 +8,7 @@
 
 class startup {
 private:
-	vector<player> playerOrder;
+	vector<player*> playerOrder;
 	Map currMap;
 
 public:

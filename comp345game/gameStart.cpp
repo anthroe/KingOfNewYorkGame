@@ -14,11 +14,11 @@ using json = nlohmann::json;
 
 Map gameStart::map;
 vector<Region> gameStart::mapRegions;
-vector<player> gameStart::playersInGame;
+vector<player*> gameStart::playersInGame;
 Deck gameStart::deck;
 
 gameStart::gameStart() {
-	
+
 	selectMap();
 	buildMonster();
 	createPlayers();
@@ -49,15 +49,15 @@ void gameStart::selectMap() {
 }
 void gameStart::createPlayers() {
 	phaseObserver* obs = new phaseObserver();
-	Deck deck;
+	Deck* deck = &gameStart::deck;
 	float inputPlayers;
 	cout << endl << "How many players will play? (0 - 6)" << endl;
 	cin >> inputPlayers;
 
-	while (cin.fail() || inputPlayers != (int) inputPlayers|| (inputPlayers < 0 || inputPlayers > 6)) {
+	while (cin.fail() || inputPlayers != (int)inputPlayers || (inputPlayers < 0 || inputPlayers > 6)) {
 		cin.clear();
 		cin.ignore(256, '\n');
-		cout << "Please select a valid amount of players (0 - 6): " << endl;		
+		cout << "Please select a valid amount of players (0 - 6): " << endl;
 		cin >> inputPlayers;
 	}
 
@@ -68,10 +68,10 @@ void gameStart::createPlayers() {
 		string playerName;
 		cout << "Enter player " << (i) << "'s name:" << endl;
 		cin >> playerName;
-		player currPlayer = player(playerName);
-		currPlayer.setPlayerType(new client());
-		selectMonster(&currPlayer);
-		currPlayer.attach(obs);
+		player* currPlayer = new player(playerName);
+		currPlayer->setPlayerType(new client());
+		selectMonster(currPlayer);
+		currPlayer->attach(obs);
 		//currPlayer.notifyAll("phase", "action");
 		playersInGame.push_back(currPlayer);
 
@@ -81,7 +81,7 @@ void gameStart::createPlayers() {
 	if ((int)inputPlayers < 6) {
 		float inputBots;
 		if ((int)inputPlayers != 0) {
-			
+
 			cout << "How many bots would you like to add? (0 - " << 6 - (int)inputPlayers << ")" << endl;
 			cin >> inputBots;
 
@@ -93,8 +93,8 @@ void gameStart::createPlayers() {
 			}
 		}
 		else {
-			
-			
+
+
 			cout << "How many bots would you like to add? (2 - 6)" << endl;
 			cin >> inputBots;
 
@@ -105,49 +105,48 @@ void gameStart::createPlayers() {
 				cin >> inputBots;
 			}
 		}
-		
-			for (int i = 1; i <= inputBots; i++) {
-				string botName;
-				float inputBotType;
 
-				cout << "Enter bot " << i << "'s name" << endl;
-				cin >> botName;
-				player currBot = player(botName);
+		for (int i = 1; i <= inputBots; i++) {
+			string botName;
+			float inputBotType;
 
-				//Select bot type (aggressive or moderate)
-				cout << "What type of bot will this be?" << endl;
-				cout << "[0]. Aggressive \t [1]. Moderate" << endl;
+			cout << "Enter bot " << i << "'s name" << endl;
+			cin >> botName;
+			player* currBot = new player(botName);
+
+			//Select bot type (aggressive or moderate)
+			cout << "What type of bot will this be?" << endl;
+			cout << "[0]. Aggressive \t [1]. Moderate" << endl;
+			cin >> inputBotType;
+
+			while (cin.fail() || inputBotType != (int)inputBotType || ((int)inputBotType < 0 || (int)inputBotType > 1)) {
+				cin.clear();
+				cin.ignore(256, '\n');
+				cout << "Please enter 0 or 1 to select a type." << endl;
 				cin >> inputBotType;
-
-				while (cin.fail() || inputBotType != (int)inputBotType || ((int)inputBotType < 0 || (int)inputBotType > 1)) {
-					cin.clear();
-					cin.ignore(256, '\n');
-					cout << "Please enter 0 or 1 to select a type." << endl;
-					cin >> inputBotType;
-				}
-
-				if ((int)inputBotType == 0) {
-					currBot.setPlayerType(new aggressiveBot());
-				}
-				else {
-					currBot.setPlayerType(new moderateBot());
-				}
-
-				selectMonster(&currBot); //remove from list
-				currBot.attach(obs);
-				//currBot.notifyAll("phase", "action");
-				playersInGame.push_back(currBot);
 			}
-	}
-		//=======================================================================================================
 
-		//Display players
-		cout << "\nPlayers playing: " << endl;
+			if ((int)inputBotType == 0) {
+				currBot->setPlayerType(new aggressiveBot());
+			}
+			else {
+				currBot->setPlayerType(new moderateBot());
+			}
 
-		for (player player : playersInGame) {
-			cout << player.getName() + " playing as: " + player.getMonsterCard()->getName() << endl;
+			selectMonster(currBot); //remove from list
+			currBot->attach(obs);
+			//currBot.notifyAll("phase", "action");
+			playersInGame.push_back(currBot);
 		}
-	
+	}
+	//=======================================================================================================
+
+	//Display players
+	cout << "\nPlayers playing: " << endl;
+
+	for (player* player : playersInGame) {
+		cout << player->getName() + " playing as: " + player->getMonsterCard()->getName() << endl;
+	}
 }
 
 inline bool gameStart::fileExists(const std::string& name)
@@ -211,19 +210,19 @@ void gameStart::selectMonster(player *currPlayer) {
 	cout << ListOfMonsterCards.size() << endl;
 
 	for (int i = 0; i < ListOfMonsterCards.size(); i++) {
-		cout << "[" << i <<"] " + ListOfMonsterCards[i] << endl;
+		cout << "[" << i << "] " + ListOfMonsterCards[i] << endl;
 	}
 	float choice;
-	cout << "\nSelect a monster card: " << endl; 
+	cout << "\nSelect a monster card: " << endl;
 	cin >> choice;
 
-	while (cin.fail() || choice != (int) choice || (choice < 0 || choice >= ListOfMonsterCards.size())) {
+	while (cin.fail() || choice != (int)choice || (choice < 0 || choice >= ListOfMonsterCards.size())) {
 		cin.clear();
 		cin.ignore(256, '\n');
 		cout << "Please select a valid monster: " << endl;
 		cin >> choice;
 	}
-	
+
 	MonsterCard *monst = new MonsterCard(ListOfMonsterCards[choice]); //make a new monster card
 	currPlayer->setMonsterCard(monst); //assign it to the player
 	ListOfMonsterCards.erase(remove(ListOfMonsterCards.begin(), ListOfMonsterCards.end(), ListOfMonsterCards[choice]), ListOfMonsterCards.end()); //remove it from the available list
@@ -232,10 +231,10 @@ void gameStart::selectMonster(player *currPlayer) {
 bool gameStart::checkMonsterExists(string choice) {
 	bool selectValid;
 	for (int i = 0; i < ListOfMonsterCards.size(); i++) {
-	//if user's choice exists in thew available monsters
+		//if user's choice exists in thew available monsters
 		if (choice.compare(ListOfMonsterCards[i]) == 0) {
 			selectValid = true;
-			
+
 			break;
 		}
 		else {

@@ -59,7 +59,7 @@ public:
 	void setRegion(Region);
 	Region getRegion() { return region; }
 
-	void applyDiceEffect(int, int, Deck);
+	void applyDiceEffect(int, int, Deck*);
 	int firstRoll();
 
 	void setDamage(bool);

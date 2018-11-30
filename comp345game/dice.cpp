@@ -45,8 +45,8 @@ bool dice::getResolve()
 //generating a number between 1 and 5
 void dice::rollDice()
 {
-	int num = (rand() % 6);
-	topOfDice = dice::diceSymbols[num];
+	int num = (rand() % diceSymbols->size());
+	topOfDice = diceSymbols[num];
 }
 
 

@@ -9,14 +9,7 @@ void GameStatsObserver::update() {
 	regionStatsTable.endOfRow();
 
 	vector<Region> regions = gameStart::mapRegions;
-	vector<player> players = gameStart::playersInGame;
-	for (int i = 0; i < regions.size(); i++) {
-		for (int j = 0; j < players.size(); j++) {
-			if (regions[i] == players[j].getRegion()) {
-				regions[i].increasePlayerCount();
-			}
-		}
-	}
+	vector<player*> players = gameStart::playersInGame;
 
 	for (Region region : regions) {
 		regionStatsTable.add(region.getName());
@@ -44,22 +37,25 @@ void GameStatsObserver::update() {
 
 	TextTable::TextTable playerStatsTable('-', '|', '+');
 	playerStatsTable.add("Player Name");
+	playerStatsTable.add("Location");
 	playerStatsTable.add("Energy");
 	playerStatsTable.add("HP");
 	playerStatsTable.add("VP");
 	playerStatsTable.endOfRow();
 
-	for (player plr : gameStart::playersInGame) {
-		playerStatsTable.add(plr.getName());
-		playerStatsTable.add(to_string(plr.getEnergy()));
-		playerStatsTable.add(to_string(plr.getMonsterCard()->getHP()));
-		playerStatsTable.add(to_string(plr.getMonsterCard()->getVP()));
+	for (player* plr : gameStart::playersInGame) {
+		playerStatsTable.add(plr->getName());
+		playerStatsTable.add(plr->getRegion().getName());
+		playerStatsTable.add(to_string(plr->getEnergy()));
+		playerStatsTable.add(to_string(plr->getMonsterCard()->getHP()));
+		playerStatsTable.add(to_string(plr->getMonsterCard()->getVP()));
 		playerStatsTable.endOfRow();
 	}
 
 	playerStatsTable.setAlignment(1, TextTable::TextTable::Alignment::RIGHT);
 	playerStatsTable.setAlignment(2, TextTable::TextTable::Alignment::RIGHT);
 	playerStatsTable.setAlignment(3, TextTable::TextTable::Alignment::RIGHT);
+	playerStatsTable.setAlignment(4, TextTable::TextTable::Alignment::RIGHT);
 
 	displayStats(regionStatsTable, playerStatsTable);
 }

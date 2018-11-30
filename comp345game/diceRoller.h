@@ -3,6 +3,7 @@
 #include <vector>
 #include "dice.h"
 #include "Subject.h"
+
 using namespace std;
 class player;
 class turnObserver;
@@ -13,18 +14,18 @@ public:
 	void playerRoll(player* currentPlayer);
 	void botRoll(string type, player* currentPlayer);
 	void displayDiceContainer();
-	dice *getDiceContainer();
+	vector<dice*> getDiceContainer();
 	string getDiceContainerTop(int n);
 	bool getDiceResolve(int n);
 	void setDiceResolve(int n, bool res);
-	const int size();
 	void firstRoll(); 
 	void rollNDice(int);
 	void attachTurnObs(turnObserver* obs) { turnObservers.push_back(obs); }
 	void notifyAllTurnObs(player *p);
+	int size();
 
 private:
-	dice* diceContainer[6];
+	vector<dice*> diceContainer;
 	vector<turnObserver*> turnObservers;
 
 };

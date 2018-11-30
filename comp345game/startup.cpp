@@ -5,7 +5,7 @@
 #include <algorithm>
 
 using namespace std;
-vector<player> players;
+vector<player*> players;
 
 
 startup::startup() {
@@ -22,8 +22,8 @@ void startup::decidePlayerOrder() {
 
 	cout << "\n Roll the dice to see who goes first\n" << endl;
 	for (int i = 0; i < players.size(); i++) {
-		cout << "\n" << players[i].getName() + " rolled:\n" << endl;
-		result = players[i].firstRoll();
+		cout << "\n" << players[i]->getName() + " rolled:\n" << endl;
+		result = players[i]->firstRoll();
 		if (result > max) {
 			max = result;
 			indexOfFirstPlayer = i;
@@ -49,7 +49,7 @@ void startup::decidePlayerOrder() {
 
 	cout << "Player order is: " << endl;
 	for (int i = 0; i < playerOrder.size(); i++) {
-		cout << i+1 << ". " << playerOrder[i].getName() << endl;
+		cout << i+1 << ". " << playerOrder[i]->getName() << endl;
 	}
 
 	gameStart::playersInGame = playerOrder;
@@ -57,7 +57,7 @@ void startup::decidePlayerOrder() {
 
 void startup::chooseStartingRegion() {
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		gameStart::playersInGame[i].chooseStartingRegion();
+		gameStart::playersInGame[i]->chooseStartingRegion();
 		//gameStart::playersInGame[i].notifyAll("phase", "actions");
 	}
 }
