@@ -10,7 +10,7 @@ GameTournament::GameTournament(Map m, vector<player*> p, int n) {
 }
 void GameTournament::startGame() {
 	int  results = -1;
-	startup startup();
+	startup startup;
 	mainLoop Loop;
 	results = Loop.play();
 	if (results == -1) {
@@ -18,7 +18,6 @@ void GameTournament::startGame() {
 	}
 	else {
 		for (auto player : players) {
-
 			if (player->getId() == results) {
 				win = player;
 			}

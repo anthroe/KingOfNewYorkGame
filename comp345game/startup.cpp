@@ -13,6 +13,7 @@ startup::startup() {
 	currMap = gameStart::map;
 	decidePlayerOrder();
 	chooseStartingRegion();
+	system("pause");
 }
 
 void startup::decidePlayerOrder() {

@@ -29,6 +29,7 @@ void Tournament::startTournament() {
 		g = new GameTournament(cleanUpMap(map), players, (i + 1));
 		gamesIterator++;
 		games.push_back(g);
+		
 		g->startGame();
 	}
 	
@@ -54,6 +55,7 @@ Map Tournament::cleanUpMap(Map m) {
 		if (players[playerIndex]->getMonsterCard()->getHP() != 10) {
 			players[playerIndex]->getMonsterCard()->changeHP(+100);
 		}
+		players[playerIndex]->setEnergy(0);
 	}
 
 	for (int regionIndex = 0; regionIndex < m.getRegions().size(); regionIndex++) {
