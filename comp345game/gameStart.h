@@ -14,15 +14,18 @@ private:
 	//dice* dice;
 	int numberOfPlayers;
 	vector<string> ListOfMonsterCards;
+	int numberOfMaps;
 
 public:
 	static Deck deck;
 	static Map map;
 	static vector<Region> mapRegions;
 	static vector<player*> playersInGame;
-
+	vector<player*> getPlayers();
+	Map getMap();
 	gameStart();
-	vector<player*> getPlayers() { return playersInGame; }
+	
+
 
 	int listMaps();
 	void selectMonster(player *currPlayer);
@@ -32,5 +35,4 @@ public:
 	void selectMap();
 	void createPlayers();
 	void buildMonster();
-
 };

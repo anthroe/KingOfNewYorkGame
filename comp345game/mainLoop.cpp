@@ -3,6 +3,7 @@
 #include "mainLoop.h"
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,9 +22,9 @@ mainLoop::mainLoop() {
 	4. Buy Cards (optional)
 	5. End Your Turn
 */
-void mainLoop::play(){
+int mainLoop::play(){
 	bool gameInPlay = true;
-
+	int playerWinnerId = -1;
 	while (gameInPlay)
 	{
 		system("CLS");
@@ -41,7 +42,7 @@ void mainLoop::play(){
 
 		for (int i = 0; i < gameStart::playersInGame.size(); i++) {
 			std::cout << "It is now " << gameStart::playersInGame[i]->getName() << "'s turn." << endl;
-			if (gameStart::playersInGame[i]->getMonsterCard()->getHP() == 0)
+			if (gameStart::playersInGame[i]->getMonsterCard()->getHP() == 0 )
 			{
 				cout << gameStart::playersInGame[i]->getName() + " lost." << endl;
 				delete gameStart::playersInGame[i];
@@ -81,9 +82,10 @@ void mainLoop::play(){
 				notify();
 				continue;
 			}
-			else if (gameStart::playersInGame[i]->getMonsterCard()->getVP() == 20)
+			else if (gameStart::playersInGame[i]->getMonsterCard()->getVP() == 20 || turn == 3)
 			{
 				std::cout << "Player " << gameStart::playersInGame[i]->getName() << " has won the game! Round of applause!";
+				playerWinnerId = gameStart::playersInGame[i]->getId();
 				gameInPlay = false;
 				break;
 			}
@@ -96,7 +98,8 @@ void mainLoop::play(){
 			system("pause");
 		}
 	}
-	std::cout << "Game over" << endl;
+	std::cout << "\nGame over\n" << endl;
+	return playerWinnerId;
 }
 
 void mainLoop::notify() {

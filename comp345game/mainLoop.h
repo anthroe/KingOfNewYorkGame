@@ -14,5 +14,5 @@ private:
 	
 public:
 	mainLoop();
-	void play();
+	int play();
 };

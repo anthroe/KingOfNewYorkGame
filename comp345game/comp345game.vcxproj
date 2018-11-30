@@ -130,6 +130,7 @@
     <ClCompile Include="gameCard.cpp" />
     <ClCompile Include="gameStart.cpp" />
     <ClCompile Include="GameStatsObserver.cpp" />
+    <ClCompile Include="GameTournament.cpp" />
     <ClCompile Include="IPlayerType.cpp" />
     <ClCompile Include="mainLoop.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="tokens.cpp" />
     <ClCompile Include="tiles.cpp" />
+    <ClCompile Include="Tournament.cpp" />
     <ClCompile Include="turn.cpp" />
     <ClCompile Include="turnObserver.cpp" />
   </ItemGroup>
@@ -159,6 +161,7 @@
     <ClInclude Include="gameCard.h" />
     <ClInclude Include="gameStart.h" />
     <ClInclude Include="GameStatsObserver.h" />
+    <ClInclude Include="GameTournament.h" />
     <ClInclude Include="libraries\TextTable.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Subject.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="startup.h" />
     <ClInclude Include="tokens.h" />
     <ClInclude Include="tiles.h" />
+    <ClInclude Include="Tournament.h" />
     <ClInclude Include="turn.h" />
     <ClInclude Include="turnObserver.h" />
   </ItemGroup>

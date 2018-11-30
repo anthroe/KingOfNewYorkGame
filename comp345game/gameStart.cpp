@@ -16,7 +16,9 @@ Map gameStart::map;
 vector<Region> gameStart::mapRegions;
 vector<player*> gameStart::playersInGame;
 Deck gameStart::deck;
-
+Map gameStart::getMap() {
+	return map;
+};
 gameStart::gameStart() {
 
 	selectMap();
@@ -46,6 +48,9 @@ void gameStart::selectMap() {
 
 	map = mapLoaded.getMap();
 	mapRegions = map.getRegions();
+}
+vector<player*> gameStart::getPlayers() {
+	return playersInGame;
 }
 void gameStart::createPlayers() {
 	phaseObserver* obs = new phaseObserver();
