@@ -82,7 +82,7 @@ int mainLoop::play(){
 				notify();
 				continue;
 			}
-			else if (gameStart::playersInGame[i]->getMonsterCard()->getVP() == 20 || turn == 3)
+			else if (gameStart::playersInGame[i]->getMonsterCard()->getVP() == 20)
 			{
 				std::cout << "Player " << gameStart::playersInGame[i]->getName() << " has won the game! Round of applause!";
 				playerWinnerId = gameStart::playersInGame[i]->getId();
