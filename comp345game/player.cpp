@@ -45,10 +45,17 @@ bool player::addOwnedCard(GameCard card) {
 	}
 
 	if (cardNotOwned) {
-		ownedCards.push_back(card);
-		for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-			if (gameStart::playersInGame[i] == (*this)) {
-				gameStart::playersInGame[i] = (*this);
+		if (card.getPlayType().compare("Discard") != 0) {
+			card.notify();
+			useCardEffect(card);
+			gameStart::deck.discardCard(card);
+		}
+		else {
+			ownedCards.push_back(card);
+			for (int i = 0; i < gameStart::playersInGame.size(); i++) {
+				if (gameStart::playersInGame[i] == (*this)) {
+					gameStart::playersInGame[i] = (*this);
+				}
 			}
 		}
 	}
@@ -57,6 +64,45 @@ bool player::addOwnedCard(GameCard card) {
 	}
 
 	return true;
+}
+
+void player::useCardEffect(GameCard card) {
+	string cardName = card.getName();
+
+	if (compare(cardName, "Next Stage")) {
+		cout << "You have " << monsterCard->getVP() << " Victory Points." << endl;
+		cout << "How many would you like to turn into Energy Points?" << endl;
+		cout << "(The remaining VP will heal you for 1 point each)" << endl;
+
+		cin.clear();
+		cin.ignore(256, '\n');
+
+		int input;
+		cin >> input;
+
+		while (cin.fail() || input != (int)input || (input < 0 || input > monsterCard->getVP())) {
+			cin.clear();
+			cin.ignore(256, '\n');
+			cout << "Please enter a non-negative number that is less than or equal to your VP." << endl;
+			cin >> input;
+		}
+
+		monsterCard->changeHP(monsterCard->getVP() - (int)input);
+		energy += (int)input;
+		monsterCard->changeVP(monsterCard->getVP() * -1);
+
+	} else if (compare(cardName, "Power Substation")) {
+		monsterCard->changeHP(-3);
+		monsterCard->changeVP(1);
+		energy += 8;
+	} else if(compare(cardName, "Subterranean Cable")) {
+		monsterCard->changeHP(-4);
+		energy += 4;
+	}
+}
+
+bool player::compare(string str1, string str2) {
+	return str1.compare(str2) == 0;
 }
 
 void player::setOwnedCards(vector<GameCard> cards) {
@@ -68,9 +114,13 @@ bool player::transferSpecialCard(string cardName) {
 		if (gameStart::playersInGame[i].getName().compare(getName()) != 0){
 			vector<GameCard> otherOwnedCards = gameStart::playersInGame[i].getOwnedCards();
 			for (int i = 0; i < otherOwnedCards.size(); i++) {
-				if (otherOwnedCards[i].getName().compare("Superstar") == 0) {
+				if (otherOwnedCards[i].getName().compare(cardName) == 0) {
 					addOwnedCard(otherOwnedCards[i]);
 					gameStart::playersInGame[i].ownedCards.erase(gameStart::playersInGame[i].ownedCards.begin() + i);
+
+					if (cardName.compare("Statue of Liberty"))
+						gameStart::playersInGame[i].getMonsterCard()->changeVP(-3);
+
 					return true;
 				}
 			}
@@ -157,16 +207,18 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 			}
 			//set superstar card infront of you
 			else {
-				if (deck.getSpecialCards()[0].getName().compare("Superstar") == 0)
+				if (deck.getSpecialCards()[0].getName().compare("Superstar") == 0) {
+					deck.getSpecialCards()[0].notify();
 					addOwnedCard(deck.getSpecialCards()[0]);
-				else
+				}
+				else {
+					deck.getSpecialCards()[0].notify();
 					addOwnedCard(deck.getSpecialCards()[1]);
+				}
 			}
 			getMonsterCard()->changeVP(1);
 			if (numberOfResolves > 3)
-			{
 				getMonsterCard()->changeVP(numberOfResolves - 3);
-			}
 		}
 	}
 	else if (effect == 5 && numberOfResolves > 0)
@@ -212,7 +264,7 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 		}
 		else if (numberOfResolves > 3)
 		{
-			// All monsters suffer 1 damage per unit tile in their respective bourough
+			// All monsters suffer 1 damage per unit tile in their respective borough
 			// Loop through all regions
 			for (Region reg : regions) {
 				int numOfUnitsInRegion = 0;
@@ -229,7 +281,24 @@ void player::applyDiceEffect(int effect, int numberOfResolves, Deck deck)
 				}
 
 			}
-			//place status of liberty infront
+			
+			// Remove superstar card from in front of the previous holder
+			if (!(deck.getSpecialCards()[0].getName().compare("Statue of Liberty") == 0 || deck.getSpecialCards()[1].getName().compare("Statue of Liberty") == 0)) {
+				// Find the player that has the Superstar card
+				transferSpecialCard("Statue of Liberty");
+			}
+			// Set Statue of Liberty card in front of you
+			else {
+				if (deck.getSpecialCards()[0].getName().compare("Statue of Liberty") == 0) {
+					deck.getSpecialCards()[0].notify();
+					addOwnedCard(deck.getSpecialCards()[0]);
+				} else {
+					deck.getSpecialCards()[0].notify();
+					addOwnedCard(deck.getSpecialCards()[1]);
+				}
+			}
+
+			getMonsterCard()->changeVP(3);
 		}
 	}
 

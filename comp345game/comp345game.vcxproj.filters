@@ -90,6 +90,9 @@
     <ClCompile Include="GameStatsObserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CardObserver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Region.h">
@@ -171,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libraries\TextTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CardObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

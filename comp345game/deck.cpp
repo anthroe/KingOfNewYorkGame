@@ -1,3 +1,4 @@
+#include "CardObserver.h"
 #include "deck.h"
 #include <ctime>
 #include <iostream>
@@ -31,14 +32,17 @@ Deck::Deck(std::string deckFile, std::string specialFile){
 	json cardListJson;
 	getCardList(deckFile) >> cardListJson;
 
+	cardObserver* obs = nullptr;
 	// From the JSON make the game cards based on their attributes
 	for (json card : cardListJson) {
+		obs = new cardObserver();
 		deck.push_back(
 			GameCard(card["name"],
 				CardTypes::GAME_CARD,
 				card["type"],
 				card["effect"],
 				card["cost"]));
+		deck.back().attach(obs); // Attach an observer to each card
 	}
 
 	cardListJson = NULL;
@@ -52,6 +56,7 @@ Deck::Deck(std::string deckFile, std::string specialFile){
 				card["type"],
 				card["effect"],
 				card["cost"]));
+		deck.back().attach(obs); // Attach an observer to each card
 	}
 
 	shuffle();

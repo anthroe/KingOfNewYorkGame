@@ -48,6 +48,7 @@ public:
 	MonsterCard *getMonsterCard() { return monsterCard; };
 
 	bool addOwnedCard(GameCard);
+	void useCardEffect(GameCard);
 	vector<GameCard> getOwnedCards() { return ownedCards; };
 	void setOwnedCards(vector<GameCard>);
 	bool transferSpecialCard(string);
@@ -81,6 +82,7 @@ public:
 // |--------------------------------------------------------------------------|
 private:
 	int state;
+	bool compare(string, string);
 
 public:
 	int getState() { return state; };
