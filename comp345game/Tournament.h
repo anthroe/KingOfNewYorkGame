@@ -17,9 +17,9 @@ private:
 	int gamesToPlay;
 	vector<GameTournament*> games;
 	vector<Deck*> decks;
-	Map cleanUpMap(Map);
 	
 public:
+	void cleanUpMap();
 	void tournamentInitialization();
 	void startTournament();
 	void printReport();

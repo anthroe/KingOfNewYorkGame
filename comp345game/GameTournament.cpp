@@ -23,7 +23,6 @@ void GameTournament::startGame() {
 			}
 		}
 	}
-
 }
 
 string GameTournament::getWinnerName() {

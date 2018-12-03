@@ -762,7 +762,8 @@ void client::buyCards(player* currentPlayer) {
 			}
 			cout << deck->getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
 			cin >> input;
-			while (cin.fail() || input != (int)input || (input < 1 || input > (deck->getPurchaseableCards().size() + 1))) {
+
+			while (cin.fail() || input != (int)input || (input < 1 || input >(deck->getPurchaseableCards().size() + 1))) {
 				cin.clear();
 				cin.ignore(256, '\n');
 				cout << "Please enter the correct row number." << endl;

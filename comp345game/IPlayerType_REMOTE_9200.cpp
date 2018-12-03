@@ -18,6 +18,8 @@ void aggressiveBot::move(player* currentBot) {
 	currentBot->notifyAll("Move", "");
 	if (currentBot->getRegion() == Region()) {
 		cout << "Cannot move " + currentBot->getName() + ". This player's region has not been set yet." << endl;
+
+
 		return;
 	}
 
@@ -28,10 +30,19 @@ void aggressiveBot::move(player* currentBot) {
 	int input;
 
 	vector<Region> regions = gameStart::mapRegions;
+	vector<player> players = gameStart::playersInGame;
 	vector<Region> zones = currentBot->getRegion().getNeighbours();
 	vector<Region> moveableAreas;
 	vector<string> neighbourNames;
 	Region priorRegion = (*currentBot).getRegion();
+
+	for (int i = 0; i < regions.size(); i++) {
+		for (int j = 0; j < players.size(); j++) {
+			if (regions[i] == players[j].getRegion()) {
+				regions[i].increasePlayerCount();
+			}
+		}
+	}
 
 	for (int i = 0; i < regions.size(); i++) {
 		if (regions[i].getName() == "Manhattan1") {
@@ -119,7 +130,6 @@ void aggressiveBot::move(player* currentBot) {
 
 		if (input == moveableAreas.size()) {
 			cout << currentBot->getName() + " remains in place." << endl;
-			return;
 		}
 		else {
 			currentBot->setRegion(moveableAreas[(int)input]);
@@ -130,32 +140,23 @@ void aggressiveBot::move(player* currentBot) {
 	// ======================================= Update Map ========================================
 	for (int i = 0; i < regions.size(); i++) {
 		if (regions[i] == priorRegion) {
-			regions[i].decreasePlayerCount();
 			priorRegion.decreasePlayerCount();
+			regions[i] = priorRegion;
 		}
 
 		if (regions[i] == currentBot->getRegion()) {
-			regions[i].increasePlayerCount();
-			currentBot->setRegion(regions[i]);
+			currentBot->getRegion().increasePlayerCount();
+			regions[i] = currentBot->getRegion();
 		}
 	}
 
-	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		// update current player
-		if (gameStart::playersInGame[i] == currentBot) {
-			gameStart::playersInGame[i]->setRegion(currentBot->getRegion());
-		}
-
-		//update the playerCount of other players' regions
-		else if (gameStart::playersInGame[i]->getRegion() == currentBot->getRegion()) {
-			gameStart::playersInGame[i]->setRegion(currentBot->getRegion());
-		}
-		else if (gameStart::playersInGame[i]->getRegion() == priorRegion) {
-			gameStart::playersInGame[i]->setRegion(priorRegion);
+	for (int i = 0; i < players.size(); i++) {
+		if (currentBot->getName() == players[i].getName() && currentBot->getId() == players[i].getId()) {
+			players[i].setRegion(currentBot->getRegion());
 		}
 	}
-
-	gameStart::mapRegions = regions;
+	
+	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
 	currentBot->notifyAll("Move", "location -> " + currentBot->getRegion().getName());
 }
@@ -174,10 +175,19 @@ void moderateBot::move(player* currentBot) {
 	int input;
 
 	vector<Region> regions = gameStart::mapRegions;
+	vector<player> players = gameStart::playersInGame;
 	vector<Region> zones = currentBot->getRegion().getNeighbours();
 	vector<Region> moveableAreas;
 	vector<string> neighbourNames;
 	Region priorRegion = (*currentBot).getRegion();
+
+	for (int i = 0; i < regions.size(); i++) {
+		for (int j = 0; j < players.size(); j++) {
+			if (regions[i] == players[j].getRegion()) {
+				regions[i].increasePlayerCount();
+			}
+		}
+	}
 
 	for (int i = 0; i < regions.size(); i++) {
 		if (regions[i].getName() == "Manhattan1") {
@@ -261,7 +271,6 @@ void moderateBot::move(player* currentBot) {
 
 		if (input == moveableAreas.size()) {
 			cout << currentBot->getName() + " remains in place." << endl;
-			return;
 		}
 		else {
 			currentBot->setRegion(moveableAreas[(int)input]);
@@ -272,32 +281,23 @@ void moderateBot::move(player* currentBot) {
 	// ======================================= Update Map ========================================
 	for (int i = 0; i < regions.size(); i++) {
 		if (regions[i] == priorRegion) {
-			regions[i].decreasePlayerCount();
 			priorRegion.decreasePlayerCount();
+			regions[i] = priorRegion;
 		}
 
 		if (regions[i] == currentBot->getRegion()) {
-			regions[i].increasePlayerCount();
-			currentBot->setRegion(regions[i]);
+			currentBot->getRegion().increasePlayerCount();
+			regions[i] = currentBot->getRegion();
 		}
 	}
 
-	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		// update current player
-		if (gameStart::playersInGame[i] == currentBot) {
-			gameStart::playersInGame[i]->setRegion(currentBot->getRegion());
-		}
-
-		//update the playerCount of other players' regions
-		else if (gameStart::playersInGame[i]->getRegion() == currentBot->getRegion()) {
-			gameStart::playersInGame[i]->setRegion(currentBot->getRegion());
-		}
-		else if (gameStart::playersInGame[i]->getRegion() == priorRegion) {
-			gameStart::playersInGame[i]->setRegion(priorRegion);
+	for (int i = 0; i < players.size(); i++) {
+		if (currentBot->getName() == players[i].getName() && currentBot->getId() == players[i].getId()) {
+			players[i].setRegion(currentBot->getRegion());
 		}
 	}
 
-	gameStart::mapRegions = regions;
+	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
 	currentBot->notifyAll("Move", "location -> " + currentBot->getRegion().getName());
 }
@@ -316,10 +316,19 @@ void client::move(player* currentPlayer) {
 	int uppManIndex = -1;
 
 	vector<Region> regions = gameStart::mapRegions;
+	vector<player> players = gameStart::playersInGame;
 	vector<Region> zones = currentPlayer->getRegion().getNeighbours();
 	vector<Region> moveableAreas;
 	vector<string> neighbourNames;
 	Region priorRegion = (*currentPlayer).getRegion();
+
+	for (int i = 0; i < regions.size(); i++) {
+		for (int j = 0; j < players.size(); j++) {
+			if (regions[i] == players[j].getRegion()) {
+				regions[i].increasePlayerCount();
+			}
+		}
+	}
 
 	for (int i = 0; i < regions.size(); i++) {
 		if (regions[i].getName() == "Manhattan1") {
@@ -350,7 +359,7 @@ void client::move(player* currentPlayer) {
 			}
 		}
 	}
-
+	
 	// ==================================== Manhattan Process =====================================
 	if (!currentPlayer->isDamaged()) {
 		cout << "It is " + currentPlayer->getName() + "'s turn to move." << endl;
@@ -418,50 +427,42 @@ void client::move(player* currentPlayer) {
 	// ======================================= Update Map ========================================
 	for (int i = 0; i < regions.size(); i++) {
 		if (regions[i] == priorRegion) {
-			regions[i].decreasePlayerCount();
 			priorRegion.decreasePlayerCount();
+			regions[i] = priorRegion;
 		}
 
 		if (regions[i] == currentPlayer->getRegion()) {
-			regions[i].increasePlayerCount();
-			currentPlayer->setRegion(regions[i]);
+			currentPlayer->getRegion().increasePlayerCount();
+			regions[i] = currentPlayer->getRegion();
+		}
+	}
+	
+	for (int i = 0; i < players.size(); i++) {
+		if (currentPlayer->getName() == players[i].getName() && currentPlayer->getId() == players[i].getId()) {
+			players[i].setRegion(currentPlayer->getRegion());
 		}
 	}
 
-	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		// update current player
-		if (gameStart::playersInGame[i] == currentPlayer) {
-			gameStart::playersInGame[i]->setRegion(currentPlayer->getRegion());
-		}
-
-		//update the playerCount of other players' regions
-		else if (gameStart::playersInGame[i]->getRegion() == currentPlayer->getRegion()) {
-			gameStart::playersInGame[i]->setRegion(currentPlayer->getRegion());
-		}
-		else if (gameStart::playersInGame[i]->getRegion() == priorRegion) {
-			gameStart::playersInGame[i]->setRegion(priorRegion);
-		}
-	}
-
-	gameStart::mapRegions = regions;
+	gameStart::playersInGame = players;
 	gameStart::map.update(regions);
 	currentPlayer->notifyAll("Move", "location -> " + currentPlayer->getRegion().getName());
+	// ============================================================================================
 }
 
 void IPlayerType::chooseStartingRegion(player* currentPlayer) {
 	currentPlayer->notifyAll("Move", "");
 	cout << "Regions: " << endl;
-	vector<Region> regions = gameStart::mapRegions;
+	vector<Region> regions = gameStart::map.getRegions();
 	vector<Region> moveableAreas;
 
-	for (int i = 0; i < regions.size(); i++) {
-		if (!(regions[i].getName() == "Manhattan1" || regions[i].getName() == "Manhattan2" || regions[i].getName() == "Manhattan3")) {
-			if (regions[i].getPlayerCount() < 2) {
-				moveableAreas.push_back(regions[i]);
+	for (Region region : regions) {
+		if (!(region.getName() == "Manhattan1" || region.getName() == "Manhattan2" || region.getName() == "Manhattan3")) {
+			if (region.getPlayerCount() < 2) {
+				moveableAreas.push_back(region);
 			}
 		}
 	}
-
+	
 	cout << "It is " + currentPlayer->getName() + "'s turn to move. Choose Destination:" << endl;
 
 	for (int i = 0; i < moveableAreas.size(); i++) {
@@ -470,40 +471,40 @@ void IPlayerType::chooseStartingRegion(player* currentPlayer) {
 
 	int input = rand() % (moveableAreas.size());
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		if (gameStart::playersInGame[i] == currentPlayer) {
-			moveableAreas[input].increasePlayerCount();
-			gameStart::playersInGame[i]->setRegion(moveableAreas[input]);
+		if (gameStart::playersInGame[i].getName() == currentPlayer->getName() && gameStart::playersInGame[i].getId() == currentPlayer->getId()) {
+			gameStart::playersInGame[i].setRegion(moveableAreas[input]);
 			break;
 		}
 	}
 
-	cout << currentPlayer->getName() + " moved to " + currentPlayer->getRegion().getName() + ". " << endl << endl;
+	cout << "***" + currentPlayer->getName() + " moved to " + currentPlayer->getRegion().getName() + ". " << endl << endl;
 	currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
 	//update map
 	for (int j = 0; j < regions.size(); j++) {
 		if (regions[j] == moveableAreas[input]) {
-			gameStart::mapRegions[j].increasePlayerCount();
+			regions[j].increasePlayerCount();
 		}
 	}
 
-	gameStart::map.update(gameStart::mapRegions);
+	gameStart::map.update(regions);
+
 }
 
 void client::chooseStartingRegion(player* currentPlayer) {
 	currentPlayer->notifyAll("Move", "");
 	float input;
 	cout << "Regions: " << endl;
-	vector<Region> regions = gameStart::mapRegions;
+	vector<Region> regions = gameStart::map.getRegions();
 	vector<Region> moveableAreas;
 
-	for (int i = 0; i < regions.size(); i++) {
-		if (!(regions[i].getName() == "Manhattan1" || regions[i].getName() == "Manhattan2" || regions[i].getName() == "Manhattan3")) {
-			if (regions[i].getPlayerCount() < 2) {
-				moveableAreas.push_back(regions[i]);
+	for (Region region : regions) {
+		if (!(region.getName() == "Manhattan1" || region.getName() == "Manhattan2" || region.getName() == "Manhattan3")) {
+			if (region.getPlayerCount() < 2) {
+				moveableAreas.push_back(region);
 			}
 		}
 	}
-
+	
 	cout << "It is " + currentPlayer->getName() + "'s turn to move. Choose Destination:" << endl;
 
 	for (int i = 0; i < moveableAreas.size(); i++) {
@@ -517,25 +518,29 @@ void client::chooseStartingRegion(player* currentPlayer) {
 		cin >> input;
 	}
 
+	input = static_cast<int>(input);
+
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		if (gameStart::playersInGame[i] == currentPlayer) {
-			moveableAreas[(int)input].increasePlayerCount();
-			gameStart::playersInGame[i]->setRegion(moveableAreas[(int)input]);
+		if (gameStart::playersInGame[i].getName() == currentPlayer->getName() && gameStart::playersInGame[i].getId() == currentPlayer->getId()) {
+			gameStart::playersInGame[i].setRegion(moveableAreas[input]);
 			break;
 		}
 	}
 
+
 	cout << currentPlayer->getName() + " moved to " + currentPlayer->getRegion().getName() + ". " << endl << endl;
 	currentPlayer->notifyAll("Move", "player moved to " + currentPlayer->getRegion().getName());
-
 	//update map
 	for (int j = 0; j < regions.size(); j++) {
 		if (regions[j] == moveableAreas[input]) {
-			gameStart::mapRegions[j].increasePlayerCount();
+			regions[j].increasePlayerCount();
+			
+			//gameStart::playersInGame[i].setRegion(regions[j]);
 		}
 	}
 
-	gameStart::map.update(gameStart::mapRegions);
+	gameStart::map.update(regions);
+	
 }
 
 // ============================ Roll Dice =================================
@@ -546,50 +551,127 @@ void IPlayerType::rollDice(player* player) {
 void client::rollDice(player* currentPlayer) {
 	currentPlayer->notifyAll("Roll Dice", "");
 	cout << currentPlayer->getName() + ": roll your die." << endl;
-	currentPlayer->getDice().playerRoll(currentPlayer);
+	currentPlayer->getDice().playerRoll();
+
 	currentPlayer->notifyAll("Roll Dice", "dice rolled");
 }
 
 void aggressiveBot::rollDice(player* currentPlayer) {
 	cout << currentPlayer->getName() + ": roll your die." << endl;
 	currentPlayer->notifyAll("Roll Dice", "");
-	currentPlayer->getDice().botRoll("agressive", currentPlayer);
+	const int size = currentPlayer->getDice().size();
+	for (int index = 0; index < size; index++) {
+		currentPlayer->getDice().rollNDice(index); // has no value
+	}
+
+	int numberOfMaxRerolls = 2;
+	//first roll
+	for (int index = 0; index < currentPlayer->getDice().size(); index++) {
+		currentPlayer->getDice().rollNDice(index); //populate your dice roller
+	}
+	currentPlayer->getDice().displayDiceContainer();
+
+
+	int roll = 0; // bot rolls twice without input
+
+	while (roll < 2)
+	{
+		cout << "Rerolling..." << endl;
+		roll++;
+
+		//rerolling desired dices
+		for (int i = 0; i < currentPlayer->getDice().size(); i++)
+		{
+
+			if (currentPlayer->getDice().getDiceContainerTop(i).compare("Attack") != 0 && currentPlayer->getDice().getDiceContainerTop(i).compare("Destruction") != 0) {
+				currentPlayer->getDice().rollNDice(i);
+			}
+
+		}
+		currentPlayer->getDice().displayDiceContainer();
+	}
+
 	currentPlayer->notifyAll("Roll Dice", "dice rolled");
 }
 
 void moderateBot::rollDice(player* currentPlayer) {
 	cout << currentPlayer->getName() + ": roll your die." << endl;
 	currentPlayer->notifyAll("Roll Dice", "");
-	currentPlayer->getDice().botRoll("moderate", currentPlayer);
+	const int size = currentPlayer->getDice().size();
+	for (int index = 0; index < size; index++) {
+		currentPlayer->getDice().rollNDice(index); // has no value
+		//cout << "Top: " << diceContainer[index]->getDiceTop() << endl;
+	}
+
+	int numberOfMaxRerolls = 2;
+	//first roll
+	for (int index = 0; index < currentPlayer->getDice().size(); index++) {
+		currentPlayer->getDice().rollNDice(index); //populate your dice roller
+	}
+	currentPlayer->getDice().displayDiceContainer();
+
+
+	int roll = 0; // bot rolls twice without input
+
+	while (roll < 2)
+	{
+		cout << "Rerolling..." << endl;
+		roll++;
+
+		//rerolling desired dices
+		for (int i = 0; i < currentPlayer->getDice().size(); i++)
+		{
+
+			if (currentPlayer->getDice().getDiceContainerTop(i).compare("Heal") != 0
+				&& currentPlayer->getDice().getDiceContainerTop(i).compare("Energy") != 0
+				&& currentPlayer->getDice().getDiceContainerTop(i).compare("Celebrity") != 0) {
+				currentPlayer->getDice().rollNDice(i);
+			}
+
+		}
+		currentPlayer->getDice().displayDiceContainer();
+	}
+
 	currentPlayer->notifyAll("Roll Dice", "dice rolled");
 }
 
 // =========================== Resolve Dice ===============================
 void IPlayerType::resolveDice(player* currentPlayer) {
-	Deck* deck = &gameStart::deck;
+	Deck deck;
 	bool resolving = true;
-	int numOfResolves[6] = { 0, 0, 0, 0, 0, 0 };
-	string ability[6] = { "Energy", "Heal", "Attack", "Celebrity", "Destruction", "Ouch" };
+	const int NUMOFSYMBOLS = 6;
+	int* numOfResolves = new int[NUMOFSYMBOLS];
+	string ability[NUMOFSYMBOLS] = { "Energy", "Heal", "Attack", "Celebrity", "Destruction", "Ouch" };
 	currentPlayer->notifyAll("roll Dice", "resolve dice");
+	for (int i = 0; i < NUMOFSYMBOLS; i++)
+	{
+		numOfResolves[i] = 0;
+	}
 
-	for (int i = 0; i < 6; i++) {
-		for (int j = 0; j < currentPlayer->getDice().size();  j++) {
+	for (int i = 0; i < NUMOFSYMBOLS; i++)
+	{
+		for (int j = 0; j < currentPlayer->getDice().size(); j++)
+		{
 			if (currentPlayer->getDice().getDiceContainerTop(j).compare(ability[i]) == 0)
 				numOfResolves[i]++;
 		}
 	}
 	currentPlayer->notifyAll("roll Dice", "dices have been resolved");
-	for (int i = 0; i < 6; i++) {
-		if (numOfResolves[i] > 0) {
-			cout << "The dice of the type " << ability[i] << " has been rolled " << numOfResolves[i] << " times " << endl;
+	for (int i = 0; i < NUMOFSYMBOLS; i++)
+	{
+		if (numOfResolves[i] > 0)
+		{
+			cout << "The dice of the type " << ability[i] <<
+				" has been rolled " << numOfResolves[i] << " times " << endl;
 			currentPlayer->applyDiceEffect(i + 1, numOfResolves[i], deck);
 		}
 	}
 	currentPlayer->notifyAll("roll Dice", "dice effects have been applied");
+	
 }
 
 void client::resolveDice(player* currentPlayer) {
-	Deck* deck = &gameStart::deck;
+	Deck deck;
 	bool resolving = true;
 	const int NUMOFSYMBOLS = 6;
 	int* resolveOrder = new int[NUMOFSYMBOLS];
@@ -632,6 +714,7 @@ void client::resolveDice(player* currentPlayer) {
 		int count = 0;
 		for (int i = 0; i < currentPlayer->getDice().size(); i++)
 		{
+
 			if (currentPlayer->getDice().getDiceContainerTop(i).compare(ability[(int)num - 1]) == 0 && currentPlayer->getDice().getDiceResolve(i) == true)
 			{
 				//call a resolve function
@@ -655,7 +738,7 @@ void client::resolveDice(player* currentPlayer) {
 	}
 	for (int i = 0; i < 6; i++)
 	{
-		if (resolveOrder[i] > 0 && resolveOrder[i] < 6)
+		if (resolveOrder[i] > 0 && resolveOrder[i] < 7)
 		{
 			cout << "The dice of the type " << ability[resolveOrder[i] - 1] <<
 				" has been rolled " << numOfResolves[resolveOrder[i] - 1] << " times " << endl;
@@ -669,13 +752,14 @@ void client::resolveDice(player* currentPlayer) {
 //	=========================== Buy Cards =================================
 void IPlayerType::buyCards(player* currentPlayer) {
 	Deck* deck = &gameStart::deck;
+	int input;
 	currentPlayer->notifyAll("buyCards", "");
 	cout << "\nIt is " + currentPlayer->getName() + "'s turn to buy a card. " << endl;
 
 	// The bot has more than 2 energy, he can buy something. 
 	if (currentPlayer->getEnergy() > 2) {
 		// Card to purchase is randomly selected
-		int input = rand() % (deck->getPurchaseableCards().size()) + 1;
+		input = rand() % (deck->getPurchaseableCards().size()) + 1;
 
 		// Ask which card they want to buy, and repeat until they answer properly
 		cout << "\nYou have " << currentPlayer->getEnergy() << " energy." << endl;
@@ -708,24 +792,23 @@ void IPlayerType::buyCards(player* currentPlayer) {
 		else {
 			// Ensure that the player has enough energy for the transaction
 			if (currentPlayer->getEnergy() >= deck->getPurchaseableCards()[input - 1].getCost()) {
-				string cardName = deck->getPurchaseableCards()[input - 1].getName();
 				currentPlayer->setEnergy(currentPlayer->getEnergy() - deck->getPurchaseableCards()[input - 1].getCost());
 				currentPlayer->addOwnedCard(deck->purchaseCard(deck->getPurchaseableCards()[input - 1]));
+
 				currentPlayer->notifyAll("buyCards", "card purchased");
-				cout << currentPlayer->getName() + " has purchased " + cardName << endl;
-				deck->shuffle();
+				cout << currentPlayer->getName() + " has purchased " + deck->getPurchaseableCards()[input - 1].getName() << endl;
 			}
 			else
 				cout << "\nYou don't have enough energy for that card" << endl;
 		}
 
-
+		
 
 		//update player info
 		for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-			if (gameStart::playersInGame[i]->getName() == currentPlayer->getName() && gameStart::playersInGame[i]->getId() == currentPlayer->getId()) {
-				gameStart::playersInGame[i]->setEnergy(currentPlayer->getEnergy());
-				gameStart::playersInGame[i]->setOwnedCards(currentPlayer->getOwnedCards());
+			if (gameStart::playersInGame[i].getName() == currentPlayer->getName() && gameStart::playersInGame[i].getId() == currentPlayer->getId()) {
+				gameStart::playersInGame[i].setEnergy(currentPlayer->getEnergy());
+				gameStart::playersInGame[i].setOwnedCards(currentPlayer->getOwnedCards());
 			}
 		}
 	}
@@ -762,6 +845,7 @@ void client::buyCards(player* currentPlayer) {
 			}
 			cout << deck->getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
 			cin >> input;
+
 			while (cin.fail() || input != (int)input || (input < 1 || input > (deck->getPurchaseableCards().size() + 1))) {
 				cin.clear();
 				cin.ignore(256, '\n');
@@ -789,12 +873,11 @@ void client::buyCards(player* currentPlayer) {
 			else {
 				// Ensure that the player has enough energy for the transaction
 				if (currentPlayer->getEnergy() >= deck->getPurchaseableCards()[input - 1].getCost()) {
-					string cardName = deck->getPurchaseableCards()[input - 1].getName();
 					currentPlayer->setEnergy(currentPlayer->getEnergy() - deck->getPurchaseableCards()[input - 1].getCost());
 					currentPlayer->addOwnedCard(deck->purchaseCard(deck->getPurchaseableCards()[input - 1]));
-					cout << currentPlayer->getName() + " has purchased " + cardName << endl;
+
+					cout << currentPlayer->getName() + " has purchased " + deck->getPurchaseableCards()[input - 1].getName() << endl;
 					currentPlayer->notifyAll("buyCards", "card purchased");
-					deck->shuffle();
 				}
 				else
 					cout << "\nYou don't have enough energy for that card" << endl;
@@ -812,9 +895,11 @@ void client::buyCards(player* currentPlayer) {
 	}
 
 	for (int i = 0; i < gameStart::playersInGame.size(); i++) {
-		if (gameStart::playersInGame[i] == currentPlayer) {
-			gameStart::playersInGame[i]->setEnergy(currentPlayer->getEnergy());
-			gameStart::playersInGame[i]->setOwnedCards(currentPlayer->getOwnedCards());
+		if (gameStart::playersInGame[i].getName() == currentPlayer->getName() && gameStart::playersInGame[i].getId() == currentPlayer->getId()) {
+			gameStart::playersInGame[i].setEnergy(currentPlayer->getEnergy());
+			gameStart::playersInGame[i].setOwnedCards(currentPlayer->getOwnedCards());
 		}
 	}
+
+	
 }

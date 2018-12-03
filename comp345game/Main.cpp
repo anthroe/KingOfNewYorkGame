@@ -23,7 +23,7 @@ int main() {
 	cout << "[0] Regular game \t [1] Tournament \t [2] Quit" << endl << "Choice: ";
 	int choice;
 	cin >> choice;
-	while (!isdigit(choice) && choice < 0 && choice > 2) {
+	while (!isdigit(choice) && (choice < 0 || choice > 2)) {
 		cin.clear();
 		cin.ignore(256, '\n');
 		cout << "Please enter a valid amount choice." << endl;

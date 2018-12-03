@@ -34,6 +34,7 @@ int mainLoop::play(){
 		//conditions
 		if (gameStart::playersInGame.size() == 1) {
 			std::cout << gameStart::playersInGame[0]->getName() + " is the last player remaining." << endl;
+			playerWinnerId = gameStart::playersInGame[0]->getId();
 			gameInPlay = false;
 		}
 		else if (gameStart::playersInGame.size() == 0){
@@ -45,8 +46,9 @@ int mainLoop::play(){
 			if (gameStart::playersInGame[i]->getMonsterCard()->getHP() == 0 )
 			{
 				cout << gameStart::playersInGame[i]->getName() + " lost." << endl;
-				delete gameStart::playersInGame[i];
-				gameStart::playersInGame[i] = NULL;
+				//Deletion of player pointers are commented out because players will need to be recycled during tournament rounds
+				/*delete gameStart::playersInGame[i];
+				gameStart::playersInGame[i] = NULL;*/
 				gameStart::playersInGame.erase(gameStart::playersInGame.begin() + i);
 
 				continue;
@@ -76,8 +78,8 @@ int mainLoop::play(){
 			if (gameStart::playersInGame[i]->getMonsterCard()->getHP() == 0)
 			{
 				cout << gameStart::playersInGame[i]->getName() + " lost." << endl;
-				delete gameStart::playersInGame[i];
-				gameStart::playersInGame[i] = NULL;
+				/*delete gameStart::playersInGame[i];
+				gameStart::playersInGame[i] = NULL;*/
 				gameStart::playersInGame.erase(gameStart::playersInGame.begin() + i);
 				notify();
 				continue;
@@ -95,7 +97,7 @@ int mainLoop::play(){
 			gameStart::playersInGame[i]->buyCards();
 			notify();
 			turn++;
-			system("pause");
+			//system("pause");
 		}
 	}
 	return playerWinnerId;

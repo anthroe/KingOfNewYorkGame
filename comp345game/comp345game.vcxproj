@@ -122,6 +122,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="card.cpp" />
+    <ClCompile Include="CardObserver.cpp" />
     <ClCompile Include="cardtest.cpp" />
     <ClCompile Include="deck.cpp" />
     <ClCompile Include="dice.cpp" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="card.h" />
+    <ClInclude Include="CardObserver.h" />
     <ClInclude Include="cardtest.h" />
     <ClInclude Include="cardTypes.h" />
     <ClInclude Include="deck.h" />

@@ -669,13 +669,21 @@ void client::resolveDice(player* currentPlayer) {
 //	=========================== Buy Cards =================================
 void IPlayerType::buyCards(player* currentPlayer) {
 	Deck* deck = &gameStart::deck;
+<<<<<<< HEAD
+=======
+	int input;
+>>>>>>> origin/CardOberser
 	currentPlayer->notifyAll("buyCards", "");
 	cout << "\nIt is " + currentPlayer->getName() + "'s turn to buy a card. " << endl;
 
 	// The bot has more than 2 energy, he can buy something. 
 	if (currentPlayer->getEnergy() > 2) {
 		// Card to purchase is randomly selected
+<<<<<<< HEAD
 		int input = rand() % (deck->getPurchaseableCards().size()) + 1;
+=======
+		input = rand() % (deck->getPurchaseableCards().size()) + 1;
+>>>>>>> origin/CardOberser
 
 		// Ask which card they want to buy, and repeat until they answer properly
 		cout << "\nYou have " << currentPlayer->getEnergy() << " energy." << endl;
@@ -708,12 +716,20 @@ void IPlayerType::buyCards(player* currentPlayer) {
 		else {
 			// Ensure that the player has enough energy for the transaction
 			if (currentPlayer->getEnergy() >= deck->getPurchaseableCards()[input - 1].getCost()) {
+<<<<<<< HEAD
 				string cardName = deck->getPurchaseableCards()[input - 1].getName();
 				currentPlayer->setEnergy(currentPlayer->getEnergy() - deck->getPurchaseableCards()[input - 1].getCost());
 				currentPlayer->addOwnedCard(deck->purchaseCard(deck->getPurchaseableCards()[input - 1]));
 				currentPlayer->notifyAll("buyCards", "card purchased");
 				cout << currentPlayer->getName() + " has purchased " + cardName << endl;
 				deck->shuffle();
+=======
+				currentPlayer->setEnergy(currentPlayer->getEnergy() - deck->getPurchaseableCards()[input - 1].getCost());
+				currentPlayer->addOwnedCard(deck->purchaseCard(deck->getPurchaseableCards()[input - 1]));
+
+				currentPlayer->notifyAll("buyCards", "card purchased");
+				cout << currentPlayer->getName() + " has purchased " + deck->getPurchaseableCards()[input - 1].getName() << endl;
+>>>>>>> origin/CardOberser
 			}
 			else
 				cout << "\nYou don't have enough energy for that card" << endl;
@@ -762,7 +778,12 @@ void client::buyCards(player* currentPlayer) {
 			}
 			cout << deck->getPurchaseableCards().size() + 1 << ". " << "Get new cards" << " (Cost: " << 2 << ")" << endl;
 			cin >> input;
+
+<<<<<<< HEAD
+			while (cin.fail() || input != (int)input || (input < 1 || input >(deck->getPurchaseableCards().size() + 1))) {
+=======
 			while (cin.fail() || input != (int)input || (input < 1 || input > (deck->getPurchaseableCards().size() + 1))) {
+>>>>>>> origin/CardOberser
 				cin.clear();
 				cin.ignore(256, '\n');
 				cout << "Please enter the correct row number." << endl;
@@ -789,10 +810,17 @@ void client::buyCards(player* currentPlayer) {
 			else {
 				// Ensure that the player has enough energy for the transaction
 				if (currentPlayer->getEnergy() >= deck->getPurchaseableCards()[input - 1].getCost()) {
+<<<<<<< HEAD
 					string cardName = deck->getPurchaseableCards()[input - 1].getName();
 					currentPlayer->setEnergy(currentPlayer->getEnergy() - deck->getPurchaseableCards()[input - 1].getCost());
 					currentPlayer->addOwnedCard(deck->purchaseCard(deck->getPurchaseableCards()[input - 1]));
 					cout << currentPlayer->getName() + " has purchased " + cardName << endl;
+=======
+					currentPlayer->setEnergy(currentPlayer->getEnergy() - deck->getPurchaseableCards()[input - 1].getCost());
+					currentPlayer->addOwnedCard(deck->purchaseCard(deck->getPurchaseableCards()[input - 1]));
+
+					cout << currentPlayer->getName() + " has purchased " + deck->getPurchaseableCards()[input - 1].getName() << endl;
+>>>>>>> origin/CardOberser
 					currentPlayer->notifyAll("buyCards", "card purchased");
 					deck->shuffle();
 				}
